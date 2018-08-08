@@ -4,7 +4,8 @@
   "description": "Profile website for Alexander Greff",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile:sass": "node-sass sass/stylesheet.scss css/stylesheet.css && node-sass sass/animations.scss css/animations.css",
+    "compile:sass-watch": "node-sass sass/stylesheet.scss css/stylesheet.css -w && node-sass sass/animations.scss css/animations.css -w"
   },
   "author": "alexander greff",
   "license": "ISC",
