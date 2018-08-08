@@ -1,2 +1,3 @@
 > npm run compile:sass // Compile the sass script
 > npm run compile:sass-watch // Run the watch process to automatically compile the sass script
+> live-server // opens an http server that updates everytime something is changed
