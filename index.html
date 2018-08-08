@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Porfolio - Alexander Greff</title>
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+		<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
+		<link rel="stylesheet" type="text/css" href="stylesheets/animations.css">
+
+		<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+
+		<!-- Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+
+		<link href='https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet'>
+		<!-- <link href='https://fonts.googleapis.com/css?family=Lato:100italic' rel='stylesheet' type='text/css'> -->
+
+		
+	</head>
+
+	<body class="body-background">
+		<div class="loading-page">
+			
+			<div class="loading-page-progress-bar-container">
+				<div id="loading-page-progress-bar" class="loading-page-progress-bar"></div>
+				<div id="loading-page-progress-percent-display" class="loading-page-progress-percent-display">0%</div>
+				<div class="loading-page-progress-bar-background"></div>
+			</div>
+		</div>
+
+		<div class="container-full">
+			<canvas id="canvas-front-page" width="500" height="500"></canvas>
+			<!-- <div id="particle-canvas"> </div> -->
+			<!-- <div id="particles-js"></div> -->
+			
+			<!-- FRONT PAGE SECTION -->
+			<div id="front-page-container" class="scrollable jumbotron text-center overlay front-page-container">
+        		<h1>
+					<span class="header-primary">Alexander Greff</span>
+					<span class="header-primary-welcome">Welcome</span>
+					<span class="header-line"><hr></span>
+					<span class="header-secondary">University of Toronto Computer Science</span>
+				</h1>
+        	
+        		<div class="social-media-icons">
+					<div class="icon-linkedin">
+						<a href="https://www.linkedin.com/in/alexandergreff/" title="LinkedIn Profile" target="_blank">
+							<i class="fab fa-linkedin"></i>	
+						</a>
+					</div>
+
+					<div class="icon-github">
+						<a href="https://github.com/alex-greff" title="Github Account" target="_blank">
+							<i class="fab fa-github-square"></i>
+						</a>
+					</div>
+				
+					<div class="icon-email">
+						<a href="mailto:alex.j.greff@gmail.com" title="Email Address" target="_blank">
+							<i class="fas fa-envelope"></i>
+						</a>
+					</div>
+				
+					<div class="icon-resume">
+						<a href="#" title="Resume" target="_blank">
+							<i class="fas fa-file-alt"></i>
+						</a>
+					</div>
+        		</div>
+      		</div>
+			
+
+			<!-- EDUCATION PAGE SECTION -->
+			<!-- <canvas id="education-page-canvas" width="500" height="500"></canvas> -->
+			<div id="education-page-container" class="scrollable jumbotron education-page-container">
+        		<h1>Education</h1>
+        		<p class="lead">Some stuff here</p>
+      		</div>
+
+      		<div id="education-page-decorator-top-1"></div>
+      		<div id="education-page-decorator-top-2"></div>
+      		<div id="education-page-decorator-bottom-1"></div>
+      		<div id="projects-page-decorator-top-1"></div>
+      		<div id="projects-page-decorator-top-2"></div>
+
+
+      		<!-- PROJECTS PAGE SECTION -->
+      		<div id="projects-page-container" class="scrollable jumbotron projects-page-container">
+        		<h1>Projects</h1>
+        		<p class="lead">Some stuff here</p>
+      		</div>
+
+		</div>
+
+
+		<!-- Core Javascript -->
+		<!-- Placed at the end so the pages loads faster -->
+
+		<!-- <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script> -->
+		<script src="scripts/lib/jquery-3.3.1.min.js"></script>
+
+		<script src="scripts/lib/particles.min.js"></script> 
+
+		<script type="text/javascript" src="scripts/canvas_animations/canvas_lines_effect.js"></script>
+		
+		<script type="text/javascript" src="scripts/effects/element_parallax_effect.js"></script>
+		<script type="text/javascript" src="scripts/effects/percentage_tracker.js"></script>
+
+		<script type="text/javascript" src="scripts/functions/canvas_functions.js"></script>
+		<script type="text/javascript" src="scripts/functions/container_functions.js"></script>
+		<script type="text/javascript" src="scripts/functions/helper_functions.js"></script>
+
+		<script type="text/javascript" src="scripts/page_scripts/loading_page_script.js"></script>
+		<script type="text/javascript" src="scripts/page_scripts/front_page_script.js"></script>
+		<script type="text/javascript" src="scripts/page_scripts/education_page_script.js"></script>
+		<script type="text/javascript" src="scripts/page_scripts/projects_page_script.js"></script>
+
+		<script type="text/javascript" src="scripts/run_script.js"></script>
+
+		<!-- TODO: really need to fix this script -->
+		<!-- <script type="text/javascript" src="scripts/jquery_scripts/scroll_script.js"></script>  -->
+		<script type="text/javascript" src="scripts/jquery_scripts/force_scroll_top.js"></script> 
+
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+	</body>
+</html>

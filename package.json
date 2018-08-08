@@ -1,0 +1,17 @@
+{
+  "name": "profile-website",
+  "version": "1.0.0",
+  "description": "Profile website for Alexander Greff",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "alexander greff",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^4.9.2"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}
