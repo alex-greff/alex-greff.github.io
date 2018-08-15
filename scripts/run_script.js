@@ -7,6 +7,5 @@ function initialize() {
 }
 
 function onResizeEvent() {
-	onResizeEvent_loading_page();
 	onResizeEvent_front_page();
 }

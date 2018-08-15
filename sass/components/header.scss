@@ -1,6 +1,19 @@
 /* Header styling */
 
-.header-primary {
+.header {
+	position: absolute;
+
+	top: 50%;
+	transform: translateY(-50%);
+	
+	width: 100%;
+
+	& > h1 {
+		font-size: 3.5rem;
+	}
+}
+
+.header__primary {
 	text-transform: uppercase;
 	font-weight: 300;
 	font-size: 5rem;
@@ -21,7 +34,7 @@
 	backface-visibility: hidden; /* Hack to fixe the css animation glitch */
 }
 
-.header-secondary {
+.header__secondary {
   	font-weight: 100;
 	font-size: 2rem;
 	
@@ -41,7 +54,7 @@
 	backface-visibility: hidden; /* Hack to fixe the css animation glitch */
 }
 
-.header-primary-welcome {
+.header__primary-welcome {
 	position: absolute;
 	width: 100%;
 	left: 0;
@@ -68,7 +81,7 @@
 	backface-visibility: hidden; /* Hack to fixe the css animation glitch */
 }
 
-.header-line hr {
+.header__line hr {
 	border: 0;
     height: 1px;
     background: transparent;

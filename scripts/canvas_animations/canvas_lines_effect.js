@@ -2,10 +2,6 @@ var CANVAS_LINE_EFFECT_CANVAS_NAME = "";
 var GRADIENT_GRANULARITY = 20;
 var LINE_OPACITY_DIVISOR = 1;
 
-function init_canvas_line_effect() {
-
-}
-
 class Line {
 	/*
 	period: the period of one cycle (seconds)

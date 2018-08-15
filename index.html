@@ -28,21 +28,22 @@
 			</div>
 		</div>
 
-		<div class="container-full">
-			<canvas id="canvas-front-page" width="500" height="500"></canvas>
-			<!-- <div id="particle-canvas"> </div> -->
-			<!-- <div id="particles-js"></div> -->
-			
-			<!-- FRONT PAGE SECTION -->
-			<div id="front-page-container" class="scrollable jumbotron text-center overlay front-page-container">
-        		<h1>
-					<span class="header-primary">Alexander Greff</span>
-					<span class="header-primary-welcome">Welcome</span>
-					<span class="header-line"><hr></span>
-					<span class="header-secondary">University of Toronto Computer Science</span>
+		<!-- <canvas id="canvas-front-page" width="500" height="500"></canvas> -->
+
+		<!-- <div id="particle-canvas"> </div> -->
+		<!-- <div id="particles-js"></div> -->
+		
+		<!-- FRONT PAGE SECTION -->
+		<div id="front-page__container" class="scrollable text-center overlay front-page__container">
+			<div class="header">
+				<h1>
+					<span class="header__primary">Alexander Greff</span>
+					<span class="header__primary-welcome">Welcome</span>
+					<span class="header__line"><hr></span>
+					<span class="header__secondary">University of Toronto Computer Science</span>
 				</h1>
-        	
-        		<div class="social-media-icons">
+			
+				<div class="social-media-icons">
 					<div class="icon-linkedin">
 						<a href="https://www.linkedin.com/in/alexandergreff/" title="LinkedIn Profile" target="_blank">
 							<i class="fab fa-linkedin"></i>	
@@ -66,30 +67,29 @@
 							<i class="fas fa-file-alt"></i>
 						</a>
 					</div>
-        		</div>
-      		</div>
-			
+				</div>
+			</div>
+		</div>
+		
 
-			<!-- EDUCATION PAGE SECTION -->
-			<!-- <canvas id="education-page-canvas" width="500" height="500"></canvas> -->
-			<div id="education-page-container" class="scrollable jumbotron education-page-container">
-        		<h1>Education</h1>
-        		<p class="lead">Some stuff here</p>
-      		</div>
+		<!-- EDUCATION PAGE SECTION -->
+		<!-- <canvas id="education-page-canvas" width="500" height="500"></canvas> -->
+		<div id="education-page-container" class="scrollable jumbotron education-page-container">
+			<h1>Education</h1>
+			<p class="lead">Some stuff here</p>
+		</div>
 
-      		<!-- <div id="education-page-decorator-top-1"></div>
-      		<div id="education-page-decorator-top-2"></div>
-      		<div id="education-page-decorator-bottom-1"></div>
-      		<div id="projects-page-decorator-top-1"></div>
-      		<div id="projects-page-decorator-top-2"></div> -->
+		<!-- <div id="education-page-decorator-top-1"></div>
+		<div id="education-page-decorator-top-2"></div>
+		<div id="education-page-decorator-bottom-1"></div>
+		<div id="projects-page-decorator-top-1"></div>
+		<div id="projects-page-decorator-top-2"></div> -->
 
 
-      		<!-- PROJECTS PAGE SECTION -->
-      		<div id="projects-page-container" class="scrollable jumbotron projects-page-container">
-        		<h1>Projects</h1>
-        		<p class="lead">Some stuff here</p>
-      		</div>
-
+		<!-- PROJECTS PAGE SECTION -->
+		<div id="projects-page-container" class="scrollable jumbotron projects-page-container">
+			<h1>Projects</h1>
+			<p class="lead">Some stuff here</p>
 		</div>
 
 
@@ -99,7 +99,10 @@
 		<!-- <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script> -->
 		<script src="scripts/lib/jquery-3.3.1.min.js"></script>
 
-		<script src="scripts/lib/particles.min.js"></script> 
+		<!-- <script src="scripts/lib/particles.min.js"></script>  -->
+
+		<script src="scripts/lib/pixi.min.js"></script>
+		<script src="scripts/pixi/pixi_canvas.js"></script>
 
 		<script type="text/javascript" src="scripts/canvas_animations/canvas_lines_effect.js"></script>
 		

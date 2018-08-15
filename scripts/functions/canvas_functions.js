@@ -1,8 +1,7 @@
 // Updates the canvas resolution to a multiplier of it's on screen size
 function update_canvas_resolution(canvas_name, resolution_multiplier) {
+	console.log("updating " + canvas_name + " resolution");
 
-	var window_width = $(window).width();
-	var window_height = $(window).height();
 
 	var canvas = document.getElementById(canvas_name);
 
