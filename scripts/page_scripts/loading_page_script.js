@@ -5,10 +5,6 @@ function initialize_loading_page() {
     progres_percent_bar_effect();
 }
 
-function onResizeEvent_loading_page() {
-
-}
-
 
 function progres_percent_bar_effect() {
     var id = setInterval(frame, 10);

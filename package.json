@@ -4,8 +4,8 @@
   "description": "Profile website for Alexander Greff",
   "main": "index.js",
   "scripts": {
-    "compile:sass": "node-sass sass/stylesheet.scss css/stylesheet.css && node-sass sass/animations.scss css/animations.css",
-    "compile:sass-watch": "node-sass sass/stylesheet.scss css/stylesheet.css -w && node-sass sass/animations.scss css/animations.css -w"
+    "compile:sass": "node-sass sass/stylesheet.scss css/stylesheet.css",
+    "compile:sass-watch": "node-sass -w -r sass/stylesheet.scss css/stylesheet.css"
   },
   "author": "alexander greff",
   "license": "ISC",

@@ -1,24 +1,17 @@
-const CANVAS_RESOLUTION_MULTIPLIER = 2;
+// Updates the canvas resolution to a multiplier of it's on screen size
+function update_canvas_resolution(canvas_name, resolution_multiplier) {
 
-// Updates the canvas size
-function update_canvas_dimensions(canvas_name, addition_width, addition_height) {
 	var window_width = $(window).width();
 	var window_height = $(window).height();
 
 	var canvas = document.getElementById(canvas_name);
 
-	var canvas_width = window_width + addition_width;
-	var canvas_height = window_height + addition_height
+	var canvas_width = canvas.offsetWidth;
+	var canvas_height = canvas.offsetHeight;
 
 	// Change canvas size
-	canvas.width = canvas_width * CANVAS_RESOLUTION_MULTIPLIER;
-	canvas.height = canvas_height * CANVAS_RESOLUTION_MULTIPLIER;
-
-	// Change canvas resolution
-	canvas.style.width = canvas_width + "px";
-	canvas.style.height = canvas_height + "px";
-
-	//console.log("New canvas size: width: " + window_width + " height: " + window_height);
+	canvas.width = canvas_width * resolution_multiplier;
+	canvas.height = canvas_height * resolution_multiplier;
 }
 
 // Updates the canvas background
