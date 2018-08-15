@@ -1,0 +1,21 @@
+/* FRONT PAGE STYLING*/
+
+.front-page-container {
+    border-radius: 0rem;
+
+	background-color: transparent;
+  	color: white;
+	/* padding: 20% 2rem; */
+	padding: 0 2rem 0 2rem;
+	
+	top: 40%;
+}
+
+#canvas-front-page {
+	height: 100vh;
+	width: 100vw;
+
+	top: 0;
+ 	left: 0;
+ 	position: fixed;
+}

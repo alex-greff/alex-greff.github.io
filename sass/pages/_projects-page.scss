@@ -1,0 +1,65 @@
+/* PROJECTS PAGE STYLING */
+.projects-page-container {
+    border-radius: 0rem;
+
+	background-color: #262626;
+	
+  	color: white;
+  	padding: 20% 2rem;
+
+  	position: absolute;
+	top: 200vh;
+	height: 100vh;
+  	left: 0;
+	bottom: 0;
+  	right: 0;
+
+  	margin-bottom: 0;
+
+  	z-index: 2;
+}
+
+#projects-page-decorator-top-1 { /* The lighter grey part*/
+	background-color: #262626;
+
+    -webkit-shape-outside: polygon(100% 0, 100% 100%, 0 100%);
+  	shape-outside: polygon(100% 0, 100% 100%, 0 100%);
+  	
+    -webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+
+    position: absolute;
+	top: 50rem; /* Note: Changed in code */
+	bottom: 0;
+
+    width: 100%;
+    height: 4rem;
+    float: right;
+    right: 0;
+
+    z-index: 2;
+}
+
+#projects-page-decorator-top-2 { /* The blue part */
+	/*background-color: rgba(0, 148, 255, 1);*/
+	/*background-color: rgba(0, 85, 139, 0.7);*/
+	/*background-color: rgba(50, 116, 206, 0.7);*/
+	background: linear-gradient(to bottom, rgba(50, 116, 206, 0.7), rgba(50, 116, 206, 0.5));
+	
+	-webkit-shape-outside: polygon(0 0, 100% 0, 100% 100%);
+  	shape-outside: polygon(0 0, 100% 0, 100% 100%);
+
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%);
+  	clip-path: polygon(0 0, 100% 0, 100% 100%);
+
+  	position: absolute;
+	top: 50rem; /* Note: Changed in code */
+	bottom: 0;
+
+  	float: right;
+  	height: 4rem;
+  	width: 40%;
+  	right: 0;
+
+  	z-index: 2;
+}

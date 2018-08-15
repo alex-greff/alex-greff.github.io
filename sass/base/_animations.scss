@@ -1,0 +1,85 @@
+@keyframes loadingPageBackgroundAnim {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes bodyScrollToggleAnim {
+    0% {
+        overflow: hidden;
+    }
+    100% {
+        overflow: auto;
+    }
+}
+
+@keyframes welcomeTextAnim {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes headerTextPrimaryAnim {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes headerLineAnim {
+    0% {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+@keyframes socialMediaIconsAnim {
+    0% {
+        pointer-events: auto;
+        cursor: pointer;
+
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    50% {
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 1;
+
+        pointer-events: auto;
+        cursor: pointer;
+    }
+}
+
+@keyframes loadingPageProgressBarAnim {
+    0% {
+        width: 0%;
+    }
+    80% {
+        width: 100%;
+        background-color: rgb(4, 163, 255);
+    }
+    100% {
+        background-color: rgb(10, 255, 23);
+    }
+}
