@@ -23,33 +23,12 @@
   
 
 .icon-linkedin, .icon-github, .icon-email, .icon-resume {
-	opacity: 0;
+	opacity: 1;
 
-	pointer-events: none;
+	// pointer-events: none;
 	cursor: default;
-
-	animation-name: socialMediaIconsAnim;
-	animation-duration: 1.5s;
-	animation-iteration-count: 1;
-	animation-fill-mode: forwards;
 
 	display: inline-block;
 
-	backface-visibility: hidden; /* Hack to fixe the css animation glitch */
-}
-
-.icon-linkedin {
-	animation-delay: 6.6s;
-}
-
-.icon-github {
-	animation-delay: 6.7s;
-}
-
-.icon-email {
-	animation-delay: 6.8s;
-}
-
-.icon-resume {
-	animation-delay: 6.9s;
+	backface-visibility: hidden; /* Hack to fix the css animation glitch */
 }

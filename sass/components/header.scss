@@ -1,7 +1,7 @@
 /* Header styling */
 
 .header {
-	position: absolute;
+	position: relative;
 
 	top: 50%;
 	transform: translateY(-50%);
@@ -23,13 +23,7 @@
 
 	z-index: 3;
 
-	opacity: 0;
-
-	animation-name: headerTextPrimaryAnim;
-	animation-duration: 1s;
-	animation-delay: 6.5s;
-	animation-iteration-count: 1;
-	animation-fill-mode: forwards;
+	opacity: 1;
 
 	backface-visibility: hidden; /* Hack to fixe the css animation glitch */
 }
@@ -43,15 +37,9 @@
 
 	user-select: none;
 
-	opacity: 0;
+	opacity: 1;
 
-	animation-name: headerTextPrimaryAnim;
-	animation-duration: 1s;
-	animation-delay: 6.5s;
-	animation-iteration-count: 1;
-	animation-fill-mode: forwards;
-
-	backface-visibility: hidden; /* Hack to fixe the css animation glitch */
+	backface-visibility: hidden; /* Hack to fix the css animation glitch */
 }
 
 .header__primary-welcome {
@@ -59,7 +47,8 @@
 	width: 100%;
 	left: 0;
 
-	opacity: 0;
+	opacity: 1;
+	visibility: hidden;
 
 	user-select: none;
 	text-transform: uppercase;
@@ -71,14 +60,8 @@
 
 	z-index: 2;
 
-	
-	animation-name: welcomeTextAnim;
-	animation-delay: 3.5s;
-	animation-duration: 3s;
-	animation-iteration-count: 1;
-	animation-fill-mode: forwards;
 
-	backface-visibility: hidden; /* Hack to fixe the css animation glitch */
+	backface-visibility: hidden; /* Hack to fix the css animation glitch */
 }
 
 .header__line hr {
@@ -91,13 +74,8 @@
 	margin-bottom: 0;
 	margin-top: 2rem;
 
-	opacity: 0;
+	opacity: 1;
 
-	animation-name: headerLineAnim;
-	animation-duration: 1s;
-	animation-delay: 6s;
-	animation-iteration-count: 1;
-	animation-fill-mode: forwards;
 
 	backface-visibility: hidden; /* Hack to fixe the css animation glitch */
 }
