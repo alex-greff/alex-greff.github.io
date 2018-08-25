@@ -1,0 +1,271 @@
+@keyframes loadingPageBackgroundAnim {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0;
+    visibility: hidden; } }
+
+@keyframes bodyScrollToggleAnim {
+  0% {
+    overflow: hidden; }
+  100% {
+    overflow: auto; } }
+
+@keyframes welcomeTextAnim {
+  0% {
+    opacity: 0; }
+  50% {
+    opacity: 1; }
+  70% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+@keyframes headerTextPrimaryAnim {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@keyframes headerLineAnim {
+  0% {
+    opacity: 0;
+    transform: scaleX(0); }
+  100% {
+    opacity: 1;
+    transform: scaleX(1); } }
+
+@keyframes socialMediaIconsAnim {
+  0% {
+    pointer-events: auto;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px); }
+  50% {
+    transform: translateY(0); }
+  100% {
+    opacity: 1;
+    pointer-events: auto;
+    cursor: pointer; } }
+
+@keyframes loadingPageProgressBarAnim {
+  0% {
+    width: 0%; }
+  80% {
+    width: 100%;
+    background-color: #04a3ff; }
+  100% {
+    background-color: #0aff17; } }
+
+/* CUSTOM SCROLLBAR */
+/* width */
+::-webkit-scrollbar {
+  /* width: 5px;
+	height: 5px; */
+  width: 0px;
+  height: 0px; }
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #777777; }
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #494949; }
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #353535; }
+
+/* Header styling */
+.header {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%; }
+  .header > h1 {
+    font-size: 3.5rem; }
+
+.header__primary {
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 5rem;
+  letter-spacing: 3rem;
+  display: inline-block;
+  transform: scale(1, 1.2);
+  z-index: 3;
+  opacity: 1;
+  backface-visibility: hidden;
+  /* Hack to fixe the css animation glitch */ }
+
+.header__secondary {
+  font-weight: 100;
+  font-size: 2rem;
+  /* font-style: 'thin'; */
+  letter-spacing: 0.5rem;
+  user-select: none;
+  opacity: 1;
+  backface-visibility: hidden;
+  /* Hack to fix the css animation glitch */ }
+
+.header__primary-welcome {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  opacity: 1;
+  visibility: hidden;
+  user-select: none;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 5rem;
+  letter-spacing: 3rem;
+  display: inline-block;
+  transform: scale(1, 1.2);
+  z-index: 2;
+  backface-visibility: hidden;
+  /* Hack to fix the css animation glitch */ }
+
+.header__line hr {
+  border: 0;
+  height: 1px;
+  background: transparent;
+  background-image: linear-gradient(to right, transparent, white, transparent);
+  width: 900px;
+  margin-bottom: 0;
+  margin-top: 2rem;
+  opacity: 1;
+  backface-visibility: hidden;
+  /* Hack to fixe the css animation glitch */ }
+
+.social-media-icons {
+  padding-top: 1rem;
+  height: 5rem; }
+  .social-media-icons a {
+    font-size: 2rem;
+    text-decoration: none;
+    padding: 0 1rem 0 1rem;
+    /*color: rgba(0, 148, 255, 1);*/
+    color: #d8d8d8;
+    transition: all 0.2s; }
+  .social-media-icons a:hover {
+    color: rgba(0, 148, 255, 0.7);
+    transition: all 0.2s; }
+  .social-media-icons a > i {
+    font-size: 2.5rem; }
+
+.icon-linkedin, .icon-github, .icon-email, .icon-resume {
+  opacity: 1;
+  cursor: default;
+  display: inline-block;
+  backface-visibility: hidden;
+  /* Hack to fix the css animation glitch */ }
+
+/* 
+* {
+	margin-bottom: 0;
+} */
+html {
+  font-size: 10px; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: black;
+  overflow: hidden;
+  animation-name: bodyScrollToggleAnim;
+  animation-duration: 0.5s;
+  animation-delay: 6.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards; }
+
+.container-full {
+  margin: 0 auto;
+  width: 100%; }
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0; }
+
+/* Loading page */
+.loading-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #0f0f0f;
+  z-index: 10;
+  animation-name: loadingPageBackgroundAnim;
+  animation-duration: 0.5s;
+  animation-delay: 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards; }
+
+.loading-page-progress-bar-container {
+  position: absolute;
+  width: 50%;
+  /* Horizontal and vertical center the div */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); }
+
+.loading-page-progress-bar, .loading-page-progress-bar-background {
+  height: 100%;
+  width: 100%; }
+
+.loading-page-progress-bar {
+  float: left;
+  height: 3px;
+  background-color: #04a3ff;
+  z-index: 12;
+  width: 100%;
+  animation-name: loadingPageProgressBarAnim;
+  animation-duration: 2.5s;
+  animation-delay: 0;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.79, 0.01, 0.31, 0.99); }
+
+.loading-page-progress-bar-background {
+  height: 0.3rem;
+  background-color: #414141;
+  z-index: 11; }
+
+.loading-page-progress-percent-display {
+  position: absolute;
+  color: white;
+  float: right;
+  right: 0;
+  top: 2rem;
+  font-weight: 100;
+  font-size: 2rem;
+  letter-spacing: 0.7rem;
+  z-index: 12; }
+
+/* FRONT PAGE STYLING*/
+.front-page__container {
+  position: fixed;
+  border-radius: 0rem;
+  color: white;
+  /* padding: 20% 2rem; */
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(180deg, #00f2ff, #ff0000);
+  background-size: 100% 400%;
+  animation: AnimationName 5s ease infinite; }
+
+@keyframes AnimationName {
+  0% {
+    background-position: 0% 0%; }
+  50% {
+    background-position: 0% 100%; }
+  100% {
+    background-position: 0% 0%; } }
+
+#front-page__canvas {
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: -1; }
