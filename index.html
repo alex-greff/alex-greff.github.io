@@ -18,62 +18,88 @@
 		
 	</head>
 
-	<body class="body-background">
-		<!-- <div class="loading-page">
-			<div class="loading-page-progress-bar-container">
-				<div id="loading-page-progress-bar" class="loading-page-progress-bar"></div>
-				<div id="loading-page-progress-percent-display" class="loading-page-progress-percent-display">0%</div>
-				<div class="loading-page-progress-bar-background"></div>
-			</div>
-		</div> -->
+	<body>
+		<div class="page-background">
+			<!-- <div class="loading-page">
+				<div class="loading-page-progress-bar-container">
+					<div id="loading-page-progress-bar" class="loading-page-progress-bar"></div>
+					<div id="loading-page-progress-percent-display" class="loading-page-progress-percent-display">0%</div>
+					<div class="loading-page-progress-bar-background"></div>
+				</div>
+			</div> -->
 
-		<!-- <canvas id="front-page__canvas" width="500" height="500"></canvas> -->
-		
-		<!-- FRONT PAGE SECTION -->
-		<div id="front-page__container" class="scrollable text-center overlay front-page__container">
-			<div class="header">
-				<h1>
-					<span class="header__primary">Alexander Greff</span>
-					<span class="header__primary-welcome">Welcome</span>
-					<span class="header__line"><hr></span>
-					<span class="header__secondary">University of Toronto Computer Science</span>
-				</h1>
+			<!-- <canvas id="front-page__canvas" width="500" height="500"></canvas> -->
 			
-				<div class="social-media-icons">
-					<div class="icon-linkedin">
-						<a href="https://www.linkedin.com/in/alexandergreff/" title="LinkedIn Profile" target="_blank">
-							<i class="fab fa-linkedin"></i>	
-						</a>
-					</div>
-
-					<div class="icon-github">
-						<a href="https://github.com/alex-greff" title="Github Account" target="_blank">
-							<i class="fab fa-github-square"></i>
-						</a>
-					</div>
+			<!-- FRONT PAGE SECTION -->
+			<div id="front-page__container" class="scrollable text-center overlay front-page__container">
+				<div class="header">
+					<h1>
+						<span class="header__primary">Alexander Greff</span>
+						<span class="header__primary-welcome">Welcome</span>
+						<span class="header__line"><hr></span>
+						<span class="header__secondary">University of Toronto Computer Science</span>
+					</h1>
 				
-					<div class="icon-email">
-						<a href="mailto:alex.j.greff@gmail.com" title="Email Address" target="_blank">
-							<i class="fas fa-envelope"></i>
-						</a>
-					</div>
-				
-					<div class="icon-resume">
-						<a href="#" title="Resume" target="_blank">
-							<i class="fas fa-file-alt"></i>
-						</a>
+					<div class="social-media-icons">
+						<div class="icon-linkedin">
+							<a href="https://www.linkedin.com/in/alexandergreff/" title="LinkedIn Profile" target="_blank">
+								<i class="fab fa-linkedin"></i>	
+							</a>
+						</div>
+	
+						<div class="icon-github">
+							<a href="https://github.com/alex-greff" title="Github Account" target="_blank">
+								<i class="fab fa-github-square"></i>
+							</a>
+						</div>
+					
+						<div class="icon-email">
+							<a href="mailto:alex.j.greff@gmail.com" title="Email Address" target="_blank">
+								<i class="fas fa-envelope"></i>
+							</a>
+						</div>
+					
+						<div class="icon-resume">
+							<a href="#" title="Resume" target="_blank">
+								<i class="fas fa-file-alt"></i>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		
 
+			<div id="education-page__container" class="scrollable education-page__container">
+					<h1>Education</h1>
+					<p class="lead">Some stuff here</p>
+				</div>
+		
+				<!-- <div id="education-page-decorator-top-1"></div>
+				<div id="education-page-decorator-top-2"></div>
+				<div id="education-page-decorator-bottom-1"></div>
+				<div id="projects-page-decorator-top-1"></div>
+				<div id="projects-page-decorator-top-2"></div> -->
+		
+		
+				<!-- PROJECTS PAGE SECTION -->
+				<div id="projects-page__container" class="scrollable projects-page__container">
+					<h1>Projects</h1>
+					<p class="lead">Some stuff here</p>
+				</div>
+		</div>
 
 		<!-- Core Javascript -->
 		<!-- Placed at the end so the pages loads faster -->
 
 		<!-- <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script> -->
 		<script src="scripts/lib/jquery-3.3.1.min.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+		<!-- <script type="text/javascript" src="scripts/lib/smoothwheel.js"></script> -->
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>
 
 		<!-- <script src="scripts/lib/particles.min.js"></script>  -->
 
@@ -100,9 +126,9 @@
 
 		<!-- TODO: really need to fix this script -->
 		<!-- <script type="text/javascript" src="scripts/jquery_scripts/scroll_script.js"></script>  -->
-		<script type="text/javascript" src="scripts/jquery_scripts/force_scroll_top.js"></script>
+		<!-- <script type="text/javascript" src="scripts/jquery_scripts/force_scroll_top.js"></script> -->
 
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script> -->
 
 	</body>
 </html>

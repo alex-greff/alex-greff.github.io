@@ -1,34 +1,25 @@
 /* FRONT PAGE STYLING*/
 
 .front-page__container {
-	position: fixed;
-    border-radius: 0rem;
-
 	color: white;
-	  
-	/* padding: 20% 2rem; */
-	// padding: 0 2rem 0 2rem;
+    border-radius: 0rem;
 	
+	position: absolute;
+	top: 0;
+	left: 0;
+
 	height: 100vh;
 	width: 100vw;
 
-	background: linear-gradient(180deg, #00f2ff, #ff0000);
-	background-size: 100% 400%;
+	background-color: transparent;	
 
-	animation: AnimationName 5s ease infinite;
+
+	// will-change: transform;
+
+	transition: transform 0.3s;
+	transition-timing-function: ease-out;
 }
 
-@keyframes AnimationName { 
-    0%{
-		background-position:0% 0%;
-	}
-	50%{
-		background-position:0% 100%;
-	}
-    100%{
-		background-position:0% 0%;
-	}
-}
 
 #front-page__canvas {
 	height: 100vh;

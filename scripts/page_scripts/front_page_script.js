@@ -33,6 +33,6 @@ function parallax_front_page_canvas() {
 }
 
 // Bind the canvas to the parallax effect on the scroll event
-window.addEventListener('scroll', function() {
-	requestAnimationFrame(parallax_front_page_canvas);
-}, false);
+// window.addEventListener('scroll', function() {
+// 	requestAnimationFrame(parallax_front_page_canvas);
+// }, false);
