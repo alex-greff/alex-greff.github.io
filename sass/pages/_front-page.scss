@@ -13,11 +13,14 @@
 
 	background-color: transparent;	
 
+	// visibility: hidden;
 
 	// will-change: transform;
 
-	transition: transform 0.3s;
-	transition-timing-function: ease-out;
+	// transition: transform 0.3s;
+	// transition-timing-function: ease-out;
+
+	z-index: 5; // TODO: change?
 }
 
 

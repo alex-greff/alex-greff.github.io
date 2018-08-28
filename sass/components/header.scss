@@ -3,6 +3,8 @@
 .header {
 	position: relative;
 
+	user-select: none;
+
 	top: 50%;
 	transform: translateY(-50%);
 	

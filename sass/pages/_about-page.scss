@@ -1,4 +1,4 @@
-.education-page__container {
+.about-page__container {
     color: white;
     border-radius: 0rem;
 	
@@ -9,7 +9,10 @@
 	height: 100vh;
     width: 100vw;
     
-    visibility: hidden;
+    // visibility: hidden;
 
 	background-color: transparent;	
+
+	// transition: transform 0.3s;
+	// transition-timing-function: ease-out;
 }
