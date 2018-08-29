@@ -1,7 +1,7 @@
 const PAGE_BACKGROUND = "page-background";
 const RESET_TIME = 250; // milliseconds
 
-const SCROLL_DIVISOR = 3;
+const SCROLL_DIVISOR = 2;
 
 var page_items = [ "#front-page__container", "#education-page__container", "#projects-page__container" ];
 var curr_item_idx = 0;
@@ -10,10 +10,28 @@ var total_deltaY = 0;
 var deltaYResetID;
 
 const PAGE_TRANSITION_SPEED = 2; // seconds
-const PAGE_TRANSITION_THRESHOLD = 400; // pixels?
+const PAGE_TRANSITION_THRESHOLD_SCREEN_PERCENT = 0.35; // Decimal percentage
+var PAGE_TRANSITION_THRESHOLD = 0; // Gets filled later
+var last_width = -1;
 
 var isTransitioning = false;
 
+// Run the initial computation for PAGE_TRANSITION_THRESHOLD
+calculate_page_transition_threshold();
+
+// Listen for the page resize event
+$( window ).resize( function() {
+    calculate_page_transition_threshold();
+});
+
+// Recalculates PAGE_TRANSITION_THRESHOLD based off the new window height (if it is changed)
+function calculate_page_transition_threshold() {
+    var new_width = $( window ).width();
+    if (last_width != new_width) {
+        PAGE_TRANSITION_THRESHOLD =  (new_width * PAGE_TRANSITION_THRESHOLD_SCREEN_PERCENT)/SCROLL_DIVISOR; // Converts the percent variable to pixels
+        last_width = new_width;
+    }
+}
 
 class Page {
     // String, ScrollableElement[], Page, Page, function(int, String), function(bool, String, function()), function(bool, String, function())
@@ -47,14 +65,48 @@ class Page {
             }
         }
 
-        // Default open function (type = ["nextPage", "prevPage", "none"] )
-        this.open = function (animate, type, onComplete) {
-            
+        // Default open function (type = ["nextPage", "prevPage", "none", default="regular"] )
+        this.open = function (type, onComplete_fcn) {
+            if (type == "none") {
+                TweenMax.set(this.element_ref, { y: 0, onComplete: onComplete_fcn });
+            }
+            else if (type == "nextPage") {
+                // From bottom of page
+                TweenMax.fromTo(this.element_ref, 1,
+                    { y: "100vh" }, 
+                    { y: 0, onComplete: onComplete_fcn }
+                );
+            }
+            else if (type == "prevPage") {
+                // From top of page
+                TweenMax.fromTo(this.element_ref, 1,
+                    { y: "-100vh" }, 
+                    { y: 0, onComplete: onComplete_fcn  }
+                );
+            } else {
+                // TODO: some cool fade animation
+            }
         }
 
         // Default close function
-        this.close = function (animate, type, onComplete) {
-
+        this.close = function (type, onComplete_fcn) {
+            if (type == "none") {
+                TweenMax.set(this.element_ref, { y: "-100vh", onComplete: onComplete_fcn });
+            }
+            else if (type == "nextPage") {
+                // To top of page
+                TweenMax.to(this.element_ref, 1, 
+                    { y: "-100vh", onComplete: onComplete_fcn }
+                );
+            }
+            else if (type == "prevPage") {
+                // To bottom of page
+                TweenMax.to(this.element_ref, 1, 
+                    { y: "100vh", onComplete: onComplete_fcn }
+                );
+            } else {
+                // TODO: some cool fade animation
+            }
         }
     }
 
@@ -69,9 +121,11 @@ class Page {
 
 class ScrollableElement {
     // String, int
-    constructor (element_identifier, scroll_speed_deviation) {
+    constructor (element_identifier, deltaY_change_multiplier) {
         this.element_identifier = element_identifier;
-        this.scroll_speed_deviation = scroll_speed_deviation;
+        this.deltaY_change_multiplier = deltaY_change_multiplier;
+
+        this.element_ref = $(element_identifier);
     }
 }
 
@@ -87,9 +141,9 @@ function initialize_pages() {
     for (var i = 0; i < NUM_PROJECTS; i++) {
         project_pages.push(new Page (
             "#project-" + (i+1),
-            [ new ScrollableElement("#project-" + (i+1)) ],
+            [ new ScrollableElement("#project-" + (i+1), 1) ],
             null, // Gets populated after
-            null
+            null  // ^
         ));
     }
 
@@ -109,50 +163,34 @@ function initialize_pages() {
 
     home_page = new Page(
         "#front-page__container", // Main element identifier
-        [ new ScrollableElement("#front-page__container", 0) ], // Scrollable elements within the page
+        [ new ScrollableElement("#front-page__container", 1) ], // Scrollable elements within the page
         project_pages[0], // Next page
         null // Prev page
     );
 
     about_page = new Page(
         "#about-page__container", // Main element identifier
-        [ new ScrollableElement("#about-page__container", 0) ], // Scrollable elements within the page
+        [ new ScrollableElement("#about-page__container", 1) ], // Scrollable elements within the page
         null, // Next page
         null // Prev page
     );
 }
 
-//init_pages_state();
+init_pages_state();
 
-// function init_pages_state() {
-//     home_page.close_fcn(false, "up", function(){}); // Direction doesnt matter here
+function init_pages_state() {
+    home_page.close("none", function(){}); // Direction doesnt matter here
 
-//     for (var i = 0; i < NUM_PROJECTS; i++) {
-//         var curr_project = project_pages[i];
-//         curr_project.close_fcn(false, "up", function(){}); // Direction doesnt matter here
-//     }
+    for (var i = 0; i < NUM_PROJECTS; i++) {
+        var curr_project = project_pages[i];
+        curr_project.close("none", function(){}); // Direction doesnt matter here
+    }
 
-//     about_page.close_fcn(false, "up", function(){}); // Direction doesnt matter here
-// }
+    about_page.close("none", function(){}); // Direction doesnt matter here
+}
 
 var current_page = home_page;
-// current_page.open_fcn(true, "none", function(){});
-
-// function standard_scroll_function(element_identifier, duration, transition_fcn, posX, posY) {
-//     // console.log("std scroll fcn running for: " + element_identifier + " duration: " + duration + " trans fcn: " + transition_fcn);
-
-//     var curr_item = $(element_identifier);
-
-//     if (duration != null) {
-//         curr_item.css("transition-duration", duration + "s");
-//     }
-//     if (transition_fcn != null) {
-//         curr_item.css("transition-timing-function", transition_fcn);
-//     }
-
-//     curr_item.css("transform", "translate("+ posX + "px, " + posY + "px)");
-// }
-
+current_page.open("none", function(){});
 
 
 // -----------------------
@@ -166,13 +204,13 @@ function resetDeltaY() {
 }
 
 function setDeltaY (newDeltaY, animate) {
-    total_deltaY = newDeltaY;
+    total_deltaY = newDeltaY/SCROLL_DIVISOR;
 
     onDeltaYChange(total_deltaY, animate);
 }
 
 function incrementDeltaY (incrementAmt, animate) {
-    total_deltaY += incrementAmt;
+    total_deltaY += incrementAmt/SCROLL_DIVISOR;
 
     onDeltaYChange(total_deltaY, animate);
 }
@@ -181,22 +219,22 @@ function onDeltaYChange (total_deltaY, animate) {
 
     // If we scrolled down and the current page does not have a previous page then stop the scroll
     if (total_deltaY > 0 && current_page.hasPrev() == false) {
-        //return;
+        return;
     }
 
     // If we scrolled up and the current page does not have a next page then stop the scroll
     if (total_deltaY < 0 && current_page.hasNext() == false) {
-        //return;
+        return;
     }
 
     // If the scroll delta is large enough then transition the page
     if (total_deltaY < -1 * PAGE_TRANSITION_THRESHOLD) { // Transition to next page
-        //nextPage();
-        //return;
+        nextPage();
+        return;
     } 
     else if (total_deltaY > PAGE_TRANSITION_THRESHOLD) { // Transition to previous page
-        //prevPage();
-        //return;
+        prevPage();
+        return;
     }
 
     // Signal the page to scroll
@@ -215,11 +253,12 @@ function prevPage() {
 
 function __transition_page(nextPage, type) {
     isTransitioning = true;
+    total_deltaY = 0;
     // Stop the running reset timer
     clearTimeout(deltaYResetID);
 
-    current_page.close(true, type, function() {
-        nextPage.open(true, type, function(){
+    current_page.close(type, function() {
+        nextPage.open(type, function(){
             current_page = nextPage;
             isTransitioning = false;
         });
