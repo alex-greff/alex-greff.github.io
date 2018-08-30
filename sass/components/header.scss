@@ -28,6 +28,12 @@
 	opacity: 1;
 
 	backface-visibility: hidden; /* Hack to fixe the css animation glitch */
+
+	& span {
+		position: relative;
+		display:inline-block;
+		-webkit-font-smoothing:antialiased;
+	}
 }
 
 .header__secondary {
