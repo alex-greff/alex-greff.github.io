@@ -11,24 +11,22 @@ function Page(element_identifier, nextPage, prevPage) {
     this.element_ref = $(element_identifier);
     this.body_ref = $('body');
 
-    this.isOpen = false;
+    // Setup static variables
+    if (typeof Page.current_page === 'undefined') { Page.current_page = null; }
+    if (typeof Page.page_background_ref === 'undefined') { Page.page_background_ref = $(".page-background"); }
 
-    this.open = function (animation_options, onComplete_callbackFcn) { 
-        console.warn("Unimplemented open() method"); 
-        this.isOpen = true;
-        
-    }
-    this.close = function(animation_options, onComplete_callbackFcn) { console.warn(this.element_identifier + ": Unimplemented close() method"); }
+    this.isOpen = false;
+    this.isTransitioning = false;
+
+    this.open = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) { console.warn(this.element_identifier + ": Unimplemented open() method"); }
+    this.close = function(animation_options, onComplete_callbackFcn, onComplete_callbackScope) { console.warn(this.element_identifier + ": Unimplemented close() method"); }
     this.transitionUpdate = function() { console.warn(this.element_identifier + ": Unimplemented close() method"); };
-    this.openNextPage = function(animation_options, onComplete_callbackFcn) { console.warn(this.element_identifier + ": Unimplemented openNextPage() method"); }
-    this.openPrevPage = function(animation_options, onComplete_callbackFcn) { console.warn(this.element_identifier + ": Unimplemented openNextPage() method"); }
+    this.openNextPage = function(animation_options, onComplete_callbackFcn, onComplete_callbackScope) { console.warn(this.element_identifier + ": Unimplemented openNextPage() method"); }
+    this.openPrevPage = function(animation_options, onComplete_callbackFcn, onComplete_callbackScope) { console.warn(this.element_identifier + ": Unimplemented openNextPage() method"); }
 
     this.hasNext = function () { this.nextPage != null; };
     this.hasPrev = function () { this.prevPage != null; };
-
-    // this.run_test_method = function() { test_thing.call(this) };
 }
-
 
 var home_page = null;
 var project_pages = [];
@@ -54,8 +52,8 @@ function instantiate_pages() {
         }
         var next_idx = (i+1) % NUM_PROJECTS;
 
-        curr_project.prevPage = project_pages[prev_idx];
         curr_project.nextPage = project_pages[next_idx];
+        curr_project.prevPage = project_pages[prev_idx];
     }
 
     home_page = new Page("#front-page__container", project_pages[0], null);
@@ -68,25 +66,35 @@ setup_pages();
 
 function setup_pages() {
     setup_home_page.call(home_page);
-}
 
+    setup_project_1_page.call(project_pages[0]);
+    setup_project_2_page.call(project_pages[1]);
+    setup_project_3_page.call(project_pages[2]);
+    // setup_project_4_page.call(project_pages[3]);
+    // setup_project_5_page.call(project_pages[4]);
+
+    setup_about_page.call(about_page);
+}
 
 
 init_pages_state();
 
 function init_pages_state() {
-    home_page.close("none", function(){}); // Direction doesnt matter here
+    home_page.close("no-anim", function(){}, home_page); // Direction doesnt matter here
 
     for (var i = 0; i < NUM_PROJECTS; i++) {
         var curr_project = project_pages[i];
-        curr_project.close("none", function(){}); // Direction doesnt matter here
+        curr_project.close("no-anim", function(){}, curr_project); // Direction doesnt matter here
     }
 
-    about_page.close("none", function(){}); // Direction doesnt matter here
+    about_page.close("no-anim", function(){}, about_page); // Direction doesnt matter here
 }
 
 var current_page = home_page;
-current_page.open("none", function(){});
+// var current_page = project_pages[0];
+current_page.open("anim", function(){}, current_page);
+
+
 
 
 

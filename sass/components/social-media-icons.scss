@@ -1,5 +1,9 @@
 .social-media-icons {
-	padding-top: 1rem;
+	position: fixed;
+	right: 0;
+	top: 0;
+
+	padding-top: 2rem;
 	height: 5rem;
 
 	& a {
@@ -7,13 +11,12 @@
 		text-decoration: none;
 		padding: 0 1rem 0 1rem;
 	  
-		/*color: rgba(0, 148, 255, 1);*/
 		color: rgba(216, 216, 216, 1);
-		transition: all 0.2s;
+		transition: all 1s;
 	}
 	& a:hover {
-		color: rgba(0, 148, 255, 0.7);
-		transition: all 0.2s;
+		color: rgb(144, 229, 240);
+		transition: all 1s;
 	}
 
 	& a > i {
@@ -23,12 +26,12 @@
   
 
 .icon-linkedin, .icon-github, .icon-email, .icon-resume {
-	opacity: 1;
+	padding-bottom: 1rem;
 
 	// pointer-events: none;
 	cursor: default;
 
-	display: inline-block;
+	display: block;
 
 	backface-visibility: hidden; /* Hack to fix the css animation glitch */
 }

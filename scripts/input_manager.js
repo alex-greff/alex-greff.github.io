@@ -6,6 +6,10 @@ var body_ref = $('body');
 var drag_delta = [0, 0];
 var last_drag_delta = [0, 0];
 
+var drag_Y_isTriggered = false;
+var drag_X_isTriggered = false;
+var drag_XY_isTriggered = false;
+var drag_radius_isTriggered = false;
 
 const DRAG_DELTA_RADIUS_THRESHOLD_PERCENTAGE = 0.35; // Percent of lower page dimension
 var DRAG_DELTA_RADIUS_THRESHOLD_PIXEL; // Gets filled later
@@ -20,6 +24,8 @@ var DRAG_DELTA_X_THRESHOLD_PIXEL; // Gets filled
 
 var scroll_delta = 0;
 var last_scroll_delta = 0;
+
+var scroll_isTriggered = false;
 
 var scroll_deltaResetID;
 const SCROLL_RESET_TIME = 250; // milliseconds
@@ -74,131 +80,179 @@ function recompute_threshold_triggers() {
 
 
 function resetScrollDelta() {
-    last_scroll_delta = scroll_delta;
+    last_scroll_delta = 0;
     scroll_delta = 0;
-
-    onScrollDeltaChange(true);
+    scroll_deltaResetID = null;
 }
 
-function setScrollDelta(newScrollDelta, animate) {
+function setScrollDelta(newScrollDelta) {
     last_scroll_delta = scroll_delta;
     scroll_delta = newScrollDelta;
 
-    onScrollDeltaChange(animate);
+    onScrollDeltaChange();
 }
 
-function incrementScrollDelta(incrementAmt, animate) {
+function incrementScrollDelta(incrementAmt) {
     last_scroll_delta = scroll_delta;
     scroll_delta += incrementAmt;
 
-    onScrollDeltaChange(animate);
+    onScrollDeltaChange();
 }
 
-function onScrollDeltaChange(animate) {
+function onScrollDeltaStart() {
+    body_ref.trigger("onScrollStart");
+}
+
+function onScrollDeltaEnd() {
+    resetScrollDelta();
+
+    if (scroll_isTriggered) {
+        scroll_isTriggered = false;
+        return;
+    }
+
+    body_ref.trigger("onScrollEnd");
+}
+
+function onScrollDeltaChange() {
+    if (scroll_isTriggered) {
+        return;
+    }
+
     var scroll_progress_percent = constrain(scroll_delta / SCROLL_DELTA_THRESHOLD_PIXEL, -1, 1); // range [-1, 1]
 
     if (scroll_delta == last_scroll_delta ) {
         return;
     }
 
+    var scroll_direction_vector = getXYDifference([0, 0], [scroll_delta, scroll_delta]);
+
     if (scroll_progress_percent >= 1 || scroll_progress_percent <= -1) {
         // Stop the previously running reset timer
         clearTimeout(scroll_deltaResetID);
 
-        body_ref.trigger("onScrollTrigger", [scroll_progress_percent, animate]); // Trigger scroll tigger event
+        body_ref.trigger("onScrollTrigger", [scroll_progress_percent, scroll_direction_vector]); // Trigger scroll tigger event
+        scroll_isTriggered = true;
+
     } else { // -1 <= scroll_progress_percent <= 1
-        body_ref.trigger("onScrollChange", [scroll_progress_percent, animate]); // Trigger scroll change event
+        body_ref.trigger("onScrollChange", [scroll_progress_percent, scroll_direction_vector]); // Trigger scroll change event
     }
 }
 
-
-
 function resetDragDelta() {
-    last_drag_delta = drag_delta;
+    last_drag_delta = [0, 0];
     drag_delta = [0, 0];
-
-    onDragDeltaChange(true);
 }
 
 // ( [int, int], bool )
-function setDragDelta(newDragDeltaXY, animate) {
+function setDragDelta(newDragDeltaXY) {
     last_drag_delta = drag_delta;
     drag_delta = [ newDragDeltaXY[0], newDragDeltaXY[1] ]; 
 
-    onDragDeltaChange(animate);
+    onDragDeltaChange();
 }
 
-function incrementDragDelta(newDragDeltaXY, animate) {
+function incrementDragDelta(newDragDeltaXY) {
     last_drag_delta = drag_delta;
     drag_delta[0] += newDragDeltaXY[0];
     drag_delta[1] += newDragDeltaXY[1];
 
-    onDragDeltaChange(animate);
+    onDragDeltaChange();
 }
 
-function onDragDeltaChange(animate) {
-    var drag_progress_percent = [ constrain(drag_delta[0] / DRAG_DELTA_X_THRESHOLD_PIXEL, -1, 1), constrain(drag_delta[1] / DRAG_DELTA_Y_THRESHOLD_PIXEL, -1, 1) ];
+function onDragDeltaStart() {
+    body_ref.trigger("onDragXStart");
+    body_ref.trigger("onDragYStart");
+    body_ref.trigger("onDragXYStart");
+    body_ref.trigger("onDragRadiusStart");
+}
 
-    // console.log("X: " + drag_progress_percent[0] * 100 + "% Y: " + drag_progress_percent[1] * 100 + "%"); // TODO: remove
+function onDragDeltaEnd() {
+    drag_X_isTriggered ? drag_X_isTriggered = false : body_ref.trigger("onDragXEnd");
+    drag_Y_isTriggered ? drag_Y_isTriggered = false : body_ref.trigger("onDragYEnd");
+    drag_XY_isTriggered ? drag_XY_isTriggered = false : body_ref.trigger("onDragXYEnd");
+    drag_radius_isTriggered ? drag_radius_isTriggered = false : body_ref.trigger("onDragRadiusEnd");
+}
+
+function RESET_ALL_DELTAS () {
+    mouse_down = false;
+
+    drag_delta = [0, 0];
+    last_drag_delta = [0, 0];
+
+    scroll_delta = 0;
+    last_scroll_delta = 0;
+
+    clearTimeout(scroll_deltaResetID);
+    scroll_deltaResetID = null;
+
+    scroll_isTriggered = false;
+    drag_X_isTriggered = false;
+    drag_Y_isTriggered = false;
+    drag_XY_isTriggered = false;
+    drag_radius_isTriggered = false;
+}
+
+function onDragDeltaChange() {
+
+    var drag_progress_percent = [ constrain(drag_delta[0] / DRAG_DELTA_X_THRESHOLD_PIXEL, -1, 1), constrain(drag_delta[1] / DRAG_DELTA_Y_THRESHOLD_PIXEL, -1, 1) ];
 
     var drag_changed = [ drag_delta[0] != last_drag_delta[0], drag_delta[1] != last_drag_delta[1] ];
 
     var drag_triggered = [ drag_progress_percent[0] <= -1 || drag_progress_percent[0] >= 1, drag_progress_percent[1] <= -1 || drag_progress_percent[1] >= 1 ];
 
+    // var drag_triggered = [ 
+    //     floatCompare("<= ", drag_progress_percent[0], -1, 0.05) || floatCompare(">=", drag_progress_percent[0], 1, 0.05), 
+    //     floatCompare("<=", drag_progress_percent[1], -1, 0.05) || floatCompare(">=", drag_progress_percent[1], 1, 0.05) ];
+
+    var drag_direction_vector = getXYDifference(last_drag_delta, drag_delta);
+
     // Drag X only events
-    if (drag_changed[0] == true) {
+    if (drag_changed[0] == true && !drag_X_isTriggered) {
 
         if (drag_triggered[0] == true) {
-            body_ref.trigger("onDragXTrigger", [drag_progress_percent[0], true]);
+            body_ref.trigger("onDragXTrigger", [drag_progress_percent[0], drag_direction_vector[0]]);
+            drag_X_isTriggered = true;
         } else {
-            body_ref.trigger("onDragXChange", [drag_progress_percent[0], animate]);
+            body_ref.trigger("onDragXChange", [drag_progress_percent[0], drag_direction_vector[0]]);
         }
     }
 
     // Drag Y only events
-    if (drag_changed[1] == true) {
+    if (drag_changed[1] == true && !drag_Y_isTriggered) {
 
         if (drag_triggered[1] == true) {
-            body_ref.trigger("onDragYTrigger", [drag_progress_percent[1], true]);
+            body_ref.trigger("onDragYTrigger", [drag_progress_percent[1], drag_direction_vector[1]]);
+            drag_Y_isTriggered = true;
         } else {
-            body_ref.trigger("onDragYChange", [drag_progress_percent[1], animate]);
+            body_ref.trigger("onDragYChange", [drag_progress_percent[1], drag_direction_vector[1]]);
         }
     }
 
     // Drag X + Y events
-    if (drag_changed[0] == true || drag_changed[1] == true) { // If at least one drag dimension is changed
+    if (drag_changed[0] == true || drag_changed[1] == true && !drag_XY_isTriggered) { // If at least one drag dimension is changed
+
         if (drag_triggered[0] == true || drag_triggered[1] == true) { // If at least one drag dimension is triggered
-            body_ref.trigger("onDragXYTrigger", [drag_progress_percent, true]);
+            body_ref.trigger("onDragXYTrigger", [drag_progress_percent, drag_direction_vector]);
+            drag_XY_isTriggered = true;
         } else {
-            body_ref.trigger("onDragXYChange", [drag_progress_percent, animate]);
+            body_ref.trigger("onDragXYChange", [drag_progress_percent, drag_direction_vector]);
         }
     }
 
     // Drag radius events
-    if (drag_changed[0] == true || drag_changed[1] == true) { // If at least one drag dimension is changed
+    if (drag_changed[0] == true || drag_changed[1] == true && !drag_radius_isTriggered) { // If at least one drag dimension is changed
+
         var drag_radius = Math.sqrt(Math.pow(drag_delta[0], 2) + Math.pow(drag_delta[1], 2))/DRAG_DELTA_RADIUS_THRESHOLD_PIXEL; // [0 to 1]
 
         if (drag_radius >= 1) { // If the drag radius is triggered
-            body_ref.trigger("onDragRadiusTrigger", [drag_progress_percent, true]);
+            body_ref.trigger("onDragRadiusTrigger", [drag_progress_percent, drag_direction_vector]);
+            drag_radius_isTriggered = true;
         } else {
-            body_ref.trigger("onDragRadiusChange", [drag_radius, animate]);
+            body_ref.trigger("onDragRadiusChange", [drag_radius, drag_direction_vector]);
         }
     }
 }
-
-// function __transition_page(nextPage, type) {
-//     isTransitioning = true;
-//     total_deltaY = 0;
-//     // Stop the running reset timer
-//     clearTimeout(deltaYResetID);
-
-//     current_page.close(type, function() {
-//         nextPage.open(type, function(){
-//             current_page = nextPage;
-//             isTransitioning = false;
-//         });
-//     });
-// }
 
 // --------------------------
 // --- Event trigger code ---
@@ -207,9 +261,12 @@ function onDragDeltaChange(animate) {
 // Mousewheel swipe code
 
 body_ref.on('mousewheel DOMMouseScroll', function(e) {
+    if (scroll_deltaResetID == null) { // If first mousewheel event
+        onScrollDeltaStart();
+    }
 
     var delta = e.originalEvent.wheelDeltaY;
-    incrementScrollDelta(delta, true);
+    incrementScrollDelta(delta);
 
     // Stop the previously running reset timer
     clearTimeout(scroll_deltaResetID);
@@ -217,7 +274,7 @@ body_ref.on('mousewheel DOMMouseScroll', function(e) {
     // Set a timeout function that resets the scroll delta
     // amount after a peroid of inactivity
     scroll_deltaResetID = setTimeout(function() {
-        resetScrollDelta();
+        onScrollDeltaEnd();
     }, SCROLL_RESET_TIME);
 });
 
@@ -232,6 +289,8 @@ body_ref.on('mousedown', function(e) {
         return;
     }
 
+    onDragDeltaStart();
+
     mouse_down = true;
     mouse_pos_start[0] = e.pageX;
     mouse_pos_start[1] = e.pageY;
@@ -244,7 +303,7 @@ body_ref.on('mousemove', function(e) {
     }
 
     var curr_pos = [e.pageX, e.pageY];
-    setDragDelta([curr_pos[0] - mouse_pos_start[0], curr_pos[1] - mouse_pos_start[1] ], false);
+    setDragDelta([curr_pos[0] - mouse_pos_start[0], curr_pos[1] - mouse_pos_start[1] ]);
 });
 
 body_ref.on('mouseup mouseleave', function(e) {
@@ -256,6 +315,7 @@ body_ref.on('mouseup mouseleave', function(e) {
     mouse_down = false;
     mouse_pos_start = [0, 0];
     
+    onDragDeltaEnd();
     resetDragDelta();
 });
 
@@ -264,28 +324,22 @@ body_ref.on('mouseup mouseleave', function(e) {
 var touch_pos_start = [0, 0];
 
 body_ref.on('touchstart', function (e) {
-
     touch_pos_start = [ e.touches[0].clientX, e.touches[0].clientY ];
+
+    onDragDeltaStart();
 });
 
 body_ref.on('touchmove', function (e) {
 
     var curr_pos = [e.touches[0].clientX, e.touches[0].clientY];
 
-    setDragDelta([curr_pos[0] - touch_pos_start[0], curr_pos[1] - touch_pos_start[1] ], false);
+    setDragDelta([curr_pos[0] - touch_pos_start[0], curr_pos[1] - touch_pos_start[1] ]);
 });
 
 body_ref.on('touchend touchcancel', function (e) {
 
     touch_posY_start = 0;
 
+    onDragDeltaEnd();
     resetDragDelta();
 });
-
-
-
-
-// body_ref.on("onDragXChange", function (e, percent, animate) {
-//     //console.log("Read DragXYChange: X: " + percentXY[0] * 100 + "% Y: " + percentXY[1] * 100 + "%");
-//     //console.log("Read DragXChange: X: " + percent * 100 + "%");
-// });

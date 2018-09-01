@@ -4,12 +4,12 @@
 	color: white;
     border-radius: 0rem;
 	
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 
-	height: 100vh;
 	width: 100vw;
+	height: 100vh;
 
 	background-color: transparent;	
 
@@ -20,13 +20,16 @@
 	// transition: transform 0.3s;
 	// transition-timing-function: ease-out;
 
+	// perspective: 400px;
+	// perspective-origin: 0 75%;
+
 	z-index: 5; // TODO: change?
 }
 
 
 #front-page__canvas {
-	height: 100vh;
 	width: 100vw;
+	height: 100vh;
 
 	top: 0;
  	left: 0;

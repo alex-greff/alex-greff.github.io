@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width">
+
 		<title>Porfolio - Alexander Greff</title>
 		
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous"> -->
+		<!-- <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
 
 		<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 
@@ -14,88 +17,96 @@
 
 		<link href='https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet'>
 		<!-- <link href='https://fonts.googleapis.com/css?family=Lato:100italic' rel='stylesheet' type='text/css'> -->
-
-		
 	</head>
 
 	<body>
 		<div class="page-background">
-			<!-- <div class="loading-page">
-				<div class="loading-page-progress-bar-container">
-					<div id="loading-page-progress-bar" class="loading-page-progress-bar"></div>
-					<div id="loading-page-progress-percent-display" class="loading-page-progress-percent-display">0%</div>
-					<div class="loading-page-progress-bar-background"></div>
-				</div>
-			</div> -->
+		</div>
+		<!-- <div class="loading-page">
+			<div class="loading-page-progress-bar-container">
+				<div id="loading-page-progress-bar" class="loading-page-progress-bar"></div>
+				<div id="loading-page-progress-percent-display" class="loading-page-progress-percent-display">0%</div>
+				<div class="loading-page-progress-bar-background"></div>
+			</div>
+		</div> -->
 
-			<!-- <canvas id="front-page__canvas" width="500" height="500"></canvas> -->
+		<!-- <canvas id="front-page__canvas" width="500" height="500"></canvas> -->
+		
+		<!-- FRONT PAGE SECTION -->
+		<div id="front-page__container" class="scrollable text-center overlay front-page__container">
+			<div class="header">
+				<h1>
+					<span class="header__primary">
+						<span class="header__primary-firstName">Alexander</span> 
+						<span class="header__primary-lastName">Greff</span>
+					</span>
+					<span class="header__primary-welcome">Welcome</span>
+					<span class="header__line"><hr></span>
+					<span class="header__secondary">University of Toronto Computer Science</span>
+				</h1>
+			</div>
+
+			<div class="social-media-icons">
+				<div class="icon icon-linkedin">
+					<a href="https://www.linkedin.com/in/alexandergreff/" title="LinkedIn Profile" target="_blank">
+						<i class="fab fa-linkedin"></i>	
+					</a>
+				</div>
+
+				<div class="icon icon-github">
+					<a href="https://github.com/alex-greff" title="Github Account" target="_blank">
+						<i class="fab fa-github-square"></i>
+					</a>
+				</div>
 			
-			<!-- FRONT PAGE SECTION -->
-			<div id="front-page__container" class="scrollable text-center overlay front-page__container">
-				<div class="header">
-					<h1>
-						<span class="header__primary">Alexander Greff</span>
-						<span class="header__primary-welcome">Welcome</span>
-						<span class="header__line"><hr></span>
-						<span class="header__secondary">University of Toronto Computer Science</span>
-					</h1>
-				
-					<div class="social-media-icons">
-						<div class="icon icon-linkedin">
-							<a href="https://www.linkedin.com/in/alexandergreff/" title="LinkedIn Profile" target="_blank">
-								<i class="fab fa-linkedin"></i>	
-							</a>
-						</div>
-	
-						<div class="icon icon-github">
-							<a href="https://github.com/alex-greff" title="Github Account" target="_blank">
-								<i class="fab fa-github-square"></i>
-							</a>
-						</div>
-					
-						<div class="icon icon-email">
-							<a href="mailto:alex.j.greff@gmail.com" title="Email Address" target="_blank">
-								<i class="fas fa-envelope"></i>
-							</a>
-						</div>
-					
-						<div class="icon icon-resume">
-							<a href="#" title="Resume" target="_blank">
-								<i class="fas fa-file-alt"></i>
-							</a>
-						</div>
-					</div>
+				<div class="icon icon-email">
+					<a href="mailto:alex.j.greff@gmail.com" title="Email Address" target="_blank">
+						<i class="fas fa-envelope"></i>
+					</a>
 				</div>
-			</div>
-
-			<div id="about-page__container" class="scrollable about-page__container">
-				<h1>About Me</h1>
-				<p class="lead">Some stuff here</p>
-			</div>
-	
-			<!-- <div id="education-page-decorator-top-1"></div>
-			<div id="education-page-decorator-top-2"></div>
-			<div id="education-page-decorator-bottom-1"></div>
-			<div id="projects-page-decorator-top-1"></div>
-			<div id="projects-page-decorator-top-2"></div> -->
-	
-	
-			<!-- PROJECTS PAGE SECTION -->
-			<div id="project-1" class="scrollable projects-page__container">
-				<h1>Project 1</h1>
-				<p class="lead">Some stuff here</p>
-			</div>
-
-			<div id="project-2" class="scrollable projects-page__container">
-				<h1>Project 2</h1>
-				<p class="lead">Some stuff here</p>
-			</div>
-
-			<div id="project-3" class="scrollable projects-page__container">
-				<h1>Project 3</h1>
-				<p class="lead">Some stuff here</p>
+			
+				<div class="icon icon-resume">
+					<a href="#" title="Resume" target="_blank">
+						<i class="fas fa-file-alt"></i>
+					</a>
+				</div>
 			</div>
 		</div>
+
+		<div id="about-page__container" class="scrollable about-page__container">
+			<h1>About Me</h1>
+			<p class="lead">Some stuff here</p>
+		</div>
+
+		<!-- <div id="education-page-decorator-top-1"></div>
+		<div id="education-page-decorator-top-2"></div>
+		<div id="education-page-decorator-bottom-1"></div>
+		<div id="projects-page-decorator-top-1"></div>
+		<div id="projects-page-decorator-top-2"></div> -->
+
+
+		<!-- PROJECTS PAGE SECTION -->
+		<div id="project-1" class="scrollable projects-page__container">
+			<div class="project-1__container">
+				<div class="project-1__image">
+					some image
+				</div>
+				<div class="project-1__text">
+					some shit
+				</div>
+			</div>
+		</div>
+
+		<div id="project-2" class="scrollable projects-page__container">
+			<h1>Project 2</h1>
+			<p class="lead">Some stuff here</p>
+		</div>
+
+		<div id="project-3" class="scrollable projects-page__container">
+			<h1>Project 3</h1>
+			<p class="lead">Some stuff here</p>
+		</div>
+		
 
 		<!-- Core Javascript -->
 		<!-- Placed at the end so the pages loads faster -->
@@ -119,6 +130,7 @@
 
 		<script src="node_modules/jquery/dist/jquery.min.js"></script>
 		<!-- <script src="node_modules/jquery-touch-events/index.js"></script> -->
+		<!-- <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script> -->
 
 		<script src="node_modules/gsap/src/minified/TweenMax.min.js"></script>
 		<script src="node_modules/gsap/src/minified/TimelineMax.min.js"></script>
@@ -131,18 +143,22 @@
 		<script type="text/javascript" src="scripts/functions/canvas_functions.js"></script>
 		<script type="text/javascript" src="scripts/functions/container_functions.js"></script>
 
+		<script type="text/javascript" src="scripts/page_background_manager.js"></script>
+		<script type="text/javascript" src="scripts/lib/lerp-color.js"></script>
+		
+		<script type="text/javascript" src="scripts/input_manager.js"></script>
 
 		<script type="text/javascript" src="scripts/pages/home_page.js"></script>
 		<script type="text/javascript" src="scripts/pages/projects/project-1_page.js"></script>
 		<script type="text/javascript" src="scripts/pages/projects/project-2_page.js"></script>
 		<script type="text/javascript" src="scripts/pages/projects/project-3_page.js"></script>
-		<script type="text/javascript" src="scripts/pages/projects/project-4_page.js"></script>
-		<script type="text/javascript" src="scripts/pages/projects/project-5_page.js"></script>
+		<!-- <script type="text/javascript" src="scripts/pages/projects/project-4_page.js"></script>
+		<script type="text/javascript" src="scripts/pages/projects/project-5_page.js"></script> -->
 		<script type="text/javascript" src="scripts/pages/about_page.js"></script>
 
 		<script type="text/javascript" src="scripts/helper_functions.js"></script>
 		<script type="text/javascript" src="scripts/master_script.js"></script>
-		<script type="text/javascript" src="scripts/input_manager.js"></script>
+		
 
 		
 

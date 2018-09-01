@@ -15,7 +15,11 @@
 
 html {
 	// This defines what one rem is
-	font-size: 10px;
+	font-size: 62.5%;
+
+	@include respond-phone {
+		font-size: 40%;
+	}
 }
 
 body {
@@ -23,6 +27,8 @@ body {
 	background-color: black;
 
 	overflow: hidden;
+
+	user-select: none;
 
 	// animation-name: bodyScrollToggleAnim;
 	// animation-duration: 0.5s;
@@ -32,17 +38,20 @@ body {
 }
 
 .page-background {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 
 	width: 100vw;
 	height: 100vh;
 
-	background: linear-gradient(180deg, #00f2ff, #ff0000,#00ff22);
-	background-size: 100% 600%;
+	background-color: #00D1FF;
+	// background-image: linear-gradient(180deg, #00f2ff, #4400ff,#c300ff);
+	// background-size: 700% 700%;
 
 	//animation: AnimationName 5s ease infinite;
+
+	z-index: -1;
 }
 
 @keyframes AnimationName { 

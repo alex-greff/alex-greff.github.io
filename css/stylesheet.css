@@ -81,6 +81,8 @@
 .header {
   position: relative;
   user-select: none;
+  overflow-wrap: break-word;
+  text-align: center;
   top: 50%;
   transform: translateY(-50%);
   width: 100%; }
@@ -97,7 +99,7 @@
   z-index: 3;
   opacity: 1;
   backface-visibility: hidden;
-  /* Hack to fixe the css animation glitch */ }
+  /* Hack to fix the css animation glitch */ }
   .header__primary span {
     position: relative;
     display: inline-block;
@@ -108,7 +110,18 @@
   font-size: 2rem;
   /* font-style: 'thin'; */
   letter-spacing: 0.5rem;
-  user-select: none;
+  opacity: 1;
+  backface-visibility: hidden;
+  /* Hack to fix the css animation glitch */ }
+
+.header__line hr {
+  border: 0;
+  height: 1px;
+  background: transparent;
+  background-image: linear-gradient(to right, transparent, white, transparent);
+  width: 90%;
+  margin-bottom: 0;
+  margin-top: 2rem;
   opacity: 1;
   backface-visibility: hidden;
   /* Hack to fix the css animation glitch */ }
@@ -119,7 +132,6 @@
   left: 0;
   opacity: 1;
   visibility: hidden;
-  user-select: none;
   text-transform: uppercase;
   font-weight: 300;
   font-size: 5rem;
@@ -130,38 +142,28 @@
   backface-visibility: hidden;
   /* Hack to fix the css animation glitch */ }
 
-.header__line hr {
-  border: 0;
-  height: 1px;
-  background: transparent;
-  background-image: linear-gradient(to right, transparent, white, transparent);
-  width: 900px;
-  margin-bottom: 0;
-  margin-top: 2rem;
-  opacity: 1;
-  backface-visibility: hidden;
-  /* Hack to fixe the css animation glitch */ }
-
 .social-media-icons {
-  padding-top: 1rem;
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding-top: 2rem;
   height: 5rem; }
   .social-media-icons a {
     font-size: 2rem;
     text-decoration: none;
     padding: 0 1rem 0 1rem;
-    /*color: rgba(0, 148, 255, 1);*/
     color: #d8d8d8;
-    transition: all 0.2s; }
+    transition: all 1s; }
   .social-media-icons a:hover {
-    color: rgba(0, 148, 255, 0.7);
-    transition: all 0.2s; }
+    color: #90e5f0;
+    transition: all 1s; }
   .social-media-icons a > i {
     font-size: 2.5rem; }
 
 .icon-linkedin, .icon-github, .icon-email, .icon-resume {
-  opacity: 1;
+  padding-bottom: 1rem;
   cursor: default;
-  display: inline-block;
+  display: block;
   backface-visibility: hidden;
   /* Hack to fix the css animation glitch */ }
 
@@ -170,21 +172,25 @@
 	margin-bottom: 0;
 } */
 html {
-  font-size: 10px; }
+  font-size: 62.5%; }
+  @media (max-width: 600px) {
+    html {
+      font-size: 40%; } }
 
 body {
   font-family: 'Lato', sans-serif;
   background-color: black;
-  overflow: hidden; }
+  overflow: hidden;
+  user-select: none; }
 
 .page-background {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(180deg, #00f2ff, #ff0000, #00ff22);
-  background-size: 100% 600%; }
+  background-color: #00D1FF;
+  z-index: -1; }
 
 @keyframes AnimationName {
   0% {
@@ -267,17 +273,17 @@ body {
 .front-page__container {
   color: white;
   border-radius: 0rem;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
   width: 100vw;
+  height: 100vh;
   background-color: transparent;
   z-index: 5; }
 
 #front-page__canvas {
-  height: 100vh;
   width: 100vw;
+  height: 100vh;
   top: 0;
   left: 0;
   position: fixed;
@@ -286,23 +292,26 @@ body {
 .about-page__container {
   color: white;
   border-radius: 0rem;
-  position: absolute;
-  top: 0;
-  left: 0;
+  user-select: none;
+  position: fixed;
   height: 100vh;
   width: 100vw;
   background-color: transparent; }
 
-.projects-page__container {
-  color: white;
-  border-radius: 0rem;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: transparent; }
-  .projects-page__container > h1, .projects-page__container > p {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%); }
+.project-1__container {
+  text-align: center; }
+
+.project-1__image, .project-1__text {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  border-radius: 0;
+  width: 45rem;
+  height: 60rem;
+  padding: 2rem; }
+
+.project-1__image {
+  background-color: aqua; }
+
+.project-1__text {
+  background-color: coral; }

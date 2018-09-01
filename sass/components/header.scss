@@ -5,6 +5,10 @@
 
 	user-select: none;
 
+	overflow-wrap: break-word;
+
+	text-align: center;
+
 	top: 50%;
 	transform: translateY(-50%);
 	
@@ -13,6 +17,8 @@
 	& > h1 {
 		font-size: 3.5rem;
 	}
+
+	// transform-style: preserve-3d;
 }
 
 .header__primary {
@@ -27,7 +33,7 @@
 
 	opacity: 1;
 
-	backface-visibility: hidden; /* Hack to fixe the css animation glitch */
+	backface-visibility: hidden; /* Hack to fix the css animation glitch */
 
 	& span {
 		position: relative;
@@ -36,6 +42,14 @@
 	}
 }
 
+// .header__primary-firstName {
+	
+// }
+
+// .header__primary-lastName {
+	
+// }
+
 .header__secondary {
   	font-weight: 100;
 	font-size: 2rem;
@@ -43,9 +57,25 @@
 	/* font-style: 'thin'; */
 	letter-spacing: 0.5rem;
 
-	user-select: none;
+	// user-select: none;
 
 	opacity: 1;
+
+	backface-visibility: hidden; /* Hack to fix the css animation glitch */
+}
+
+.header__line hr {
+	border: 0;
+    height: 1px;
+    background: transparent;
+    background-image: linear-gradient(to right, transparent, rgba(255, 255, 255, 1), transparent);
+
+	width: 90%;
+	margin-bottom: 0;
+	margin-top: 2rem;
+
+	opacity: 1;
+
 
 	backface-visibility: hidden; /* Hack to fix the css animation glitch */
 }
@@ -58,7 +88,7 @@
 	opacity: 1;
 	visibility: hidden;
 
-	user-select: none;
+	// user-select: none;
 	text-transform: uppercase;
 	font-weight: 300;
 	font-size: 5rem;
@@ -72,18 +102,3 @@
 	backface-visibility: hidden; /* Hack to fix the css animation glitch */
 }
 
-.header__line hr {
-	border: 0;
-    height: 1px;
-    background: transparent;
-    background-image: linear-gradient(to right, transparent, rgba(255, 255, 255, 1), transparent);
-
-	width: 900px;
-	margin-bottom: 0;
-	margin-top: 2rem;
-
-	opacity: 1;
-
-
-	backface-visibility: hidden; /* Hack to fixe the css animation glitch */
-}
