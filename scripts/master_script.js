@@ -6,33 +6,7 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 
 const PAGE_BACKGROUND = "page-background";
 
-var isTransitioning = false;
 
-
-function Page(element_identifier, nextPage, prevPage) {
-    this.element_identifier = element_identifier;
-    this.nextPage = nextPage;
-    this.prevPage = prevPage;
-
-    this.element_ref = $(element_identifier);
-    this.body_ref = $('body');
-
-    // Setup static variables
-    if (typeof Page.current_page === 'undefined') { Page.current_page = null; }
-    if (typeof Page.page_background_ref === 'undefined') { Page.page_background_ref = $(".page-background"); }
-
-    this.isOpen = false;
-    this.isTransitioning = false;
-
-    this.open = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) { console.warn(this.element_identifier + ": Unimplemented open() method"); }
-    this.close = function(animation_options, onComplete_callbackFcn, onComplete_callbackScope) { console.warn(this.element_identifier + ": Unimplemented close() method"); }
-    this.transitionUpdate = function() { console.warn(this.element_identifier + ": Unimplemented close() method"); };
-    this.openNextPage = function(animation_options, onComplete_callbackFcn, onComplete_callbackScope) { console.warn(this.element_identifier + ": Unimplemented openNextPage() method"); }
-    this.openPrevPage = function(animation_options, onComplete_callbackFcn, onComplete_callbackScope) { console.warn(this.element_identifier + ": Unimplemented openNextPage() method"); }
-
-    this.hasNext = function () { this.nextPage != null; };
-    this.hasPrev = function () { this.prevPage != null; };
-}
 
 var home_page = null;
 var project_pages = [];
