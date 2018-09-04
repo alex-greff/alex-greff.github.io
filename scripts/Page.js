@@ -13,27 +13,31 @@ function Page(element_identifier, nextPage, prevPage) {
     this.isOpen = false;
     this.isTransitioning = false;
 
+    // ------------------------
+    // --- Public functions ---
+    // ------------------------
+
     this.open = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) { 
-        RESET_ALL_DELTAS() // input_manager.js
+        var longest_time = 0.5;
 
-        this.isTransitioning = true;
-        this.isOpen = true;
+        this.open_base(animation_options, longest_time, onComplete_callbackFcn, onComplete_callbackScope);
 
-        this.subscribe_to_events();
-        this.open_anim_base(animation_options, onComplete_callbackFcn, onComplete_callbackScope);
-
-        console.warn(this.element_identifier + ": Unimplemented open() method"); 
+        // console.warn(this.element_identifier + ": Unimplemented open() method"); 
     }
     this.close = function(animation_options, onComplete_callbackFcn, onComplete_callbackScope) { 
-        this.isTransitioning = true;
-        this.isOpen = false;
+        var longest_time = 0.5;
+        this.close_base(animation_options, longest_time, onComplete_callbackFcn, onComplete_callbackScope);
 
-        this.unsubscribe_from_events();
-        this.close_anim_base(animation_options, onComplete_callbackFcn, onComplete_callbackScope);
-
-        console.warn(this.element_identifier + ": Unimplemented close() method"); 
+        // console.warn(this.element_identifier + ": Unimplemented close() method"); 
     }
-    this.transitionUpdate = function() { console.warn(this.element_identifier + ": Unimplemented close() method"); };
+
+    this.transition_update = function(percent, direction_vector, animate) { 
+        this.transition_update_base(percent, direction_vector, animate);
+    };
+
+    this.reset_transition = function() {
+        this.reset_transition_base();
+    }
 
     this.hasNext = function () { this.nextPage != null; };
     this.hasPrev = function () { this.prevPage != null; };
@@ -46,13 +50,20 @@ function Page(element_identifier, nextPage, prevPage) {
         // TODO: implement
     }
 
-    // ---------------------------
-    // --- Animation functions ---
-    // ---------------------------
+    // ----------------------
+    // --- Base functions ---
+    // ----------------------
 
     // For each page we can make add-on animation functions
 
-    this.open_anim_base = function(animation_options, longest_time) {
+    this.open_base = function(animation_options, longest_time, onComplete_callbackFcn, onComplete_callbackScope) {
+        RESET_ALL_DELTAS() // input_manager.js
+
+        this.isTransitioning = true;
+        this.isOpen = true;
+
+        this.subscribe_to_events();
+
         // Set page background color
         TweenMax.to(Page.page_background_ref, 0.5, { backgroundColor: this.page_background_color_1 });
 
@@ -70,7 +81,12 @@ function Page(element_identifier, nextPage, prevPage) {
         this.isTransitioning_setter(longest_time, false);
     }
 
-    this.close_anim_base = function(animation_options, longest_time) {
+    this.close_base = function(animation_options, longest_time, onComplete_callbackFcn, onComplete_callbackScope) {
+        this.isTransitioning = true;
+        this.isOpen = false;
+
+        this.unsubscribe_from_events();
+
         // Page background color
         TweenMax.to(Page.page_background_ref, 0.2, {backgroundColor: this.page_background_color_2});
 
@@ -86,7 +102,7 @@ function Page(element_identifier, nextPage, prevPage) {
         this.visibility_setter(longest_time, 'hidden');
     }
 
-    this.transition_anim_base = function(percent, direction_vector, animate) {
+    this.transition_update_base = function(percent, direction_vector, animate) {
         // Color animation
         var clr = lerpColor(this.page_background_color_1, this.page_background_color_2, Math.abs(percent)); // Get color lerp value
         if (!this.isTransitioning) {
@@ -95,12 +111,16 @@ function Page(element_identifier, nextPage, prevPage) {
         }
     }
 
-    this.reset_transition_anim_base = function() {
+    this.reset_transition_base = function() {
         // Reset page color
         TweenMax.to(Page.page_background_ref, 0.5, {backgroundColor: this.page_background_color_1});
     }
 
 
+
+    // -----------------------
+    // --- Setters/callers ---
+    // -----------------------
 
     this.onComplete_caller = function(delay_time, onComplete_callbackFcn, onComplete_callbackScope) {
         // Call the onComplete function after the delay time
