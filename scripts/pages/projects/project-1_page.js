@@ -11,8 +11,6 @@ function setup_project_1_page() {
 
     this.title_isOpen = true;
 
-    console.log(this.more_info_btn);
-
     this.open = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) {
         RESET_ALL_DELTAS() // input_manager.js
 
