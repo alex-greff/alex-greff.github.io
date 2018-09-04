@@ -11,19 +11,18 @@
 		text-decoration: none;
 		padding: 0 1rem 0 1rem;
 	  
-		color: rgba(216, 216, 216, 1);
-		transition: all 1s;
+		color: rgb(231, 231, 231);
+		transition: color 0.5s;
 	}
 	& a:hover {
-		color: rgb(144, 229, 240);
-		transition: all 1s;
+		color: rgb(180, 185, 255);
+		transition: color 0.1s;
 	}
 
 	& a > i {
 		font-size: 2.5rem;
 	}
 }
-  
 
 .icon-linkedin, .icon-github, .icon-email, .icon-resume {
 	padding-bottom: 1rem;

@@ -1,25 +1,98 @@
-.project-1__container {
-	text-align: center;
+.projects-page__container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+
+	color: white;
+
 }
 
-.project-1__image, .project-1__text {
+.projects-page__content {
+	position: absolute;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	left: 50%;
+}
+
+.projects-page__header {
 	position: relative;
-
-	box-sizing: border-box;
-	display: inline-block;
-
-	border-radius: 0;
-
-	width: 45rem;
-	height: 60rem;
-
-	padding: 2rem;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
-.project-1__image {
-	background-color: aqua;
+.projects-page__image {
+	// max-width: 50% !important;
+	
 }
 
-.project-1__text{
-	background-color: coral;
+.projects-page__more-info-btn {
+	margin-left: 50%;
+
+	font-size: 5rem;
+}
+
+.projects-page__more-info-btn i {
+	color: white;
+	transition: color 0.5s;
+
+	&:hover {
+		color: rgb(134, 241, 255);
+		transition: color 0.5s;
+	}
+
+	&:visited, &:link {
+		color: white;
+	}
+
+	&::after {
+		content: "\f107";
+		display: inline-block;
+		position: absolute;
+		top: 15%;
+		left: 50%;
+		z-index: 10;
+
+		transition: all 0s;
+	}
+
+	&:hover::after {
+		transform: scale(1.5);
+		opacity: 0;
+		transition: all 0.4s;
+	}
+}
+
+
+.projects-page__header-primary {
+	font-weight: 300;
+	font-size: 4rem;
+	letter-spacing: 1rem;
+}
+
+.projects-page__header-secondary {
+	font-weight: 100;
+	font-size: 1.5rem;
+	letter-spacing: 0.3rem;
+}
+
+.projects-page__header-line {
+	& hr {
+		position: relative;
+		border: 0;
+		height: 1px;
+		background: transparent;
+		background-image: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 1) 2%, transparent 90%);
+
+		width: 100%;
+		margin-left: 0;
+
+		margin-bottom: 0;
+		margin-top: 2rem;
+
+		opacity: 1;
+
+		backface-visibility: hidden; /* Hack to fix the css animation glitch */
+	}
 }

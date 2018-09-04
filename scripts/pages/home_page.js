@@ -74,12 +74,6 @@ function setup_home_page() {
             }
         );
 
-        this.body_ref.on("onScrollStart onDragRadiusStart", 
-            (e) => {
-                this.hide_social_media_icons_anim();
-            }
-        );
-
         this.body_ref.on("onScrollEnd onDragRadiusEnd", 
             (e) => {
                 this.reset_transition_anim();
@@ -91,11 +85,9 @@ function setup_home_page() {
     this.unsubscribe_from_events = function() {
         this.body_ref.off("onScrollChange");
         this.body_ref.off("onScrollTrigger");
-        this.body_ref.off("onScrollStart");
         this.body_ref.off("onScrollEnd");
         this.body_ref.off("onDragRadiusChange");
         this.body_ref.off("onDragRadiusTrigger");
-        this.body_ref.off("onDragRadiusStart");
         this.body_ref.off("onDragRadiusEnd");
     }
 
@@ -105,7 +97,7 @@ function setup_home_page() {
     // ---------------------------
 
     this.open_anim = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) {
-        var longest_time = 2 + 0.1*4; 
+        var longest_time = delay_stage3 + 0.1*4; 
 
         TweenMax.set(this.element_ref, {visibility: 'visible' }); // Set page to be visible
 
@@ -133,7 +125,7 @@ function setup_home_page() {
 
         var delay_stage1 = 1.5;
         var delay_stage2 = delay_stage1 + 0.3;
-        var delay_stage3 = delay_stage1 + 1;
+        var delay_stage3 = delay_stage1 + 0.5;
         
         // Primary header anim
         TweenMax.staggerFromTo(this.header_primary_spans, 0.5, 
@@ -192,7 +184,8 @@ function setup_home_page() {
     }
 
     this.close_anim = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) {
-        var longest_time = 0.2;
+        var anim_time = 0.3;
+        var longest_time = anim_time;
 
         // If no animation is wanted
         if (animation_options == "no-anim") {
@@ -206,7 +199,7 @@ function setup_home_page() {
         } 
 
         // Page background color
-        TweenMax.to(Page.page_background_ref, 0.2, {backgroundColor: this.page_background_color_2});
+        TweenMax.to(Page.page_background_ref, anim_time, {backgroundColor: this.page_background_color_2});
 
         // onComplete callback
         TweenMax.set(this.element_ref, {delay: longest_time, visibility: "hidden", onComplete: onComplete_callbackFcn, onCompleteScope: onComplete_callbackScope});
@@ -217,14 +210,14 @@ function setup_home_page() {
 
 
         // Primary header
-        TweenMax.to(this.header_primary_spans, 0.2, 
+        TweenMax.to(this.header_primary_spans, anim_time, 
             {
                 scale: 2,
             }
         );
 
         // Page element
-        TweenMax.to(this.header, 0.2,
+        TweenMax.to(this.header, anim_time,
             {
                 scale: 3,
                 opacity: 0,
@@ -235,6 +228,7 @@ function setup_home_page() {
     this.update_transition = function (percent, direction_vector, animate) {
         var scale_curve1 = (1 + Math.abs(percent)/2);
         var opacity_curve = (1 - Math.max(0, (Math.abs(percent)-0.3)/2));
+        var x_offset_curve = 50 * Math.pow(3 * Math.abs(percent), 1/2);
 
         // Get color lerp value
         var clr = lerpColor(this.page_background_color_1, this.page_background_color_2, Math.abs(percent));
@@ -248,6 +242,9 @@ function setup_home_page() {
                 }
             );
 
+            // Social media icons
+            TweenMax.to(this.social_media_icons__icons, 0.2, {x: x_offset_curve } );
+
             // Page background color
             TweenMax.to(Page.page_background_ref, 0.2, {backgroundColor: clr});
         }
@@ -259,6 +256,9 @@ function setup_home_page() {
                     opacity: opacity_curve
                 }
             );
+
+            // Social media icons
+            TweenMax.set(this.social_media_icons__icons, {x: x_offset_curve } );
 
             // Page background color
             TweenMax.set(Page.page_background_ref, {backgroundColor: clr});
@@ -293,17 +293,6 @@ function setup_home_page() {
 
         // Page background color
         TweenMax.to(Page.page_background_ref, 0.5, {backgroundColor: this.page_background_color_1});
-    }
-
-    this.hide_social_media_icons_anim = function() {
-        // Social media icons
-        this.socal_media_icons_hide_anim = 
-            TweenMax.staggerTo(this.social_media_icons__icons, 0.2,
-                {
-                    x: 50
-                },
-                0.05
-            );
     }
 }
 

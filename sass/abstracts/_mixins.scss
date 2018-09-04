@@ -1,5 +1,10 @@
 
-// MEDIA QUERY MANAGER
+// ---------------------------
+// --- MEDIA QUERY MANAGER ---
+// ---------------------------
+
+// NOTE: 1rem or 1em in media queries are not affected by any global font sizing in the html body.
+// - They will always equal the front size coming from the browser (by default 16px)
 
 // 0 - 600px: Phone
 // 600 - 900px: Tablet portrait
@@ -7,6 +12,41 @@
 // [1200 - 1800px]: Normal styling 
 // 1800px - infinity : Big desktop
 
-@mixin respond-phone {
-    @media (max-width: 600px) { @content }
+/*
+$breakpoint argument choices:
+- phone
+- tab-port (tablet-portrait)
+- tab-land (tablet-landscape)
+- big-desktop
+*/
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        @media (max-width: 37.5em) { @content }; // 600px
+    }
+    @if $breakpoint == tab-port {
+        @media (max-width: 56.25em) { @content }; // 900px
+    }
+    @if $breakpoint == tab-land {
+        @media (max-width: 75em) { @content }; // 1200px
+    }
+    @if $breakpoint == big-desktop {
+        @media (min-width: 112.5em) { @content }; // 1800px
+    }
 }
+
+// Example call:
+// @include repond(phone) {
+//    [ styling changes ]
+// }
+
+
+// LESS EFFICENT MIXIN METHOD
+
+// @mixin respond-phone { 
+//     @media (max-width: 600px) { @content };
+// }
+
+// Call by:
+// @include respond-phone {
+//     [ styling changes ]
+// }

@@ -5,6 +5,14 @@ function setup_project_1_page() {
     this.page_background_color_1 = "#9292EA"; // TODO: change
     this.page_background_color_2 = "#D27ECC"; // TODO: change
 
+    this.page_title = this.element_ref.find(".title");
+    this.page_info = this.element_ref.find(".info");
+    this.more_info_btn = this.element_ref.find(".projects-page__more-info-btn");
+
+    this.title_isOpen = true;
+
+    console.log(this.more_info_btn);
+
     this.open = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) {
         RESET_ALL_DELTAS() // input_manager.js
 
@@ -61,6 +69,40 @@ function setup_project_1_page() {
                 this.reset_transition_anim();
             }
         );
+
+        this.body_ref.on("onDragYStart onScrollStart", 
+            (e) => {
+                this.last_dragY_px = 0;
+            }
+        );
+
+        this.body_ref.on("onDragY", 
+            (e, screen_percent, screen_px) => {
+                // var d = this.last_dragY_px - screen_px;
+                // page_scroll.call(this, true, this.page_content, d);
+                // this.last_dragY_px = screen_px;
+            }
+        );
+
+        this.body_ref.on("onScroll", 
+            (e, screen_percent, screen_px) => {
+                // var d = -1 * screen_px / 4;
+                // page_scroll.call(this, true, this.page_content, d);
+            }
+        );
+
+        this.more_info_btn.on("click", 
+            () => {
+                console.log("click");
+        
+                this.title_isOpen = !this.title_isOpen;
+        
+                // TweenMax.set(this.page_title, {visibility: this.title_isOpen ? "visible" : "hidden" });
+                TweenMax.set(this.page_info, {visibility: !this.title_isOpen ? "visible" : "hidden" });
+        
+                // TweenMax.to(this.more_info_btn.find("i"), 1, { rotationZ: "+=180deg", ease: Elastic.easeOut} );
+            }
+        );
     }
 
     // Unsubsribes from the subscribed events
@@ -71,6 +113,12 @@ function setup_project_1_page() {
         this.body_ref.off("onDragXChange");
         this.body_ref.off("onDragXTrigger");
         this.body_ref.off("onDragXEnd");
+
+        this.body_ref.off("onScrollStart");
+        this.body_ref.off("onScroll");
+
+        this.body_ref.off("onDragYStart");
+        this.body_ref.off("onDragY");
     }
 
     // ---------------------------
@@ -87,6 +135,7 @@ function setup_project_1_page() {
         if (animation_options == "no-anim") { // No opening animation
             TweenMax.set(this.element_ref, { onComplete: onComplete_callbackFcn, onCompleteScope: onComplete_callbackScope });
             this.isTransitioning = false;
+            TweenMax.set(this.page_info, {visibility: 'hidden'});
             return;
         }
 

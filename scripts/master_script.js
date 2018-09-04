@@ -1,3 +1,9 @@
+// Detect mobile device
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    // some code..
+    window.location.replace("http://stackoverflow.com");
+}
+
 const PAGE_BACKGROUND = "page-background";
 
 var isTransitioning = false;
@@ -54,6 +60,8 @@ function instantiate_pages() {
 
         curr_project.nextPage = project_pages[next_idx];
         curr_project.prevPage = project_pages[prev_idx];
+
+        // curr_project.infoPage = new Page("#project-"+(i+1)+"__info", curr_project.nextPage, curr_project.prevPage);
     }
 
     home_page = new Page("#front-page__container", project_pages[0], null);
@@ -93,6 +101,9 @@ function init_pages_state() {
 var current_page = home_page;
 // var current_page = project_pages[0];
 current_page.open("anim", function(){}, current_page);
+
+
+
 
 
 

@@ -6,9 +6,10 @@
 		<title>Porfolio - Alexander Greff</title>
 		
 		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous"> -->
-		<!-- <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
 
 		<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+
+		<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 
 		<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
 
@@ -78,24 +79,48 @@
 			<p class="lead">Some stuff here</p>
 		</div>
 
-		<!-- <div id="education-page-decorator-top-1"></div>
-		<div id="education-page-decorator-top-2"></div>
-		<div id="education-page-decorator-bottom-1"></div>
-		<div id="projects-page-decorator-top-1"></div>
-		<div id="projects-page-decorator-top-2"></div> -->
-
-
 		<!-- PROJECTS PAGE SECTION -->
 		<div id="project-1" class="scrollable projects-page__container">
-			<div class="project-1__container">
-				<div class="project-1__image">
-					some image
+			<div class="container projects-page__content title">
+				<!-- Content here -->
+				<div class="row">
+					<div class="col-md-8">
+						<h1 class="projects-page__header">
+							<span class="projects-page__header-primary">Java Console</span>
+							<span class="projects-page__header-line"><hr></span>
+							<span class="projects-page__header-secondary">
+								A simple command shell made in Java utilizing a mock file system. 
+								Was developed in a team of 4 and utilized the Scrum and Agile methodologies.
+								<br>
+								<b>Role:</b> Scrum Master, Developer
+							</span>
+						</h1>
+					</div>
+					<div class="col-md-4">
+							<img src="images/java-console-screenshot.png" class="img-fluid projects-page__image" alt="Responsive image">
+					</div>
 				</div>
-				<div class="project-1__text">
-					some shit
+				<div class="row">
+					<div class="col-md-12">
+						<a href="#" class="projects-page__more-info-btn">
+							<i class="fas fa-angle-down"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="container projects-page__content info">
+				<div class="row">
+					<div class="col-md-6">
+						Stuff 1
+					</div>
+					<div class="col-md-6">
+						Stuff 2
+					</div>
 				</div>
 			</div>
 		</div>
+
 
 		<div id="project-2" class="scrollable projects-page__container">
 			<h1>Project 2</h1>
@@ -110,43 +135,20 @@
 
 		<!-- Core Javascript -->
 		<!-- Placed at the end so the pages loads faster -->
-
-		<!-- <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script> -->
-		<!-- <script src="scripts/lib/jquery-3.3.1.min.js"></script> -->
-		<!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" /> -->
-		<!-- <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> -->
-		<!-- <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
-
-		<!-- <script type="text/javascript" src="scripts/lib/smoothwheel.js"></script> -->
-
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script> -->
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script> -->
-
-		<!-- <script src="scripts/lib/particles.min.js"></script>  -->
-
-		<!-- <script src="scripts/lib/pixi.min.js"></script> -->
-		<!-- <script src="scripts/pixi/pixi_canvas.js"></script> -->
-
-
 		<script src="node_modules/jquery/dist/jquery.min.js"></script>
 		<!-- <script src="node_modules/jquery-touch-events/index.js"></script> -->
-		<!-- <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script> -->
+
+		<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
 		<script src="node_modules/gsap/src/minified/TweenMax.min.js"></script>
 		<script src="node_modules/gsap/src/minified/TimelineMax.min.js"></script>
 
-		<script type="text/javascript" src="scripts/canvas_animations/canvas_lines_effect.js"></script>
-		
-		<script type="text/javascript" src="scripts/effects/element_parallax_effect.js"></script>
-		<script type="text/javascript" src="scripts/effects/percentage_tracker.js"></script>
-
-		<script type="text/javascript" src="scripts/functions/canvas_functions.js"></script>
-		<script type="text/javascript" src="scripts/functions/container_functions.js"></script>
-
-		<script type="text/javascript" src="scripts/page_background_manager.js"></script>
+		<script type="text/javascript" src="scripts/managers/page_background_manager.js"></script>
 		<script type="text/javascript" src="scripts/lib/lerp-color.js"></script>
 		
-		<script type="text/javascript" src="scripts/input_manager.js"></script>
+		<script type="text/javascript" src="scripts/managers/input_manager.js"></script>
+
+		<script type="text/javascript" src="scripts/helpers/page_helpers.js"></script>
 
 		<script type="text/javascript" src="scripts/pages/home_page.js"></script>
 		<script type="text/javascript" src="scripts/pages/projects/project-1_page.js"></script>
@@ -156,19 +158,10 @@
 		<script type="text/javascript" src="scripts/pages/projects/project-5_page.js"></script> -->
 		<script type="text/javascript" src="scripts/pages/about_page.js"></script>
 
-		<script type="text/javascript" src="scripts/helper_functions.js"></script>
+		<script type="text/javascript" src="scripts/animations/social-media-icons-anims.js"></script>
+
+		<script type="text/javascript" src="scripts/helpers/helper_functions.js"></script>
 		<script type="text/javascript" src="scripts/master_script.js"></script>
-		
-
-		
-
-		<!-- <script type="text/javascript" src="scripts/run_script.js"></script>  TODO: delete this js file  -->
-
-		<!-- TODO: really need to fix this script -->
-		<!-- <script type="text/javascript" src="scripts/jquery_scripts/scroll_script.js"></script>  -->
-		<!-- <script type="text/javascript" src="scripts/jquery_scripts/force_scroll_top.js"></script> -->
-
-		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script> -->
 
 	</body>
 </html>
