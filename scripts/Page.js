@@ -1,5 +1,6 @@
-function Page(element_identifier, nextPage, prevPage) {
+function Page(element_identifier, html_location, nextPage, prevPage) {
     this.element_identifier = element_identifier;
+    this.html_location = html_location;
     this.nextPage = nextPage;
     this.prevPage = prevPage;
 
@@ -26,6 +27,7 @@ function Page(element_identifier, nextPage, prevPage) {
     }
     this.close = function(animation_options, onComplete_callbackFcn, onComplete_callbackScope) { 
         var longest_time = 0.5;
+
         this.close_base(animation_options, longest_time, onComplete_callbackFcn, onComplete_callbackScope);
 
         // console.warn(this.element_identifier + ": Unimplemented close() method"); 
@@ -68,7 +70,7 @@ function Page(element_identifier, nextPage, prevPage) {
         TweenMax.to(Page.page_background_ref, 0.5, { backgroundColor: this.page_background_color_1 });
 
         // Set page to be visible
-        this.visibility_setter(0, "visibile");
+        this.visibility_setter(0, "visible");
 
         // If no animation is wanted
         if (animation_options == "no-anim") { // No opening animation
@@ -116,7 +118,9 @@ function Page(element_identifier, nextPage, prevPage) {
         TweenMax.to(Page.page_background_ref, 0.5, {backgroundColor: this.page_background_color_1});
     }
 
+    this.subscribe_to_events = function() { console.warn(this.element_identifier + ": unimplemented subscribe_to_events()"); }
 
+    this.unsubscribe_from_events = function() { console.warn(this.element_identifier + ": unimplemented unsubscribe_from_events()"); }
 
     // -----------------------
     // --- Setters/callers ---
@@ -124,7 +128,7 @@ function Page(element_identifier, nextPage, prevPage) {
 
     this.onComplete_caller = function(delay_time, onComplete_callbackFcn, onComplete_callbackScope) {
         // Call the onComplete function after the delay time
-        TweenMax.set(this.element_ref, {delay: delay_time, onComplete: onComplete_callbackFcn, onCompeteScope: onComplete_callbackScope});
+        TweenMax.set(this.element_ref, {delay: delay_time, onComplete: onComplete_callbackFcn, onCompleteScope: onComplete_callbackScope});
     }
 
     this.isTransitioning_setter = function(delay_time, bool_value) {
@@ -132,6 +136,6 @@ function Page(element_identifier, nextPage, prevPage) {
     }
 
     this.visibility_setter = function(delay_time, visibility_val) {
-        TweenMax.set(this.element_ref, {delay:delay_time, visibility: visibility_val});
+        TweenMax.set(this.element_ref, {delay: delay_time, visibility: visibility_val});
     }
 }

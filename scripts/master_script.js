@@ -1,6 +1,10 @@
+$( document ).ready(function() {
+    Barba.Pjax.start();
+});
+
 // Detect mobile device
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-    // some code..
+    // TOOD: do some code...
     window.location.replace("http://stackoverflow.com");
 }
 
@@ -19,7 +23,7 @@ instantiate_pages();
 function instantiate_pages() {
     // Initialize the projects' Page objects
     for (var i = 0; i < NUM_PROJECTS; i++) {
-        project_pages.push(new Page("#project-" + (i+1), null, null) ); // nextPage and prevPage get set later
+        project_pages.push(new Page("#project-" + (i+1), "./projects", null, null) ); // nextPage and prevPage get set later
     }
 
     // Populate the next and previous page references post-object initialization
@@ -38,9 +42,9 @@ function instantiate_pages() {
         // curr_project.infoPage = new Page("#project-"+(i+1)+"__info", curr_project.nextPage, curr_project.prevPage);
     }
 
-    home_page = new Page("#front-page__container", project_pages[0], null);
+    home_page = new Page("#front-page__container", ".", project_pages[0], null);
 
-    about_page = new Page("#about-page__container", null, null);
+    about_page = new Page("#about-page__container", "./about", null, null);
 }
 
 
@@ -49,32 +53,36 @@ setup_pages();
 function setup_pages() {
     setup_home_page.call(home_page);
 
-    setup_project_1_page.call(project_pages[0]);
-    setup_project_2_page.call(project_pages[1]);
-    setup_project_3_page.call(project_pages[2]);
+    setup_project_page.call(project_pages[0], "#9292EA", "#D27ECC");
+    setup_project_page.call(project_pages[1], "#7CFFBF", "#5AE8A3");
+    setup_project_page.call(project_pages[2], "#F56F77", "#DF575F");
+
+    // setup_project_1_page.call(project_pages[0]);
+    // setup_project_2_page.call(project_pages[1]);
+    // setup_project_3_page.call(project_pages[2]);
     // setup_project_4_page.call(project_pages[3]);
     // setup_project_5_page.call(project_pages[4]);
 
-    setup_about_page.call(about_page);
+    // setup_about_page.call(about_page);
 }
 
 
 init_pages_state();
 
 function init_pages_state() {
-    home_page.close("no-anim", function(){}, home_page); // Direction doesnt matter here
+    home_page.close("no-anim"); // Direction doesnt matter here
 
     for (var i = 0; i < NUM_PROJECTS; i++) {
         var curr_project = project_pages[i];
-        curr_project.close("no-anim", function(){}, curr_project); // Direction doesnt matter here
+        curr_project.close("no-anim"); // Direction doesnt matter here
     }
 
-    about_page.close("no-anim", function(){}, about_page); // Direction doesnt matter here
+    about_page.close("no-anim"); // Direction doesnt matter here
 }
 
 var current_page = home_page;
 // var current_page = project_pages[0];
-current_page.open("anim", function(){}, current_page);
+current_page.open("anim");
 
 
 

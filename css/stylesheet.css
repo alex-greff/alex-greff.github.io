@@ -202,6 +202,9 @@ body {
   overflow: hidden;
   user-select: none; }
 
+#dummyAnchor {
+  visibility: "hidden"; }
+
 .page-background {
   position: fixed;
   top: 0;

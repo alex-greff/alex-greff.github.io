@@ -50,6 +50,10 @@ body {
 	// animation-fill-mode: forwards;
 }
 
+#dummyAnchor {
+	visibility: "hidden";
+}
+
 .page-background {
 	position: fixed;
 	top: 0;

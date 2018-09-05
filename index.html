@@ -21,8 +21,7 @@
 	</head>
 
 	<body>
-		<div class="page-background">
-		</div>
+		<div class="page-background"> </div>
 		<!-- <div class="loading-page">
 			<div class="loading-page-progress-bar-container">
 				<div id="loading-page-progress-bar" class="loading-page-progress-bar"></div>
@@ -34,114 +33,65 @@
 		<!-- <canvas id="front-page__canvas" width="500" height="500"></canvas> -->
 		
 		<!-- FRONT PAGE SECTION -->
-		<div id="front-page__container" class="scrollable text-center overlay front-page__container">
-			<div class="header">
-				<h1>
-					<span class="header__primary">
-						<span class="header__primary-firstName">Alexander</span> 
-						<span class="header__primary-lastName">Greff</span>
-					</span>
-					<span class="header__primary-welcome">Welcome</span>
-					<span class="header__line"><hr></span>
-					<span class="header__secondary">University of Toronto Computer Science</span>
-				</h1>
-			</div>
+		<div id="barba-wrapper">
+			<div class="barba-container">
 
-			<div class="social-media-icons">
-				<div class="icon icon-linkedin">
-					<a href="https://www.linkedin.com/in/alexandergreff/" title="LinkedIn Profile" target="_blank">
-						<i class="fab fa-linkedin"></i>	
-					</a>
-				</div>
-
-				<div class="icon icon-github">
-					<a href="https://github.com/alex-greff" title="Github Account" target="_blank">
-						<i class="fab fa-github-square"></i>
-					</a>
-				</div>
-			
-				<div class="icon icon-email">
-					<a href="mailto:alex.j.greff@gmail.com" title="Email Address" target="_blank">
-						<i class="fas fa-envelope"></i>
-					</a>
-				</div>
-			
-				<div class="icon icon-resume">
-					<a href="#" title="Resume" target="_blank">
-						<i class="fas fa-file-alt"></i>
-					</a>
-				</div>
-			</div>
-		</div>
-
-		<div id="about-page__container" class="scrollable about-page__container">
-			<h1>About Me</h1>
-			<p class="lead">Some stuff here</p>
-		</div>
-
-		<!-- PROJECTS PAGE SECTION -->
-		<div id="project-1" class="scrollable projects-page__container">
-			<div class="container projects-page__content title">
-				<!-- Content here -->
-				<div class="row">
-					<div class="col-md-8">
-						<h1 class="projects-page__header">
-							<span class="projects-page__header-primary">Java Console</span>
-							<span class="projects-page__header-line"><hr></span>
-							<span class="projects-page__header-secondary">
-								A simple command shell made in Java utilizing a mock file system. 
-								Was developed in a team of 4 and utilized the Scrum and Agile methodologies.
-								<br>
-								<b>Roles:</b> Scrum Master, Developer
+				<div id="front-page__container" class="scrollable text-center overlay front-page__container">
+					<div class="header">
+						<h1>
+							<span class="header__primary">
+								<span class="header__primary-firstName">Alexander</span> 
+								<span class="header__primary-lastName">Greff</span>
 							</span>
+							<span class="header__primary-welcome">Welcome</span>
+							<span class="header__line"><hr></span>
+							<span class="header__secondary">University of Toronto Computer Science</span>
 						</h1>
 					</div>
-					<div class="col-md-4">
-							<img src="images/java-console-screenshot.png" class="img-fluid projects-page__image" alt="Responsive image">
+		
+					<div class="social-media-icons">
+						<div class="icon icon-linkedin">
+							<a href="https://www.linkedin.com/in/alexandergreff/" title="LinkedIn Profile" target="_blank">
+								<i class="fab fa-linkedin"></i>	
+							</a>
+						</div>
+		
+						<div class="icon icon-github">
+							<a href="https://github.com/alex-greff" title="Github Account" target="_blank">
+								<i class="fab fa-github-square"></i>
+							</a>
+						</div>
+					
+						<div class="icon icon-email">
+							<a href="mailto:alex.j.greff@gmail.com" title="Email Address" target="_blank">
+								<i class="fas fa-envelope"></i>
+							</a>
+						</div>
+					
+						<div class="icon icon-resume">
+							<a href="#" title="Resume" target="_blank">
+								<i class="fas fa-file-alt"></i>
+							</a>
+						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<a href="#" class="projects-page__more-info-btn">
-							<i class="fas fa-angle-down"></i>
-						</a>
-					</div>
-				</div>
+
 			</div>
-			
-			<div class="container projects-page__content info">
-				<div class="row">
-					<div class="col-md-6">
-						Stuff 1
-					</div>
-					<div class="col-md-6">
-						Stuff 2
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-		<div id="project-2" class="scrollable projects-page__container">
-			<h1>Project 2</h1>
-			<p class="lead">Some stuff here</p>
-		</div>
-
-		<div id="project-3" class="scrollable projects-page__container">
-			<h1>Project 3</h1>
-			<p class="lead">Some stuff here</p>
 		</div>
 		
 
 		<!-- Core Javascript -->
 		<!-- Placed at the end so the pages loads faster -->
-		<script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+		<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
 		<!-- <script src="node_modules/jquery-touch-events/index.js"></script> -->
 
-		<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
-		<script src="node_modules/gsap/src/minified/TweenMax.min.js"></script>
-		<script src="node_modules/gsap/src/minified/TimelineMax.min.js"></script>
+		<script type="text/javascript" src="node_modules/barba.js/dist/barba.min.js"></script>
+
+		<script type="text/javascript" src="node_modules/gsap/src/minified/TweenMax.min.js"></script>
+		<script type="text/javascript" src="node_modules/gsap/src/minified/TimelineMax.min.js"></script>
 
 		<script type="text/javascript" src="scripts/managers/page_background_manager.js"></script>
 		<script type="text/javascript" src="scripts/lib/lerp-color.js"></script>
@@ -150,19 +100,16 @@
 
 		<script type="text/javascript" src="scripts/helpers/page_helpers.js"></script>
 
-		<script type="text/javascript" src="scripts/pages/home_page.js"></script>
-		<script type="text/javascript" src="scripts/pages/projects/project-1_page.js"></script>
-		<script type="text/javascript" src="scripts/pages/projects/project-2_page.js"></script>
-		<script type="text/javascript" src="scripts/pages/projects/project-3_page.js"></script>
-		<!-- <script type="text/javascript" src="scripts/pages/projects/project-4_page.js"></script>
-		<script type="text/javascript" src="scripts/pages/projects/project-5_page.js"></script> -->
-		<script type="text/javascript" src="scripts/pages/about_page.js"></script>
+		<script type="text/javascript" src="scripts/pages/home_page_setup.js"></script>
+		<script type="text/javascript" src="scripts/pages/project_page_setup.js"></script>
 
 		<script type="text/javascript" src="scripts/animations/social-media-icons-anims.js"></script>
 
 		<script type="text/javascript" src="scripts/helpers/helper_functions.js"></script>
 		<script type="text/javascript" src="scripts/Page.js"></script>
 		<script type="text/javascript" src="scripts/master_script.js"></script>
+
+		<script type="text/javascript" src="scripts/managers/fade_transition_manager.js"></script>
 
 	</body>
 </html>
