@@ -2,7 +2,7 @@ var PageTransition = Barba.BaseTransition.extend({
     start: function() {
       // As soon the loading is finished and the old page is faded out, let's fade the new page
       Promise
-        .all([this.newContainerLoading, this.closeOldPage()])
+        .all([this.closeOldPage(), this.newContainerLoading])
         .then(this.openNewPage.bind(this));
     },
   
@@ -21,6 +21,9 @@ var PageTransition = Barba.BaseTransition.extend({
 
         // Open the target page
         target_page.open(target_anim_option, function() { console.log("open done"); this.done() }, this);
+
+        // By default set the pending target page to the previous page (so the back button works properly)
+        target_page.pending_transition_target_page = current_page; 
 
         // Set the target page as the current page
         current_page = target_page;

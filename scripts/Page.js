@@ -7,6 +7,10 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
     this.element_ref = $(element_identifier);
     this.body_ref = $('body');
 
+    this.pending_transition_target_page_anim_option = "anim";
+    this.pending_transition_target_page = null;
+    this.pending_transition_anim_option = "anim";
+
     // Setup static variables
     if (typeof Page.current_page === 'undefined') { Page.current_page = null; }
     if (typeof Page.page_background_ref === 'undefined') { Page.page_background_ref = $(".page-background"); }
@@ -89,15 +93,16 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
 
         this.unsubscribe_from_events();
 
-        // Page background color
-        TweenMax.to(Page.page_background_ref, 0.2, {backgroundColor: this.page_background_color_2});
-
         if (animation_options == "no-anim") { // No closing animation
             this.visibility_setter(0, 'hidden');
             this.onComplete_caller(0, onComplete_callbackFcn, onComplete_callbackScope);
             this.isTransitioning = false;
+            TweenMax.set(Page.page_background_ref, {backgroundColor: this.page_background_color_2});
             return;
         } 
+
+        // Page background color
+        TweenMax.to(Page.page_background_ref, 0.2, {backgroundColor: this.page_background_color_2});
 
         this.onComplete_caller(longest_time, onComplete_callbackFcn, onComplete_callbackScope);
         this.isTransitioning_setter(longest_time, false);

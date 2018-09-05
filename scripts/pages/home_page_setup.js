@@ -84,10 +84,6 @@ function setup_home_page() {
         TweenMax.to(Page.page_background_ref, 0.5, {backgroundColor: this.page_background_color_1});
     }
 
-    this.pending_transition_target_page_anim_option = "anim";
-    this.pending_transition_target_page = null;
-    this.pending_transition_anim_option = "anim";
-
     // Loads the next page
     this.load_next_page = function() {
         this.pending_transition_target_page_anim_option = "anim";

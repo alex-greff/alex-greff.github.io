@@ -77,12 +77,49 @@ function init_pages_state() {
         curr_project.close("no-anim"); // Direction doesnt matter here
     }
 
-    about_page.close("no-anim"); // Direction doesnt matter here
+    // about_page.close("no-anim"); // Direction doesnt matter here
 }
 
-var current_page = home_page;
+
+var htmlPageToPageObjectMap = {
+
+};
+
+// get_current_page();
+
+// function get_current_page() {
+//     console.log(location.href.split("/"));
+// }
+
+
+
+// window.onload = function() {
+//     console.log(location.href + " loaded");
+// }
+
+var current_page = home_page; // TODO: get the actual page that it was loaded on
 // var current_page = project_pages[0];
-current_page.open("anim");
+
+
+// Loading effect
+var loading_page = $(".loading-page");
+var loading_page_bar = $(".loading-page__bar");
+var page_background = $(".page-background");
+
+var stage_interval = 0.5;
+
+TweenMax.set(page_background, {backgroundColor: current_page.page_background_color_1});
+TweenMax.set(loading_page_bar, {width: "0%", backgroundColor: current_page.page_background_color_1 });
+
+var tl = new TimelineMax({ onComplete: () => { current_page.open("anim"); } });
+tl.to(loading_page_bar, stage_interval, {width: "20%" });
+tl.to(loading_page_bar, stage_interval, {width: "30%" });
+tl.to(loading_page_bar, stage_interval, {width: "50%" });
+tl.to(loading_page_bar, stage_interval, {width: "100%" });
+tl.to(loading_page_bar, stage_interval, {height: "100%"});
+tl.to(loading_page, stage_interval, {opacity: 0});
+
+
 
 
 
