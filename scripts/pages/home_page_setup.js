@@ -67,9 +67,9 @@ function setup_home_page() {
     }
 
     this.transition_update = function (percent, direction_vector, animate) {
-        var scale_curve1 = (1 + Math.abs(percent)/2);
-        var opacity_curve = (1 - Math.max(0, (Math.abs(percent)-0.3)/2));
-        var x_offset_curve = 50 * Math.pow(3 * Math.abs(percent), 1/2);
+        var scale_curve1 = (1 + Math.abs(percent)/2); // [1, 1.5]
+        var opacity_curve = (1 - Math.max(0, (Math.abs(percent)-0.3)/2)); // [1, (1-0.7/2) = 0.65 ]
+        var x_offset_curve = 50 * Math.pow(3 * Math.abs(percent), 1/2); // [0, 50 * root(3)]
 
         // Get color lerp value
         var clr = lerpColor(this.page_background_color_1, this.page_background_color_2, Math.abs(percent));

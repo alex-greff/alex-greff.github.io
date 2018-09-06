@@ -141,12 +141,12 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
             this.visibility_setter(0, 'hidden');
             this.onComplete_caller(0, onComplete_callbackFcn, onComplete_callbackScope);
             this.isTransitioning = false;
-            TweenMax.set(Page.page_background_ref, {backgroundColor: this.page_background_color_2});
+            //TweenMax.set(Page.page_background_ref, {backgroundColor: this.page_background_color_2});
             return;
         } 
 
         // Page background color
-        TweenMax.to(Page.page_background_ref, 0.2, {backgroundColor: this.page_background_color_2});
+        //TweenMax.to(Page.page_background_ref, 0.2, {backgroundColor: this.page_background_color_2});
 
         this.onComplete_caller(longest_time, onComplete_callbackFcn, onComplete_callbackScope);
         this.isTransitioning_setter(longest_time, false);
