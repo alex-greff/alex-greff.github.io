@@ -10,15 +10,40 @@ function setup_home_page() {
     this.social_media_icons = $(".social-media-icons");
     this.social_media_icons__icons = this.social_media_icons.find(".icon");
 
+
     // Find letters in first name section and last name section and put them in separate sub-span elements
-    this.header_primary_firstName.html(this.header_primary_firstName.html().replace(/./g, "<span>$&</span>").replace(/\s/g, "&nbsp;"));
-    this.header_primary_lastName.html(this.header_primary_lastName.html().replace(/./g, "<span>$&</span>").replace(/\s/g, "&nbsp;"));
+    // this.header_primary_firstName.html(this.header_primary_firstName.html().replace(/./g, "<span>$&</span>").replace(/\s/g, "&nbsp;"));
+    // this.header_primary_lastName.html(this.header_primary_lastName.html().replace(/./g, "<span>$&</span>").replace(/\s/g, "&nbsp;"));
     
-    // Get all the sub-span elements of the first and last name headers
-    this.header_primary_spans = this.header_primary_firstName.find("span").add(this.header_primary_lastName.find("span"));
+    // // Get all the sub-span elements of the first and last name headers
+    // this.header_primary_spans = this.header_primary_firstName.find("span").add(this.header_primary_lastName.find("span"));
 
     this.page_background_color_1 = "#00D1FF";
     this.page_background_color_2 = "#0068FF";
+
+    this.get_references = function() {
+        this.get_references_base();
+        this.get_references_custom_home_page();
+    }
+
+    this.get_references_custom_home_page = function() {
+        this.header = $(".header");
+        this.header_primary = $(".header__primary");
+        this.header_primary_firstName = $(".header__primary-firstName");
+        this.header_primary_lastName = $(".header__primary-lastName");
+
+        this.header_secondary = $(".header__secondary");
+        this.header_line = $(".header__line hr");
+        this.social_media_icons = $(".social-media-icons");
+        this.social_media_icons__icons = this.social_media_icons.find(".icon");
+
+        // Find letters in first name section and last name section and put them in separate sub-span elements
+        this.header_primary_firstName.html(this.header_primary_firstName.html().replace(/./g, "<span>$&</span>").replace(/\s/g, "&nbsp;"));
+        this.header_primary_lastName.html(this.header_primary_lastName.html().replace(/./g, "<span>$&</span>").replace(/\s/g, "&nbsp;"));
+        
+        // Get all the sub-span elements of the first and last name headers
+        this.header_primary_spans = this.header_primary_firstName.find("span").add(this.header_primary_lastName.find("span"));
+    }
 
     this.open = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) {
         var delay_stage1 = 1.5;
@@ -86,12 +111,16 @@ function setup_home_page() {
 
     // Loads the next page
     this.load_next_page = function() {
-        this.pending_transition_target_page_anim_option = "anim";
-        this.pending_transition_target_page = this.nextPage;
-        this.pending_transition_anim_option = "anim";
+        var pt = Page.pendingTransition;
+
+        // Setup pending transition
+        pt.targetPage = this.nextPage;
+        pt.targetPageAnimOption = "anim";
+        pt.currentPage = this;
+        pt.currentPageAnimOption = "anim";
 
         // Trigger the new page load
-        Barba.Pjax.goTo(this.pending_transition_target_page.html_location)
+        Barba.Pjax.goTo(pt.targetPage.html_location)
     }
 
     // Setups the event subscriptions

@@ -9,24 +9,30 @@ var PageTransition = Barba.BaseTransition.extend({
     closeOldPage: function() {
         // Return a promise that is fulfilled after the current page is donec losing
         return new Promise(function(resolve) {
-            current_page.close(
-                current_page.pending_transition_anim_option, 
-                function() { console.log(this.element_identifier + ": close Resolving"); resolve(true); }, current_page);
+            var pt = Page.pendingTransition;
+
+            // console.log("in closeOldPage");
+            // console.log(pt.targetPage);
+
+            pt.currentPage.close(
+                pt.currentPageAnimOption, 
+                function() { console.log(this.element_identifier + ": close Resolving"); resolve(true); }, pt.currentPage);
         });
     },
   
     openNewPage: function() {
-        var target_page = current_page.pending_transition_target_page;
-        var target_anim_option = current_page.pending_transition_target_page_anim_option;
+        var pt = Page.pendingTransition;
+        var target_page = pt.targetPage;
+        var target_anim_option = pt.targetPageAnimOption;
+
+        // By default set the pending target page to the previous page (so the back button works properly)
+        pt.targetPage = pt.currentPage;
+        pt.targetPageAnimOption = pt.currentPageAnimOption;
+        pt.currentPage = target_page;
+        pt.currentPageAnimOption = target_anim_option; // Set the target page as the current page in the master script (might wanna remove this later)
 
         // Open the target page
         target_page.open(target_anim_option, function() { console.log("open done"); this.done() }, this);
-
-        // By default set the pending target page to the previous page (so the back button works properly)
-        target_page.pending_transition_target_page = current_page; 
-
-        // Set the target page as the current page
-        current_page = target_page;
     }
 });
   

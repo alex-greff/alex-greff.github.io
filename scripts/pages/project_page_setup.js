@@ -2,9 +2,23 @@ function setup_project_page(bg_col1, bg_col2) {
     this.page_background_color_1 = bg_col1;
     this.page_background_color_2 = bg_col2;
 
-    this.page_title = this.element_ref.find(".title");
-    this.page_info = this.element_ref.find(".info");
-    this.more_info_btn = this.element_ref.find(".projects-page__more-info-btn");
+    // this.page_title = this.element_ref.find(".title");
+    // this.page_info = this.element_ref.find(".info");
+
+    // this.more_info_btn = this.element_ref.find(".projects-page__more-info-btn");
+
+    this.get_references = function() {
+        this.get_references_base();
+        this.get_references_custom_project_page();
+
+        // console.log("project page: got references");
+    }
+
+    this.get_references_custom_project_page = function() {
+        this.page_title = this.element_ref.find(".title");
+        this.page_info = this.element_ref.find(".info");
+        this.more_info_btn = this.element_ref.find(".projects-page__more-info-btn");
+    }
 
     this.open = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) {
         var longest_time = 0.2;
@@ -30,14 +44,16 @@ function setup_project_page(bg_col1, bg_col2) {
 
     // Load the next page
     this.load_next_page = function() {
-        Page.current_page = this.nextPage;
-        this.nextPage.open("anim-right", function(){}, this);
+        Page.pendingTransition.currentPage = this.nextPage;
+        Page.pendingTransition.currentPageAnimOption = "anim";
+        this.nextPage.open("anim-right");
     }
 
     // Load the previous page
     this.load_prev_page = function() {
-        Page.current_page = this.prevPage;
-        this.prevPage.open("anim-left", function(){}, this);
+        Page.pendingTransition.currentPage = this.prevPage;
+        Page.pendingTransition.currentPageAnimOption = "anim";
+        this.prevPage.open("anim-left");
     }
 
     // Setups the event subscriptions

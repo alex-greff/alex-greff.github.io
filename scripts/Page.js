@@ -4,12 +4,28 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
     this.nextPage = nextPage;
     this.prevPage = prevPage;
 
-    this.element_ref = $(element_identifier);
-    this.body_ref = $('body');
+    // this.element_ref = $(element_identifier);
+    // this.body_ref = $('body');
 
     this.pending_transition_target_page_anim_option = "anim";
     this.pending_transition_target_page = null;
     this.pending_transition_anim_option = "anim";
+
+    this.get_references = function() {
+        this.get_references_base();
+    }
+
+    this.get_references_base = function() {
+        this.element_ref = $(element_identifier);
+        this.body_ref = $('body');
+    }
+
+    if (typeof Page.pending_transition === 'undefined') { 
+        Page.pendingTransition = {
+            currentPage: null, currentPageAnimOption: "anim",
+            targetPage: null, targetPageAnimOption: "anim",
+        }
+    }
 
     // Setup static variables
     if (typeof Page.current_page === 'undefined') { Page.current_page = null; }
@@ -22,7 +38,7 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
     // --- Public functions ---
     // ------------------------
 
-    this.open = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) { 
+    this.open = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) {
         var longest_time = 0.5;
 
         this.open_base(animation_options, longest_time, onComplete_callbackFcn, onComplete_callbackScope);
@@ -63,6 +79,20 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
     // For each page we can make add-on animation functions
 
     this.open_base = function(animation_options, longest_time, onComplete_callbackFcn, onComplete_callbackScope) {
+        // console.log(this.element_identifier + ": opening");
+        
+        try {
+            // If the element reference is not part of the body anymore (ie the page has been changed)
+            // Then get all the references (needed because after every page transition the page is a new element)
+            if (!document.body.contains(this.element_ref[0])) { 
+                // console.log(this.element_identifier + ": getting references via if statement");
+                this.get_references(); 
+            } 
+        } catch (err) { // If it errors (ie is not even defined) then get the references anyways
+            // console.log(this.element_identifier + ": getting references via catch");
+            this.get_references();
+        }
+
         RESET_ALL_DELTAS() // input_manager.js
 
         this.isTransitioning = true;
@@ -88,6 +118,20 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
     }
 
     this.close_base = function(animation_options, longest_time, onComplete_callbackFcn, onComplete_callbackScope) {
+        // console.log(this.element_identifier + ": closing");
+
+        try {
+            // If the element reference is not part of the body anymore (ie the page has been changed)
+            // Then get all the references (needed because after every page transition the page is a new element)
+            if (!document.body.contains(this.element_ref[0])) { 
+                // console.log(this.element_identifier + ": getting references via if statement");
+                this.get_references(); 
+            } 
+        } catch (err) { // If it errors (ie is not even defined) then get the references anyways
+            // console.log(this.element_identifier + ": getting references via catch");
+            this.get_references();
+        }
+
         this.isTransitioning = true;
         this.isOpen = false;
 

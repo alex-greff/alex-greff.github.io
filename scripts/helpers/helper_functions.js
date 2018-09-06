@@ -15,6 +15,11 @@ function constrain(val, min, max) {
 	return Math.min(Math.max(val, min), max);
 }
 
+// Note: the values must be integers
+function getRandomNumber(min_num, max_num) {
+	return Math.floor(Math.random() * (max_num - min_num + 1)) + min_num;
+}
+
 function getNormalizedXYDirection(posXYStart, posXYEnd) {
 	changePos = [posXYEnd[0]-posXYStart[0], posXYEnd[1], posXYStart[1]];
 	changePosLen = Math.sqrt(Math.pow(changePos[0], 2) + Math.pow(changePos[1], 2));
