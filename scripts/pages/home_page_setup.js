@@ -1,14 +1,14 @@
 // Entry point
 function setup_home_page() {
-    this.header = $(".header");
-    this.header_primary = $(".header__primary");
-    this.header_primary_firstName = $(".header__primary-firstName");
-    this.header_primary_lastName = $(".header__primary-lastName");
+    // this.header = $(".header");
+    // this.header_primary = $(".header__primary");
+    // this.header_primary_firstName = $(".header__primary-firstName");
+    // this.header_primary_lastName = $(".header__primary-lastName");
 
-    this.header_secondary = $(".header__secondary");
-    this.header_line = $(".header__line hr");
-    this.social_media_icons = $(".social-media-icons");
-    this.social_media_icons__icons = this.social_media_icons.find(".icon");
+    // this.header_secondary = $(".header__secondary");
+    // this.header_line = $(".header__line hr");
+    // this.social_media_icons = $(".social-media-icons");
+    // this.social_media_icons__icons = this.social_media_icons.find(".icon");
 
 
     // Find letters in first name section and last name section and put them in separate sub-span elements

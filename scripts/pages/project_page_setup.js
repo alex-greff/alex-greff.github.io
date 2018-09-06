@@ -15,9 +15,9 @@ function setup_project_page(bg_col1, bg_col2) {
     }
 
     this.get_references_custom_project_page = function() {
-        this.page_title = this.element_ref.find(".title");
-        this.page_info = this.element_ref.find(".info");
-        this.more_info_btn = this.element_ref.find(".projects-page__more-info-btn");
+        this.page_title = this.element_ref.find(this.element_identifier + " .title");
+        this.page_info = this.element_ref.find(this.element_identifier + " .info");
+        this.more_info_btn = this.element_ref.find(this.element_identifier + " .projects-page__more-info-btn");
     }
 
     this.open = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) {
