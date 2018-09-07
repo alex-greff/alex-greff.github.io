@@ -22,16 +22,26 @@ var DRAG_DELTA_X_THRESHOLD_PIXEL; // Gets filled
 
 
 
-var scroll_delta = 0;
-var last_scroll_delta = 0;
+var scroll_delta = [0, 0];
+var last_scroll_delta = [0, 0];
 
-var scroll_isTriggered = false;
+var scroll_X_isTriggered = false;
+var scroll_Y_isTriggered = false;
+var scroll_XY_isTriggered = false;
+var scroll_radius_isTriggered = false;
 
 var scroll_deltaResetID;
 const SCROLL_RESET_TIME = 250; // milliseconds
 
-const SCROLL_DELTA_THRESHOLD_PERCENTAGE = 0.35; // Percent of page height
-var SCROLL_DELTA_THRESHOLD_PIXEL; // Gets filled later
+const SCROLL_DELTA_Y_THRESHOLD_PERCENTAGE = 0.35; // Percent of page height
+var SCROLL_DELTA_Y_THRESHOLD_PIXEL; // Gets filled later
+
+const SCROLL_DELTA_X_THRESHOLD_PERCENTAGE = 0.35;
+var SCROLL_DELTA_X_THRESHOLD_PIXEL;
+
+const SCROLL_DELTA_RADIUS_THRESHOLD_PERCENTAGE = 0.35;
+var SCROLL_DELTA_RADIUS_THRESHOLD_PIXEL;
+
 
 
 var last_height = -1;
@@ -54,7 +64,7 @@ function recompute_threshold_triggers() {
 
     if (last_height != new_height) { // If the height changed
         // Recompute the scroll event threshold
-        SCROLL_DELTA_THRESHOLD_PIXEL = (new_height * SCROLL_DELTA_THRESHOLD_PERCENTAGE); // Converts the percent variable to pixels
+        SCROLL_DELTA_Y_THRESHOLD_PIXEL = (new_height * SCROLL_DELTA_Y_THRESHOLD_PERCENTAGE); // Converts the percent variable to pixels
 
         // Recompute the drag Y event threshold
         DRAG_DELTA_Y_THRESHOLD_PIXEL = (new_height * DRAG_DELTA_Y_THRESHOLD_PERCENTAGE);
@@ -63,6 +73,8 @@ function recompute_threshold_triggers() {
     }
 
     if (last_width != new_width) { // If the width changed
+        SCROLL_DELTA_X_THRESHOLD_PIXEL = (new_width * SCROLL_DELTA_X_THRESHOLD_PERCENTAGE);
+
         // Recompute the drag X event threshold
         DRAG_DELTA_X_THRESHOLD_PIXEL = (new_width * DRAG_DELTA_X_THRESHOLD_PERCENTAGE);
 
@@ -72,16 +84,18 @@ function recompute_threshold_triggers() {
     if (new_height < new_width) { 
         // If the height is smaller than the width then use the height to calculate the radius pixel threshold
         DRAG_DELTA_RADIUS_THRESHOLD_PIXEL = (new_height * DRAG_DELTA_RADIUS_THRESHOLD_PERCENTAGE);
+        SCROLL_DELTA_RADIUS_THRESHOLD_PIXEL = (new_height * SCROLL_DELTA_RADIUS_THRESHOLD_PERCENTAGE);
     } else {
         // If the width is smaller than or equal to the height then use the width to calculate the radius pixel threshold
         DRAG_DELTA_RADIUS_THRESHOLD_PIXEL = (new_width * DRAG_DELTA_RADIUS_THRESHOLD_PERCENTAGE);
+        SCROLL_DELTA_RADIUS_THRESHOLD_PIXEL = (new_width * SCROLL_DELTA_RADIUS_THRESHOLD_PERCENTAGE);
     }
 }
 
 
 function resetScrollDelta() {
-    last_scroll_delta = 0;
-    scroll_delta = 0;
+    last_scroll_delta = [0,0];
+    scroll_delta = [0,0];
     scroll_deltaResetID = null;
 }
 
@@ -94,47 +108,124 @@ function setScrollDelta(newScrollDelta) {
 
 function incrementScrollDelta(incrementAmt) {
     last_scroll_delta = scroll_delta;
-    scroll_delta += incrementAmt;
+    scroll_delta[0] += incrementAmt[0];
+    scroll_delta[1] += incrementAmt[1];
 
     onScrollDeltaChange();
 }
 
 function onScrollDeltaStart() {
-    body_ref.trigger("onScrollStart");
+    body_ref.trigger("onScrollXStart");
+    body_ref.trigger("onScrollYStart");
+    body_ref.trigger("onScrollXYStart");
+    body_ref.trigger("onScrollRadiusStart");
 }
 
 function onScrollDeltaEnd() {
     resetScrollDelta();
 
-    if (scroll_isTriggered) {
-        scroll_isTriggered = false;
-        return;
-    }
+    scroll_X_isTriggered = scroll_Y_isTriggered = scroll_XY_isTriggered = scroll_radius_isTriggered = false;
 
-    body_ref.trigger("onScrollEnd");
+    body_ref.trigger("onScrollXEnd");
+    body_ref.trigger("onScrollYEnd");
+    body_ref.trigger("onScrollXYEnd");
+    body_ref.trigger("onScrollRadiusEnd");
 }
 
 function onScrollDeltaChange() {
-    // Scroll change events
-    if (scroll_isTriggered) { return; }
 
-    var scroll_progress_percent = constrain(scroll_delta / SCROLL_DELTA_THRESHOLD_PIXEL, -1, 1); // range [-1, 1]
+    var scroll_screen_percent = [ scroll_delta[0] / last_width, scroll_delta[1] / last_height ];
 
-    if (scroll_delta == last_scroll_delta ) { return; }
+    var scroll_progress_percent = [ constrain(scroll_delta[0] / SCROLL_DELTA_X_THRESHOLD_PIXEL, -1, 1), constrain(scroll_delta[1] / SCROLL_DELTA_Y_THRESHOLD_PIXEL, -1, 1) ];
+    //var scroll_changed = [ scroll_delta[0] != last_scroll_delta[0], scroll_delta[1] != last_scroll_delta[1] ];
+    var scroll_changed = [true, true];
+    var scroll_triggered = [ scroll_progress_percent[0] <= -1 || scroll_progress_percent[0] >= 1, scroll_progress_percent[1] <= -1 || scroll_progress_percent[1] >= 1 ];
 
-    var scroll_direction_vector = getXYDifference([0, 0], [scroll_delta, scroll_delta]);
+    var scroll_direction_vector = getXYDifference(last_scroll_delta, scroll_delta);
 
-    if (scroll_progress_percent >= 1 || scroll_progress_percent <= -1) {
-        // Stop the previously running reset timer
-        clearTimeout(scroll_deltaResetID);
+    // Scroll X only events
+    if (scroll_changed[0] == true) {
+        body_ref.trigger("onScrollX", [ scroll_screen_percent[0], scroll_delta[0] ]);
 
-        body_ref.trigger("onScrollTrigger", [scroll_progress_percent, scroll_direction_vector]); // Trigger scroll tigger event
-        scroll_isTriggered = true;
+        if (!scroll_X_isTriggered) {
+            if (scroll_triggered[0] == true) {
+                body_ref.trigger("onScrollXTrigger", [scroll_progress_percent[0], scroll_direction_vector[0]]);
+                scroll_X_isTriggered = true;
+            } else {
+                body_ref.trigger("onScrollXChange", [scroll_progress_percent[0], scroll_direction_vector[0]]);
+            }
+        }
+    }
 
-    } else { // -1 <= scroll_progress_percent <= 1
-        body_ref.trigger("onScrollChange", [scroll_progress_percent, scroll_direction_vector]); // Trigger scroll change event
+    // Scroll Y only events
+    if (scroll_changed[1] == true) {
+        body_ref.trigger('onScrollY', [ scroll_screen_percent[1], scroll_delta[1] ]);
+
+        if (!scroll_Y_isTriggered) {
+            if (scroll_triggered[1] == true) {
+                body_ref.trigger("onScrollYTrigger", [scroll_progress_percent[1], scroll_direction_vector[1]]);
+                scroll_Y_isTriggered = true;
+            } else {
+                body_ref.trigger("onScrollYChange", [scroll_progress_percent[1], scroll_direction_vector[1]]);
+            }
+        }
+    }
+
+    // Scroll X + Y events
+    if (scroll_changed[0] == true || scroll_changed[1] == true) { // If at least one scroll dimension is changed
+        body_ref.trigger("onScroll", [ [scroll_screen_percent[0], scroll_screen_percent[1]], [scroll_delta[0], scroll_delta[1]] ]);
+
+        if (!scroll_XY_isTriggered) {
+            if (scroll_triggered[0] == true || scroll_triggered[1] == true) { // If at least one scroll dimension is triggered
+                body_ref.trigger("onScrollXYTrigger", [scroll_progress_percent, scroll_direction_vector]);
+                scroll_XY_isTriggered = true;
+            } else {
+                body_ref.trigger("onScrollXYChange", [scroll_progress_percent, scroll_direction_vector]);
+            }
+        }
+    }
+
+    // Scroll radius events
+    if (scroll_changed[0] == true || scroll_changed[1] == true) { // If at least one scroll dimension is changed
+        var used_screen_dimension = last_width > last_height ? last_width : last_height;
+        var scroll_radius_screen_pixels = Math.sqrt(Math.pow(scroll_delta[0], 2) + Math.pow(scroll_delta[1], 2));
+        var scroll_radius_screen_percent = scroll_radius_screen_pixels / used_screen_dimension;
+        body_ref.trigger('onScrollRadius', [ scroll_radius_screen_percent, scroll_radius_screen_pixels ]);
+
+        if (!scroll_radius_isTriggered) {
+            var scroll_radius = Math.sqrt(Math.pow(scroll_delta[0], 2) + Math.pow(scroll_delta[1], 2))/SCROLL_DELTA_RADIUS_THRESHOLD_PIXEL; // [0 to 1]
+            console.log("scroll radius " + scroll_radius);
+            if (scroll_radius >= 1) { // If the scroll radius is triggered
+                body_ref.trigger("onScrollRadiusTrigger", [scroll_progress_percent, scroll_direction_vector]);
+                scroll_radius_isTriggered = true;
+            } else {
+                body_ref.trigger("onScrollRadiusChange", [scroll_radius, scroll_direction_vector]);
+            }
+        }
     }
 }
+
+// function onScrollDeltaChange() {
+//     // Scroll change events
+//     if (scroll_isTriggered) { return; }
+
+//     var scroll_progress_percent = constrain(scroll_delta / SCROLL_DELTA_THRESHOLD_PIXEL, -1, 1); // range [-1, 1]
+
+//     if (scroll_delta == last_scroll_delta ) { return; }
+
+//     var scroll_direction_vector = getXYDifference([0, 0], [scroll_delta, scroll_delta]);
+
+//     if (scroll_progress_percent >= 1 || scroll_progress_percent <= -1) {
+//         // Stop the previously running reset timer
+//         clearTimeout(scroll_deltaResetID);
+
+//         body_ref.trigger("onScrollTrigger", [scroll_progress_percent, scroll_direction_vector]); // Trigger scroll tigger event
+//         scroll_isTriggered = true;
+
+//     } else { // -1 <= scroll_progress_percent <= 1
+//         body_ref.trigger("onScrollChange", [scroll_progress_percent, scroll_direction_vector]); // Trigger scroll change event
+//     }
+// }
 
 function resetDragDelta() {
     last_drag_delta = [0, 0];
@@ -184,13 +275,17 @@ function RESET_ALL_DELTAS () {
     drag_delta = [0, 0];
     last_drag_delta = [0, 0];
 
-    scroll_delta = 0;
-    last_scroll_delta = 0;
+    scroll_delta = [0, 0];
+    last_scroll_delta = [0, 0];
 
     clearTimeout(scroll_deltaResetID);
     scroll_deltaResetID = null;
 
-    scroll_isTriggered = false;
+    scroll_X_isTriggered = false;
+    scroll_Y_isTriggered = false;
+    scroll_XY_isTriggered = false;
+    scroll_radius_isTriggered = false;
+
     drag_X_isTriggered = false;
     drag_Y_isTriggered = false;
     drag_XY_isTriggered = false;
@@ -283,10 +378,14 @@ body_ref.on('mousewheel DOMMouseScroll', function(e) {
         onScrollDeltaStart();
     }
 
-    var delta = e.originalEvent.wheelDeltaY;
+    var delta = [e.originalEvent.wheelDeltaX, e.originalEvent.wheelDeltaY];
+
+    // console.log(delta);
 
     // onScroll event
-    var scroll_screen_percent = delta / last_height;
+    var scroll_screen_percent = [ delta[0] / last_width, delta[1] / last_height ];
+    body_ref.trigger("onScrollX", [ scroll_screen_percent[0], delta[0] ]);
+    body_ref.trigger("onScrollY", [ scroll_screen_percent[1], delta[1] ]);
     body_ref.trigger("onScroll", [ scroll_screen_percent, delta ]);
 
     incrementScrollDelta(delta);

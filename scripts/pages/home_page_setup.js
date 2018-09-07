@@ -125,8 +125,9 @@ function setup_home_page() {
 
     // Setups the event subscriptions
     this.subscribe_to_events = function() {
-        this.body_ref.on("onScrollChange", 
+        this.body_ref.on("onScrollRadiusChange", 
             (e, percent, direction_vector) => {
+                console.log("here");
                 this.transition_update(percent, direction_vector, true);
             }
         );
@@ -137,16 +138,29 @@ function setup_home_page() {
             }
         );
 
-        this.body_ref.on("onDragRadiusTrigger onScrollTrigger", 
+        this.body_ref.on("onDragRadiusTrigger onScrollRadiusTrigger", 
             (e, percent, direction_vector) => {
                 //this.close("anim", this.load_next_page, this);
                 this.load_next_page();
             }
         );
 
-        this.body_ref.on("onScrollEnd onDragRadiusEnd", 
+        this.body_ref.on("onScrollRadiusEnd onDragRadiusEnd", 
             (e) => {
                 this.reset_transition();
+            }
+        );
+
+        this.social_media_icons__icons.find("a").hover(
+            function(){ // In
+                // console.log(this);
+        
+                var tl = new TimelineMax();
+                tl.add( TweenMax.to(this.parentElement, 0.2, { x: -5, ease: Power4.easeOut } ));
+                tl.add( TweenMax.to(this.parentElement, 1, { x: 0, ease: Elastic.easeOut } ));
+            }, 
+            function() { // Out
+        
             }
         );
     }
