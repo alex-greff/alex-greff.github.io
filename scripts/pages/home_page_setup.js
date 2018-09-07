@@ -167,9 +167,9 @@ function setup_home_page() {
 
     // Unsubsribes from the subscribed events
     this.unsubscribe_from_events = function() {
-        this.body_ref.off("onScrollChange");
-        this.body_ref.off("onScrollTrigger");
-        this.body_ref.off("onScrollEnd");
+        this.body_ref.off("onScrollRadiusChange");
+        this.body_ref.off("onScrollRadiusTrigger");
+        this.body_ref.off("onScrollRadiusEnd");
         this.body_ref.off("onDragRadiusChange");
         this.body_ref.off("onDragRadiusTrigger");
         this.body_ref.off("onDragRadiusEnd");

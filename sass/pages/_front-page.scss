@@ -24,8 +24,13 @@
 	// perspective-origin: 0 75%;
 
 	z-index: 5; // TODO: change?
+
+	cursor: grab;
 }
 
+.front-page__container:active {
+	cursor: grabbing;
+}
 
 #front-page__canvas {
 	width: 100vw;

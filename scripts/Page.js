@@ -72,6 +72,16 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
         // TODO: implement
     }
 
+    this.nav_event_subscribe = function() {
+        this.body_ref.on("navOpen", () => {this.unsubscribe_from_events()});
+        this.body_ref.on("navClose", () => {this.subscribe_to_events()});
+    }
+
+    this.nav_event_unsubscribe = function() {
+        this.body_ref.off("navOpen");
+        this.body_ref.off("navClose");
+    }
+
     // ----------------------
     // --- Base functions ---
     // ----------------------

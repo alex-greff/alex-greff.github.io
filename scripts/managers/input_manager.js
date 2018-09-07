@@ -194,7 +194,6 @@ function onScrollDeltaChange() {
 
         if (!scroll_radius_isTriggered) {
             var scroll_radius = Math.sqrt(Math.pow(scroll_delta[0], 2) + Math.pow(scroll_delta[1], 2))/SCROLL_DELTA_RADIUS_THRESHOLD_PIXEL; // [0 to 1]
-            console.log("scroll radius " + scroll_radius);
             if (scroll_radius >= 1) { // If the scroll radius is triggered
                 body_ref.trigger("onScrollRadiusTrigger", [scroll_progress_percent, scroll_direction_vector]);
                 scroll_radius_isTriggered = true;

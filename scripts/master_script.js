@@ -54,7 +54,7 @@ function setup_pages() {
     setup_home_page.call(home_page);
 
     setup_project_page.call(project_pages[0], "#9292EA", "#D27ECC");
-    setup_project_page.call(project_pages[1], "#7CFFBF", "#5AE8A3");
+    setup_project_page.call(project_pages[1], "#0B0C1F", "#110F30");
     setup_project_page.call(project_pages[2], "#F56F77", "#DF575F");
 
     // setup_project_1_page.call(project_pages[0]);
@@ -113,8 +113,10 @@ var loading_page = $(".loading-page");
 var loading_page_bar = $(".loading-page__bar");
 var page_background = $(".page-background");
 
-var stage_interval_min = 0.3;
-var stage_interval_max = 0.7;
+// var stage_interval_min = 0.3;
+// var stage_interval_max = 0.7;
+var stage_interval_min = 0.0; // TODO: revert
+var stage_interval_max = 0.0;
 
 TweenMax.set(page_background, {backgroundColor: pt.currentPage.page_background_color_1});
 TweenMax.set(loading_page_bar, {width: "0%", backgroundColor: pt.currentPage.page_background_color_1 });

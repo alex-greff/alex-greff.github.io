@@ -7,6 +7,11 @@
 
 	color: white;
 
+	cursor: grab;
+}
+
+.projects-page__container:active {
+	cursor: grabbing;
 }
 
 .projects-page__content {
@@ -23,9 +28,19 @@
 }
 
 .projects-page__image {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+
 	// max-width: 50% !important;
-	
+	display: block;
+    // margin-left: auto;
+	// margin-right: auto;
+	margin: auto;
+
+	border-radius: 5px;
 }
+
 
 .projects-page__more-info-btn {
 	margin-left: 50%;
@@ -48,6 +63,7 @@
 
 	&::after {
 		content: "\f107";
+		// content: "\f35d";
 		display: inline-block;
 		position: absolute;
 		top: 15%;
@@ -85,14 +101,18 @@
 		background: transparent;
 		background-image: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 1) 2%, transparent 90%);
 
+		clear:both;
+
 		width: 100%;
 		margin-left: 0;
 
-		margin-bottom: 0;
-		margin-top: 2rem;
+		margin-bottom: 0.5rem;
+		margin-top: 1.5rem;
 
 		opacity: 1;
 
 		backface-visibility: hidden; /* Hack to fix the css animation glitch */
+
+		z-index: 5;
 	}
 }
