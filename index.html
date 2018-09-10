@@ -22,22 +22,25 @@
 			<div class="loading-page__bar"></div>
 		</div>
 
-		<div class="nav-page">
-			<div class="nav-page__hamburger">
-				<i class="fas fa-bars nav-page__hamburger-icon"></i>
-			</div>
+		<div class="nav-page__hamburger">
+			<i class="fas fa-bars nav-page__hamburger-icon"></i>
+		</div>
+		<div id="nav-page" class="nav-page">
 			<div class="nav-page__close">
 					<i class="fas fa-times nav-page__close-icon"></i>
 			</div>
 			<div class="nav-page__container">
-				<div class="nav-page__item">
+				<div class="nav-page__home-btn nav-page__item" onclick="loadPage('/')">
 					Home
+					<hr>
 				</div>
-				<div class="nav-page__item">
+				<div class="nav-page__projects-btn nav-page__item" onclick="loadPage('/projects')">
 					Projects
+					<hr>
 				</div>
-				<div class="nav-page__item">
+				<div class="nav-page__about-btn nav-page__item" onclick="loadPage('/about')">
 					About Me
+					<hr>
 				</div>
 			</div>
 		</div>
@@ -120,6 +123,7 @@
 
 		<script type="text/javascript" src="scripts/helpers/page_helpers.js"></script>
 
+		<script type="text/javascript" src="scripts/pages/nav_page_setup.js"></script>
 		<script type="text/javascript" src="scripts/pages/home_page_setup.js"></script>
 		<script type="text/javascript" src="scripts/pages/project_page_setup.js"></script>
 

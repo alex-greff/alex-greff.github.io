@@ -1,3 +1,6 @@
+$nav-color-primary: rgb(212, 125, 247);
+$nav-color-secondary: rgb(204, 0, 255);
+
 .nav-page {
     position: fixed;
 
@@ -6,27 +9,35 @@
 
     z-index: 40;
 
-    background-color: rgba(14, 14, 14, 0.95);
+    background-color: rgba(14, 14, 14, 0.97);
 }
 
 .nav-page__hamburger {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
 
     font-size: 3rem;
     color: white;
 
-    height: 100vh;
+    // height: 100vh;
+    // background-color: rgba(44, 44, 44, 0.308)
 
     padding-left: 1rem;
     padding-right: 1rem;
 
-    background-color: rgba(44, 44, 44, 0.308)
+    z-index: 41;
 }
 
 .nav-page__hamburger-icon {
-    
+    transition: color 0.2s;
+
+    cursor: pointer;
+}
+
+.nav-page__hamburger-icon:hover {
+    transition: color 0.2s;
+    color: $nav-color-primary;
 }
 
 .nav-page__close {
@@ -40,7 +51,13 @@
 }
 
 .nav-page__close-icon {
+    transition: color 0.2s;
+    cursor: pointer;
+}
 
+.nav-page__close-icon:hover {
+    transition: color 0.2s;
+    color: $nav-color-primary;
 }
 
 .nav-page__container {
@@ -64,18 +81,40 @@
     letter-spacing: 1rem;
 
     color: white;
+    transition: color 0.5s;
 
     margin-top: 2rem;
     
     padding-left: 10rem;
     padding-right: 10rem;
 
+    cursor: pointer;
+
+    & hr {
+        border: 0;
+        height: 1px;
+        background: transparent;
+        margin-top: 0;
+
+        opacity: 0;
+        transition: opacity 0.5s;
+        background-image: linear-gradient(to right, transparent, $nav-color-secondary, transparent);
+    }
+
 }
+
+.nav-page__item:hover {
+    transition: color 0.5s;
+    color: $nav-color-primary;
+
+    & hr {
+        transition: opacity 0.5s;
+        opacity: 1;
+    }
+}
+
 
 .nav-page__item:first-child {
     margin-top: 0;
 }
 
-.nav-page__item:hover {
-    
-}

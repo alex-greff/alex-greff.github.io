@@ -11,6 +11,8 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
     this.pending_transition_target_page = null;
     this.pending_transition_anim_option = "anim";
 
+    Page.nav_open = false;
+
     this.get_references = function() {
         this.get_references_base();
     }
@@ -70,16 +72,6 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
 
     this.unsubscribe_to_events = function() {
         // TODO: implement
-    }
-
-    this.nav_event_subscribe = function() {
-        this.body_ref.on("navOpen", () => {this.unsubscribe_from_events()});
-        this.body_ref.on("navClose", () => {this.subscribe_to_events()});
-    }
-
-    this.nav_event_unsubscribe = function() {
-        this.body_ref.off("navOpen");
-        this.body_ref.off("navClose");
     }
 
     // ----------------------
@@ -177,9 +169,23 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
         TweenMax.to(Page.page_background_ref, 0.5, {backgroundColor: this.page_background_color_1});
     }
 
-    this.subscribe_to_events = function() { console.warn(this.element_identifier + ": unimplemented subscribe_to_events()"); }
+    this.subscribe_to_events = function() { this.subscribe_to_events_base(); }
+    this.unsubscribe_from_events = function() { this.unsubscribe_from_events_base(); }
 
-    this.unsubscribe_from_events = function() { console.warn(this.element_identifier + ": unimplemented unsubscribe_from_events()"); }
+    this.subscribe_to_events_base = function() {
+        this.body_ref.on("navOpen", () => {
+            this.nav_open = true;
+        });
+
+        this.body_ref.on("navClose", () => {
+            this.nav_open = false;
+        });
+    }
+
+    this.unsubscribe_from_events_base = function() {
+        this.body_ref.off("navOpen");
+        this.body_ref.off("navClose");
+    }
 
     // -----------------------
     // --- Setters/callers ---

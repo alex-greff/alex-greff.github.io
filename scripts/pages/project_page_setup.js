@@ -11,7 +11,7 @@ function setup_project_page(bg_col1, bg_col2) {
         this.get_references_base();
         this.get_references_custom_project_page();
 
-        // console.log("project page: got references");
+        this.hambuger_btn = this.body_ref.find(".nav-page__hamburger-icon"); // Hamburger button
     }
 
     this.get_references_custom_project_page = function() {
@@ -56,16 +56,28 @@ function setup_project_page(bg_col1, bg_col2) {
         this.prevPage.open("anim-left");
     }
 
-    // Setups the event subscriptions
     this.subscribe_to_events = function() {
+        this.subscribe_to_events_base();
+        this.subscribe_to_events_custom();
+    }
+
+    this.unsubscribe_from_events = function() {
+        this.unsubscribe_from_events_base();
+        this.unsubscribe_from_events_custom();
+    }
+
+    // Setups the event subscriptions
+    this.subscribe_to_events_custom = function() {
         this.body_ref.on("onDragXChange", 
             (e, percent, direction_vector) => {
+                if (Page.nav_open) {return;}
                 this.transition_update(percent, direction_vector, false);
             }
         );
 
         this.body_ref.on("onDragXTrigger", 
             (e, percent, direction_vector) => {
+                if (Page.nav_open) {return;}
                 if (percent > 0) {
                     this.close("anim", this.load_prev_page, this);
                 }
@@ -90,16 +102,20 @@ function setup_project_page(bg_col1, bg_col2) {
     }
 
     // Unsubsribes from the subscribed events
-    this.unsubscribe_from_events = function() {
+    this.unsubscribe_from_events_custom = function() {
         this.body_ref.off("onDragXChange");
         this.body_ref.off("onDragXTrigger");
         this.body_ref.off("onDragXEnd");
     }
 
     this.open_custom_project_page = function(animation_options) {
-        if (animation_options == "no-anim") { return; }
+        if (animation_options == "no-anim") { 
+            TweenMax.set(this.hambuger_btn, {x: 0});
+            return; 
+        }
         
         // TODO: add anims
+        TweenMax.to(this.hambuger_btn, 0.2, {x: 0}); // Hamburger btn
     }
 
     this.close_custom_project_page = function(animation_options) {

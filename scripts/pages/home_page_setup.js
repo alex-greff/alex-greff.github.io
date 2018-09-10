@@ -43,6 +43,8 @@ function setup_home_page() {
         
         // Get all the sub-span elements of the first and last name headers
         this.header_primary_spans = this.header_primary_firstName.find("span").add(this.header_primary_lastName.find("span"));
+
+        this.hambuger_btn = this.body_ref.find(".nav-page__hamburger-icon"); // Hamburger button
     }
 
     this.open = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) {
@@ -75,38 +77,26 @@ function setup_home_page() {
         var clr = lerpColor(this.page_background_color_1, this.page_background_color_2, Math.abs(percent));
 
         if (animate) {
-            // Header
-            TweenMax.to(this.header, 0.2, { scale: scale_curve1, opacity: opacity_curve, } );
-
-            // Social media icons
-            TweenMax.to(this.social_media_icons__icons, 0.2, {x: x_offset_curve } );
-
-            // Page background color
-            TweenMax.to(Page.page_background_ref, 0.2, {backgroundColor: clr});
+            TweenMax.to(this.header, 0.2, { scale: scale_curve1, opacity: opacity_curve, } ); // Header
+            TweenMax.to(this.social_media_icons__icons, 0.2, {x: x_offset_curve } ); // Social media icons
+            TweenMax.to(this.hambuger_btn, 0.2, {x: -1 * x_offset_curve}); // Hamburger button
+            TweenMax.to(Page.page_background_ref, 0.2, {backgroundColor: clr}); // Page background color
         }
         else {
-            // Header
-            TweenMax.set(this.header, { scale: scale_curve1, opacity: opacity_curve } );
-
-            // Social media icons
-            TweenMax.set(this.social_media_icons__icons, {x: x_offset_curve } );
-
-            // Page background color
-            TweenMax.set(Page.page_background_ref, {backgroundColor: clr});
+            TweenMax.set(this.header, { scale: scale_curve1, opacity: opacity_curve } ); // Header
+            TweenMax.set(this.social_media_icons__icons, {x: x_offset_curve } ); // Social media icons
+            TweenMax.set(this.hambuger_btn, {x: -1 * x_offset_curve}); // Hamburger button
+            TweenMax.set(Page.page_background_ref, {backgroundColor: clr}); // Page background color
         } 
     }
 
     this.reset_transition = function () {
         var easing_curve = Elastic.easeOut.config(1, 0.4);
 
-        // Header
-        TweenMax.to(this.header, 1, { scale: 1, opacity: 1, ease: easing_curve } );
-
-        // Socal media icons
-        TweenMax.to(this.social_media_icons__icons, 1, { x: 0, ease: easing_curve } );
-
-        // Page background color
-        TweenMax.to(Page.page_background_ref, 0.5, {backgroundColor: this.page_background_color_1});
+        TweenMax.to(this.header, 1, { scale: 1, opacity: 1, ease: easing_curve } ); // Header
+        TweenMax.to(this.social_media_icons__icons, 1, { x: 0, ease: easing_curve } ); // Socal media icons
+        TweenMax.to(this.hambuger_btn, 1, {x: 0, ease: easing_curve}); // Hamburger button
+        TweenMax.to(Page.page_background_ref, 0.5, {backgroundColor: this.page_background_color_1}); // Page background color
     }
 
     // Loads the next page
@@ -123,23 +113,35 @@ function setup_home_page() {
         Barba.Pjax.goTo(pt.targetPage.html_location)
     }
 
-    // Setups the event subscriptions
     this.subscribe_to_events = function() {
+        this.subscribe_to_events_base();
+        this.subscribe_to_events_custom();
+    }
+
+    this.unsubscribe_from_events = function() {
+        this.unsubscribe_from_events_base();
+        this.unsubscribe_from_events_custom();
+    }
+
+    // Setups the event subscriptions
+    this.subscribe_to_events_custom = function() {
         this.body_ref.on("onScrollRadiusChange", 
             (e, percent, direction_vector) => {
-                console.log("here");
+                if (Page.nav_open) {return;}
                 this.transition_update(percent, direction_vector, true);
             }
         );
 
         this.body_ref.on("onDragRadiusChange", 
             (e, percent, direction_vector) => {
+                if (Page.nav_open) {return;}
                 this.transition_update(percent, direction_vector, false);
             }
         );
 
         this.body_ref.on("onDragRadiusTrigger onScrollRadiusTrigger", 
             (e, percent, direction_vector) => {
+                if (Page.nav_open) {return;}
                 //this.close("anim", this.load_next_page, this);
                 this.load_next_page();
             }
@@ -163,16 +165,21 @@ function setup_home_page() {
         
             }
         );
+
+        
     }
 
     // Unsubsribes from the subscribed events
-    this.unsubscribe_from_events = function() {
+    this.unsubscribe_from_events_custom = function() {
         this.body_ref.off("onScrollRadiusChange");
         this.body_ref.off("onScrollRadiusTrigger");
         this.body_ref.off("onScrollRadiusEnd");
         this.body_ref.off("onDragRadiusChange");
         this.body_ref.off("onDragRadiusTrigger");
         this.body_ref.off("onDragRadiusEnd");
+
+        this.body_ref.off("navOpen");
+        this.body_ref.off("navClose");
     }
 
 

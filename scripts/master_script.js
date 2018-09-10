@@ -11,7 +11,7 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 const PAGE_BACKGROUND = "page-background";
 
 
-
+var nav_page = null;
 var home_page = null;
 var project_pages = [];
 var about_page = null;
@@ -42,6 +42,8 @@ function instantiate_pages() {
         // curr_project.infoPage = new Page("#project-"+(i+1)+"__info", curr_project.nextPage, curr_project.prevPage);
     }
 
+    nav_page = new Page("#nav-page", ".", null, null);
+
     home_page = new Page("#front-page__container", ".", project_pages[0], null);
 
     about_page = new Page("#about-page__container", "./about", null, null);
@@ -56,6 +58,8 @@ function setup_pages() {
     setup_project_page.call(project_pages[0], "#9292EA", "#D27ECC");
     setup_project_page.call(project_pages[1], "#0B0C1F", "#110F30");
     setup_project_page.call(project_pages[2], "#F56F77", "#DF575F");
+
+    setup_nav_page.call(nav_page);
 
     // setup_project_1_page.call(project_pages[0]);
     // setup_project_2_page.call(project_pages[1]);
@@ -78,6 +82,9 @@ function init_pages_state() {
     }
 
     // about_page.close("no-anim"); // Direction doesnt matter here
+
+
+    nav_page.close("no-anim");
 }
 
 
@@ -115,6 +122,7 @@ var page_background = $(".page-background");
 
 // var stage_interval_min = 0.3;
 // var stage_interval_max = 0.7;
+
 var stage_interval_min = 0.0; // TODO: revert
 var stage_interval_max = 0.0;
 
@@ -132,117 +140,21 @@ tl.to(loading_page_bar, getRandomNumber(stage_interval_min * 100, stage_interval
 tl.set(loading_page, { opacity: 0, visibility: "hidden" });
 
 
+function loadPage(target_path) {
+    var pt = Page.pendingTransition;
 
 
+    // Setup pending transition
+    pt.targetPage = get_current_page_object(target_path);
+    pt.targetPageAnimOption = "anim";
+    // pt.currentPage = pt.currentPage;
+    // pt.currentPageAnimOption = "anim";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// class Page {
-//     // String, ScrollableElement[], Page, Page, function(int, String), function(bool, String, function()), function(bool, String, function())
-//     constructor (element_identifier, scrollable_elements, nextPage, prevPage) {
-//         this.element_identifier = element_identifier;
-//         this.scrollable_elements = scrollable_elements;
-//         this.nextPage = nextPage;
-//         this.prevPage = prevPage;
-
-//         this.element_ref = $(element_identifier); 
-
-//         // Default on delta change function
-//         // [int, int], bool
-//         this.onDeltaYChange = function (total_deltaY, animate) {
-//             if (animate) {
-//                 TweenMax.to(this.element_ref, 0.2, { y: total_deltaY, ease: Power2.easeOut });
-//             }
-//             else {
-//                 TweenMax.set(this.element_ref, { y: total_deltaY});
-//             }
-//         }
-
-//         this.onDeltaYReset = function(deltaY, animate) {
-//             var element = $(element_identifier);
-//             if (animate) {
-//                 TweenMax.to(this.element_ref, 0.5, { y: total_deltaY, ease: Elastic.easeOut.config(1.2, 0.4) });
-//             }
-//             else {
-//                 TweenMax.set(this.element_ref, { y: total_deltaY});
-//             }
-//         }
-
-//         // Default open function (type = ["nextPage", "prevPage", "none", default="regular"] )
-//         this.open = function (type, onComplete_fcn) {
-//             if (type == "none") {
-//                 TweenMax.set(this.element_ref, { y: 0, onComplete: onComplete_fcn });
-//             }
-//             else if (type == "nextPage") {
-//                 // From bottom of page
-//                 TweenMax.fromTo(this.element_ref, 1,
-//                     { y: "100vh" }, 
-//                     { y: 0, onComplete: onComplete_fcn }
-//                 );
-//             }
-//             else if (type == "prevPage") {
-//                 // From top of page
-//                 TweenMax.fromTo(this.element_ref, 1,
-//                     { y: "-100vh" }, 
-//                     { y: 0, onComplete: onComplete_fcn  }
-//                 );
-//             } else {
-//                 // TODO: some cool fade animation
-//             }
-//         }
-
-//         // Default close function
-//         this.close = function (type, onComplete_fcn) {
-//             if (type == "none") {
-//                 TweenMax.set(this.element_ref, { y: "-100vh", onComplete: onComplete_fcn });
-//             }
-//             else if (type == "nextPage") {
-//                 // To top of page
-//                 TweenMax.to(this.element_ref, 1, 
-//                     { y: "-100vh", onComplete: onComplete_fcn }
-//                 );
-//             }
-//             else if (type == "prevPage") {
-//                 // To bottom of page
-//                 TweenMax.to(this.element_ref, 1, 
-//                     { y: "100vh", onComplete: onComplete_fcn }
-//                 );
-//             } else {
-//                 // TODO: some cool fade animation
-//             }
-//         }
-//     }
-
-//     hasNext() {
-//         return this.nextPage != null;
-//     }
-
-//     hasPrev() {
-//         return this.prevPage != null;
-//     }
-// }
-
-// class ScrollableElement {
-//     // String, int
-//     constructor (element_identifier, deltaY_change_multiplier) {
-//         this.element_identifier = element_identifier;
-//         this.deltaY_change_multiplier = deltaY_change_multiplier;
-
-//         this.element_ref = $(element_identifier);
-//     }
-// }
-
-
-
+    if (Page.nav_open) {
+        nav_page.close("anim", () => { Barba.Pjax.goTo(pt.targetPage.html_location); });
+    }
+    else {
+        // Trigger the new page load
+        Barba.Pjax.goTo(pt.targetPage.html_location);
+    }
+}
