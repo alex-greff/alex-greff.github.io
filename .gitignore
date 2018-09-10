@@ -1,3 +1,5 @@
 node_modules/
 scripts/bad/
 scripts/templates/
+ajax_info.txt
+ajax_test.html
