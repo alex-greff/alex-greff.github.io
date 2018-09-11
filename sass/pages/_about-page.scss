@@ -1,18 +1,69 @@
 .about-page__container {
-    color: white;
-    border-radius: 0rem;
-	
-	user-select: none;
-
 	position: fixed;
-
+	top: 0;
+	left: 0;
+	width: 100vw;
 	height: 100vh;
-    width: 100vw;
-    
-    // visibility: hidden;
 
-	background-color: transparent;	
+	color: white;
+}
 
-	// transition: transform 0.3s;
-	// transition-timing-function: ease-out;
+.about-page__content {
+	position: absolute;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	left: 50%;
+}
+
+.about-page__header {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.about-page__image {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+
+	display: block;
+	margin: auto;
+
+	border-radius: 5px;
+}
+
+.about-page__header-primary {
+	font-weight: 300;
+	font-size: 4rem;
+	letter-spacing: 1rem;
+}
+
+.about-page__header-secondary {
+	font-weight: 100;
+	font-size: 1.5rem;
+	letter-spacing: 0.3rem;
+}
+
+.about-page__header-line {
+	& hr {
+		position: relative;
+		border: 0;
+		height: 1px;
+		background: transparent;
+		background-image: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 1) 2%, transparent 90%);
+
+		clear:both;
+
+		width: 100%;
+		margin-left: 0;
+
+		margin-bottom: 0.5rem;
+		margin-top: 1.5rem;
+
+		opacity: 1;
+
+		backface-visibility: hidden; /* Hack to fix the css animation glitch */
+
+		z-index: 5;
+	}
 }

@@ -5,7 +5,7 @@
 
 		<title>Porfolio - Alexander Greff</title>
 		
-		<!-- Style sheets -->
+		<!-- Stylesheets -->
 		<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 		<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 
@@ -30,18 +30,32 @@
 					<i class="fas fa-times nav-page__close-icon"></i>
 			</div>
 			<div class="nav-page__container">
-				<div class="nav-page__home-btn nav-page__item" onclick="loadPage('/')">
+				<div class="nav-page__home-btn nav-page__item" onclick="loadPageFromPath('/')">
 					Home
 					<hr>
 				</div>
-				<div class="nav-page__projects-btn nav-page__item" onclick="loadPage('/projects')">
+				<div class="nav-page__projects-btn nav-page__item" onclick="loadPageFromPath('/projects')">
 					Projects
 					<hr>
 				</div>
-				<div class="nav-page__about-btn nav-page__item" onclick="loadPage('/about')">
+				<div class="nav-page__about-btn nav-page__item" onclick="loadPageFromPath('/about')">
 					About Me
 					<hr>
 				</div>
+			</div>
+		</div>
+
+		<div id="project-page-nav" class="project-page-nav">
+			<div class="project-page-nav__right-arrow" onclick="loadNextProject(Page.pendingTransition.currentPage)">
+				<i class="fas fa-angle-right"></i>
+			</div>
+			<div class="project-page-nav__left-arrow" onclick="loadPrevProject(Page.pendingTransition.currentPage)">
+				<i class="fas fa-angle-left"></i>
+			</div>
+			<div class="project-page-nav__slide-indicator">
+				<span class="project-page-nav__slide-indicator__current"> 0 </span>
+				<span>/</span>
+				<span class="project-page-nav__slide-indicator__total"> 0 </span>
 			</div>
 		</div>
 
@@ -71,6 +85,12 @@
 							<span class="header__primary-welcome">Welcome</span>
 							<span class="header__line"><hr></span>
 							<span class="header__secondary">University of Toronto Computer Science</span>
+							<span class="header__link header__link-first">
+								<span onclick="loadPage('/projects')">- Projects -</span>
+							</span>
+							<span class="header__link">
+								<span onclick="loadPage('/about')">- About Me -</span>
+							</span>
 						</h1>
 					</div>
 		
@@ -126,6 +146,8 @@
 		<script type="text/javascript" src="scripts/pages/nav_page_setup.js"></script>
 		<script type="text/javascript" src="scripts/pages/home_page_setup.js"></script>
 		<script type="text/javascript" src="scripts/pages/project_page_setup.js"></script>
+		<script type="text/javascript" src="scripts/pages/project_page_nav_setup.js"></script>
+		<script type="text/javascript" src="scripts/pages/about_page_setup.js"></script>
 
 		<script type="text/javascript" src="scripts/helpers/helper_functions.js"></script>
 		<script type="text/javascript" src="scripts/Page.js"></script>

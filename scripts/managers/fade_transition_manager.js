@@ -11,12 +11,13 @@ var PageTransition = Barba.BaseTransition.extend({
         return new Promise(function(resolve) {
             var pt = Page.pendingTransition;
 
-            // console.log("in closeOldPage");
-            // console.log(pt.targetPage);
+            var curr_page = pt.currentPage;
 
-            pt.currentPage.close(
-                pt.currentPageAnimOption, 
-                function() { console.log(this.element_identifier + ": close Resolving"); resolve(true); }, pt.currentPage);
+            if (curr_page != null) {
+                curr_page.close( pt.currentPageAnimOption, function() { resolve(true); }, pt.currentPage);
+            } else {
+                resolve(true);
+            }
         });
     },
   

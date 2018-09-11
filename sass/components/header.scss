@@ -97,7 +97,33 @@
 
 	z-index: 2;
 
+	backface-visibility: hidden; /* Hack to fix the css animation glitch */
+}
+
+
+.header__link-first {
+	margin-top: 2rem !important;
+}
+
+.header__link {
+	margin-top: 1rem;
+
+	font-weight: 100;
+	font-size: 2.5rem;
+
+	text-align: center;
+	display: block;
 
 	backface-visibility: hidden; /* Hack to fix the css animation glitch */
 }
 
+.header__link span {
+	cursor: pointer;
+	transition: color 0.3s;
+	color: white;
+}
+
+.header__link span:hover {
+	transition: color 0.3s;
+	color: rgb(195, 219, 250);
+}

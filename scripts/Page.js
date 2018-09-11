@@ -1,15 +1,10 @@
 function Page(element_identifier, html_location, nextPage, prevPage) {
+    this.hasBgCol = true;
+
     this.element_identifier = element_identifier;
     this.html_location = html_location;
     this.nextPage = nextPage;
     this.prevPage = prevPage;
-
-    // this.element_ref = $(element_identifier);
-    // this.body_ref = $('body');
-
-    this.pending_transition_target_page_anim_option = "anim";
-    this.pending_transition_target_page = null;
-    this.pending_transition_anim_option = "anim";
 
     Page.nav_open = false;
 
@@ -81,8 +76,6 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
     // For each page we can make add-on animation functions
 
     this.open_base = function(animation_options, longest_time, onComplete_callbackFcn, onComplete_callbackScope) {
-        // console.log(this.element_identifier + ": opening");
-        
         try {
             // If the element reference is not part of the body anymore (ie the page has been changed)
             // Then get all the references (needed because after every page transition the page is a new element)
@@ -95,6 +88,8 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
             this.get_references();
         }
 
+        this.body_ref.trigger("pageOpen",  [this.element_identifier, this]); // Trigger the page open event for this page
+
         RESET_ALL_DELTAS() // input_manager.js
 
         this.isTransitioning = true;
@@ -102,8 +97,10 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
 
         this.subscribe_to_events();
 
-        // Set page background color
-        TweenMax.to(Page.page_background_ref, 0.5, { backgroundColor: this.page_background_color_1 });
+        if (this.hasBgCol) {
+            // Set page background color
+            TweenMax.to(Page.page_background_ref, 0.5, { backgroundColor: this.page_background_color_1 });
+        }
 
         // Set page to be visible
         this.visibility_setter(0, "visible");
@@ -120,8 +117,6 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
     }
 
     this.close_base = function(animation_options, longest_time, onComplete_callbackFcn, onComplete_callbackScope) {
-        // console.log(this.element_identifier + ": closing");
-
         try {
             // If the element reference is not part of the body anymore (ie the page has been changed)
             // Then get all the references (needed because after every page transition the page is a new element)
@@ -133,6 +128,8 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
             // console.log(this.element_identifier + ": getting references via catch");
             this.get_references();
         }
+
+        this.body_ref.trigger("pageClose",  [this.element_identifier]); // Trigger the project page close event for this page
 
         this.isTransitioning = true;
         this.isOpen = false;

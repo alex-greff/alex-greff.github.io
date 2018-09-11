@@ -44,16 +44,20 @@ function setup_project_page(bg_col1, bg_col2) {
 
     // Load the next page
     this.load_next_page = function() {
-        Page.pendingTransition.currentPage = this.nextPage;
-        Page.pendingTransition.currentPageAnimOption = "anim";
-        this.nextPage.open("anim-right");
+        this.close("anim-left", function() {
+            Page.pendingTransition.currentPage = this.nextPage;
+            Page.pendingTransition.currentPageAnimOption = "anim";
+            this.nextPage.open("anim-right");
+        }, this);
     }
 
     // Load the previous page
     this.load_prev_page = function() {
-        Page.pendingTransition.currentPage = this.prevPage;
-        Page.pendingTransition.currentPageAnimOption = "anim";
-        this.prevPage.open("anim-left");
+        this.close("anim-right", function(){
+            Page.pendingTransition.currentPage = this.prevPage;
+            Page.pendingTransition.currentPageAnimOption = "anim";
+            this.prevPage.open("anim-left");
+        }, this);
     }
 
     this.subscribe_to_events = function() {
@@ -79,10 +83,10 @@ function setup_project_page(bg_col1, bg_col2) {
             (e, percent, direction_vector) => {
                 if (Page.nav_open) {return;}
                 if (percent > 0) {
-                    this.close("anim", this.load_prev_page, this);
+                    this.load_prev_page();
                 }
                 else { // percent <= 0 (will really be percent < 0)
-                    this.close("anim", this.load_next_page, this);
+                    this.load_next_page();
                 }
             }
         );

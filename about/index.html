@@ -1,17 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <body>
+    <body style="overflow: hidden;">
+        <div style="margin: 0; padding: 0; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgb(43, 43, 43); z-index: 100;"></div>
 
         <div id="barba-wrapper">
             <div class="barba-container">
                 
-                <div id="about-page__container" class="scrollable about-page__container">
-                    <h1>About Me</h1>
-                    <p class="lead">Some stuff here</p>
+                <div id="about-page__container" class="about-page__container">
+                    <div class="container about-page__content">
+                        <!-- Content here -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                    <img src="../images/profile-picture.jpg" class="img-fluid about-page__image" alt="Responsive image">
+                            </div>
+                            <div class="col-md-8">
+                                <h1 class="about-page__header">
+                                    <span class="about-page__header-primary">About Me</span>
+                                    <span class="about-page__header-line"><hr></span>
+                                    <span class="about-page__header-secondary">
+                                        Some biography stuff here
+                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam mollitia amet, impedit eveniet quasi non doloremque soluta illum rem sit at, repellat, magni nostrum debitis! Perferendis porro quos ut ipsa.
+                                    </span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
         </div>
 
+        <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../node_modules/barba.js/dist/barba.min.js"></script>
+        <script type="text/javascript" src="../scripts/master_script.js"></script>
     </body>
 </html>

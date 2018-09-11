@@ -31,6 +31,7 @@ function setup_home_page() {
         this.header_primary = $(".header__primary");
         this.header_primary_firstName = $(".header__primary-firstName");
         this.header_primary_lastName = $(".header__primary-lastName");
+        this.header_links = $(".header__link");
 
         this.header_secondary = $(".header__secondary");
         this.header_line = $(".header__line hr");
@@ -40,7 +41,7 @@ function setup_home_page() {
         // Find letters in first name section and last name section and put them in separate sub-span elements
         this.header_primary_firstName.html(this.header_primary_firstName.html().replace(/./g, "<span>$&</span>").replace(/\s/g, "&nbsp;"));
         this.header_primary_lastName.html(this.header_primary_lastName.html().replace(/./g, "<span>$&</span>").replace(/\s/g, "&nbsp;"));
-        
+
         // Get all the sub-span elements of the first and last name headers
         this.header_primary_spans = this.header_primary_firstName.find("span").add(this.header_primary_lastName.find("span"));
 
@@ -61,7 +62,7 @@ function setup_home_page() {
 
     this.close = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) {
         var anim_time = 0.3;
-        var longest_time = anim_time;
+        var longest_time = anim_time + 0.1;
 
         this.close_base(animation_options, longest_time, onComplete_callbackFcn, onComplete_callbackScope);
 
@@ -193,7 +194,8 @@ function setup_home_page() {
             TweenMax.set(this.header_primary_spans, { x: 0, opacity: 1, rotationY: 0 });
             TweenMax.set(this.header_line, { scaleX: 1 });
             TweenMax.set(this.header_secondary, { opacity: 1, letterSpacing: "0.5rem" });
-            TweenMax.set(this.social_media_icons__icons, { opacity: 1, y: 0 });
+            TweenMax.set(this.social_media_icons__icons, { opacity: 1, x: 0 });
+            TweenMax.set(this.header_links, {opacity: 1, x: 0 });
             return;
         }
 
@@ -214,6 +216,13 @@ function setup_home_page() {
         TweenMax.fromTo(this.header_secondary, 1, 
             { opacity: 0, letterSpacing: "0.1rem" },
             { delay: delay_stage2, opacity: 1, letterSpacing: "0.5rem" }
+        );
+
+        // Header links
+        TweenMax.staggerFromTo(this.header_links, 1, 
+            { opacity: 0, x: -50 },
+            { delay: delay_stage3, opacity: 1, x: 0, ease: Power3.easeOut }, 
+            0.2
         );
 
         // Social media icons anim

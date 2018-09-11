@@ -1,4 +1,5 @@
 function setup_nav_page() {
+    this.hasBgCol = false;
 
     this.get_references = function() {
         this.get_references_base();
