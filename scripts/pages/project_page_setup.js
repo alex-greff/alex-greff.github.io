@@ -72,14 +72,14 @@ function setup_project_page(bg_col1, bg_col2) {
 
     // Setups the event subscriptions
     this.subscribe_to_events_custom = function() {
-        this.body_ref.on("onDragXChange", 
+        this.body_ref.on("onDragXChange onScrollXChange", 
             (e, percent, direction_vector) => {
                 if (Page.nav_open) {return;}
                 this.transition_update(percent, direction_vector, false);
             }
         );
 
-        this.body_ref.on("onDragXTrigger", 
+        this.body_ref.on("onDragXTrigger onScrollXTrigger", 
             (e, percent, direction_vector) => {
                 if (Page.nav_open) {return;}
                 if (percent > 0) {
@@ -91,7 +91,7 @@ function setup_project_page(bg_col1, bg_col2) {
             }
         );
 
-        this.body_ref.on("onDragXEnd", 
+        this.body_ref.on("onDragXEnd onScrollXEnd", 
             (e) => {
                 this.reset_transition();
             }
@@ -107,9 +107,9 @@ function setup_project_page(bg_col1, bg_col2) {
 
     // Unsubsribes from the subscribed events
     this.unsubscribe_from_events_custom = function() {
-        this.body_ref.off("onDragXChange");
-        this.body_ref.off("onDragXTrigger");
-        this.body_ref.off("onDragXEnd");
+        this.body_ref.off("onDragXChange onScrollXChange");
+        this.body_ref.off("onDragXTrigger onScrollXTrigger");
+        this.body_ref.off("onDragXEnd onScrollXEnd");
     }
 
     this.open_custom_project_page = function(animation_options) {
