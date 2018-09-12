@@ -33,9 +33,13 @@ const NUM_PROJECTS = 3;
 instantiate_pages();
 
 function instantiate_pages() {
+    var protocol = window.location.protocol;
+    var host = window.location.host;
+    var url_base = protocol + "//" + host;
+
     // Initialize the projects' Page objects
     for (var i = 0; i < NUM_PROJECTS; i++) {
-        project_pages.push(new Page("#project-" + (i+1), "./projects", null, null) ); // nextPage and prevPage get set later
+        project_pages.push(new Page("#project-" + (i+1), url_base + "/projects", null, null) ); // nextPage and prevPage get set later
     }
 
     // Populate the next and previous page references post-object initialization
@@ -54,15 +58,12 @@ function instantiate_pages() {
         curr_project.projectNum = (i+1);
 
         // curr_project.infoPage = new Page("#project-"+(i+1)+"__info", curr_project.nextPage, curr_project.prevPage);
-    }
+    }    
 
     nav_page = new Page("#nav-page", ".", null, null);
-
-    home_page = new Page("#front-page__container", ".", project_pages[0], null);
-
-    about_page = new Page("#about-page__container", "./about", null, null);
-
-    project_page_nav = new Page("#project-page-nav", ".", null, null);
+    home_page = new Page("#front-page__container", url_base, project_pages[0], null);
+    about_page = new Page("#about-page__container", url_base + "/about", null, null);
+    project_page_nav = new Page("#project-page-nav", url_base, null, null);
 }
 
 
