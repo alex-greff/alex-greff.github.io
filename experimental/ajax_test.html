@@ -20,7 +20,9 @@ function loadDoc() {
   };
   
   //xhttp.open("GET", "ajax_info.txt", true);
-  var link = document.location.origin + "/projects/index.html";
+  //var link = document.location.origin + "/projects/index.html";
+  var link = "http://" + document.location.host + "/projects/index.html";
+
   xhttp.open("GET", link, true);
 
   xhttp.send();
