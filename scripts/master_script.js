@@ -193,7 +193,7 @@ function loadPageFromPageObj(target_page) {
     pt.targetPageAnimOption = "anim";
 
     if (Page.nav_open) { nav_page.close("anim", () => { Barba.Pjax.goTo(pt.targetPage.html_location); }); } // Trigger page load after nav is closed
-    else { Barba.Pjax.goTo(pt.targetPage.html_location); } // Trigger page load instantly
+    else { console.log("attempting to load: " + pt.targetPage.html_location); Barba.Pjax.goTo(pt.targetPage.html_location); } // Trigger page load instantly
 }
 
 
