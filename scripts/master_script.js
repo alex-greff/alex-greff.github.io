@@ -33,8 +33,6 @@ const NUM_PROJECTS = 3;
 instantiate_pages();
 
 function instantiate_pages() {
-    var protocol = window.location.protocol;
-    var host = window.location.host;
     var url_base = document.location.origin;
 
     // Initialize the projects' Page objects
@@ -202,7 +200,8 @@ function loadPageFromPageObj(target_page) {
     }); } // Trigger page load after nav is closed
     else { 
         console.log("attempting to load: " + pt.targetPage.html_location); 
-        Barba.Pjax.goTo(pt.targetPage.html_location); 
+        //Barba.Pjax.goTo(pt.targetPage.html_location); 
+        Barba.Pjax.goTo(document.location.origin + "/projects/index.html"); 
     } // Trigger page load instantly
 }
 
