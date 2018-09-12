@@ -11,12 +11,12 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 check_loaded_page();
 
 function check_loaded_page() {
-    var curr_page_path = document.location.pathname;
+    var curr_page_path = document.location.href;
 
-    if (curr_page_path !== "/") {
+    if (curr_page_path !== (document.location.origin + "/")) {
         sessionStorage.setItem("loadPage", curr_page_path);
         console.log("wrong page"); // TODO: remove
-        window.location.replace("/");
+        window.location.replace(document.location.origin);
     }
 }
 
@@ -35,7 +35,7 @@ instantiate_pages();
 function instantiate_pages() {
     var protocol = window.location.protocol;
     var host = window.location.host;
-    var url_base = protocol + "//" + host;
+    var url_base = document.location.origin;
 
     // Initialize the projects' Page objects
     for (var i = 0; i < NUM_PROJECTS; i++) {
@@ -107,15 +107,17 @@ function init_pages_state() {
 
 
 var pageAddressToPageObjectMap = {};
-pageAddressToPageObjectMap["/"] = home_page;
-pageAddressToPageObjectMap["/projects"] = project_pages[0];
-pageAddressToPageObjectMap["/about"] = about_page;
+var origin = document.location.origin;
+pageAddressToPageObjectMap[ origin ] = home_page;
+pageAddressToPageObjectMap[ origin + "/projects"] = project_pages[0];
+pageAddressToPageObjectMap[ origin + "/about"] = about_page;
 
 get_current_page_str(document.location.pathname);
 function get_current_page_str(path) {
     //var path = document.location.pathname;
     
     path = path.replace(/index.html$/, "").replace(/\/$/, "");
+    // path = path.replace(/index.html$/, "");
 
     path = (path == "") ? "/" : path;
 
@@ -131,10 +133,12 @@ function get_current_page_object(str_path) {
 // ----------------------------------------
 
 var target_page_path = sessionStorage.getItem("loadPage");
-target_page_path = (target_page_path == null) ? "/" : target_page_path;
+target_page_path = (target_page_path == null) ? document.location.origin + "/" : target_page_path;
 sessionStorage.removeItem("loadPage");
 
 var pt = Page.pendingTransition;
+
+console.log("Attempting to get: " + get_current_page_str(target_page_path));
 pt.currentPage = get_current_page_object(get_current_page_str(target_page_path));
 // console.log(pt.currentPage);
 // pt.currentPageAnimOption = "anim";
@@ -163,7 +167,7 @@ TweenMax.set(loading_page_bar, {width: "0%", backgroundColor: pt.currentPage.pag
 
 // var tl = new TimelineMax({ onComplete: () => { pt.currentPage.open("anim"); } });
 var tl = new TimelineMax({ onComplete: () => {
-    if (target_page_path == "/") {
+    if (target_page_path === (document.location.origin + "/")) {
         pt.currentPage.open("anim");
     } else {
         loadPageFromPageObj(pt.currentPage); 
@@ -192,8 +196,14 @@ function loadPageFromPageObj(target_page) {
     pt.targetPage = target_page;
     pt.targetPageAnimOption = "anim";
 
-    if (Page.nav_open) { nav_page.close("anim", () => { console.log("attempting to load from nav: " + pt.targetPage.html_location); /*Barba.Pjax.goTo(pt.targetPage.html_location);*/ }); } // Trigger page load after nav is closed
-    else { console.log("attempting to load: " + pt.targetPage.html_location); /*Barba.Pjax.goTo(pt.targetPage.html_location);*/ } // Trigger page load instantly
+    if (Page.nav_open) { nav_page.close("anim", () => { 
+        console.log("attempting to load from nav: " + pt.targetPage.html_location); 
+        Barba.Pjax.goTo(pt.targetPage.html_location); 
+    }); } // Trigger page load after nav is closed
+    else { 
+        console.log("attempting to load: " + pt.targetPage.html_location); 
+        Barba.Pjax.goTo(pt.targetPage.html_location); 
+    } // Trigger page load instantly
 }
 
 
