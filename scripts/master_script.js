@@ -138,7 +138,7 @@ sessionStorage.removeItem("loadPage");
 
 var pt = Page.pendingTransition;
 
-console.log("Attempting to get: " + get_current_page_str(target_page_path));
+// console.log("Attempting to get: " + get_current_page_str(target_page_path));
 pt.currentPage = get_current_page_object(get_current_page_str(target_page_path));
 // console.log(pt.currentPage);
 // pt.currentPageAnimOption = "anim";
@@ -186,7 +186,7 @@ tl.set(loading_page, { opacity: 0, visibility: "hidden" });
 // ---------------------------
 
 function loadPageFromPath(target_path) {
-    loadPageFromPageObj(get_current_page_object(target_path));
+    loadPageFromPageObj(get_current_page_object(document.location.origin +  target_path));
 }
 
 function loadPageFromPageObj(target_page) {
