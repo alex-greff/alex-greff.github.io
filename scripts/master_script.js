@@ -202,7 +202,7 @@ function loadPageFromPageObj(target_page) {
     }); } // Trigger page load after nav is closed
     else { 
         console.log("attempting to load: " + pt.targetPage.html_location); 
-        Barba.Pjax.goTo(pt.targetPage.html_location.replace("https", "http")); 
+        Barba.Pjax.goTo(pt.targetPage.html_location); 
     } // Trigger page load instantly
 }
 
