@@ -106,7 +106,7 @@ function init_pages_state() {
 
 var pageAddressToPageObjectMap = {};
 var origin = document.location.origin;
-pageAddressToPageObjectMap[ origin ] = home_page;
+pageAddressToPageObjectMap[ origin + "/" ] = home_page;
 pageAddressToPageObjectMap[ origin + "/projects"] = project_pages[0];
 pageAddressToPageObjectMap[ origin + "/about"] = about_page;
 
