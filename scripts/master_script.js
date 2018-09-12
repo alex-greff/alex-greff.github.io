@@ -114,8 +114,8 @@ get_current_page_str(document.location.pathname);
 function get_current_page_str(path) {
     //var path = document.location.pathname;
     
-    path = path.replace(/index.html$/, "").replace(/\/$/, "");
-    // path = path.replace(/index.html$/, "");
+    // path = path.replace(/index.html$/, "").replace(/\/$/, "");
+    path = path.replace(/index.html$/, "");
 
     path = (path == "") ? "/" : path;
 
