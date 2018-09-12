@@ -219,7 +219,6 @@ body {
   font-family: 'Lato', sans-serif !important;
   font-weight: 100;
   font-size: 2rem;
-  letter-spacing: 0.5rem;
   background-color: black;
   overflow: hidden;
   user-select: none; }
@@ -277,7 +276,7 @@ body {
   transform: translateY(-50%);
   background-color: red;
   height: 0.5%;
-  width: 100%; }
+  width: 0%; }
 
 /* FRONT PAGE STYLING*/
 .front-page__container {
@@ -323,11 +322,12 @@ body {
   transform: translateY(-50%); }
 
 .about-page__image {
+  width: 23rem;
   position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  margin-right: 2rem;
   display: block;
-  margin: auto;
   border-radius: 5px; }
 
 .about-page__header-primary {
@@ -337,7 +337,7 @@ body {
 
 .about-page__header-secondary {
   font-weight: 100;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   letter-spacing: 0.3rem; }
 
 .about-page__header-line hr {
@@ -355,6 +355,35 @@ body {
   backface-visibility: hidden;
   /* Hack to fix the css animation glitch */
   z-index: 5; }
+
+.about-page__paragraph {
+  line-height: 2rem;
+  letter-spacing: 0.2rem;
+  text-indent: 2rem; }
+
+.about-page__link {
+  position: relative;
+  text-decoration: none;
+  font-weight: 300; }
+  .about-page__link > a {
+    color: #f3cbff; }
+  .about-page__link > a:hover {
+    color: #f5bcd4;
+    text-decoration: none; }
+  .about-page__link > a:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(245, 188, 212, 0.445);
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out 0s; }
+  .about-page__link > a:hover::before {
+    visibility: visible;
+    transform: scaleX(1); }
 
 .projects-page__container {
   position: fixed;
@@ -420,7 +449,7 @@ body {
 .projects-page__header-secondary {
   font-weight: 100;
   font-size: 1.5rem;
-  letter-spacing: 0.3rem; }
+  letter-spacing: 0.2rem; }
 
 .projects-page__header-line hr {
   position: relative;

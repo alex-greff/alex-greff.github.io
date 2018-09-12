@@ -33,13 +33,13 @@ var PageTransition = Barba.BaseTransition.extend({
         pt.currentPageAnimOption = target_anim_option; // Set the target page as the current page in the master script (might wanna remove this later)
 
         // Open the target page
-        target_page.open(target_anim_option, function() { console.log("open done"); this.done() }, this);
+        target_page.open(target_anim_option, function() { this.done() }, this);
     }
 });
   
-  /**
-   * Next step, you have to tell Barba to use the new Transition
-   */
+/**
+ * Next step, you have to tell Barba to use the new Transition
+ */
   
 Barba.Pjax.getTransition = function() {
     // Return our custom transition

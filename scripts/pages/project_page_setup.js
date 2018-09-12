@@ -21,14 +21,14 @@ function setup_project_page(bg_col1, bg_col2) {
     }
 
     this.open = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) {
-        var longest_time = 0.2;
+        var longest_time = (animation_options == "anim-left" || animation_options == "anim-right") ? 1.5 : 0.5;
         this.open_base(animation_options, longest_time, onComplete_callbackFcn, onComplete_callbackScope);
 
         this.open_custom_project_page(animation_options);
     }
 
     this.close = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) {
-        var longest_time = 0.2;
+        var longest_time = 0.3;
         this.close_base(animation_options, longest_time, onComplete_callbackFcn, onComplete_callbackScope);
 
         this.close_custom_project_page(animation_options);
@@ -36,10 +36,35 @@ function setup_project_page(bg_col1, bg_col2) {
 
     this.transition_update = function(percent, direction_vector, animate) {
         this.transition_update_base(percent, direction_vector, animate);
+        this.transition_update_custom(percent, direction_vector, animate);
+    }
+
+    this.transition_update_custom = function(percent, direction_vector, animate) {
+        if (this.isTransitioning) { return; }
+
+        var custom_curve_slope = 1;
+        var raw_custom_curve = ((-1 * (1/((custom_curve_slope * Math.abs(percent)) + 1))) + 1) * Math.sign(percent);
+        
+        var x_offset_curve =  raw_custom_curve * 50;
+        var opacity_curve = 1 - Math.min(0.5, Math.abs(percent));
+        // var scale_curve = 1 - Math.abs(raw_custom_curve) * 1/2;
+
+        if (animate) {
+            TweenMax.to(this.element_ref, 0.5, { x: x_offset_curve + "%", opacity: opacity_curve });
+        } else {
+            TweenMax.set(this.element_ref, { x: x_offset_curve + "%", opacity: opacity_curve});
+        }
     }
 
     this.reset_transition = function() {
         this.reset_transition_base();
+        this.reset_transition_custom();
+    }
+
+    this.reset_transition_custom = function() {
+        if (this.isTransitioning) { return; }
+        TweenMax.to(this.element_ref, 1, { x: "0%", ease: Elastic.easeOut});
+        TweenMax.to(this.element_ref, 0.5, {opacity: 1})
     }
 
     // Load the next page
@@ -120,11 +145,28 @@ function setup_project_page(bg_col1, bg_col2) {
         
         // TODO: add anims
         TweenMax.to(this.hambuger_btn, 0.2, {x: 0}); // Hamburger btn
+
+        if (animation_options == "anim-left") {
+            TweenMax.fromTo(this.element_ref, 1.5, {x: "-75%"}, { x: "0%", ease: Elastic.easeOut });
+            TweenMax.fromTo(this.element_ref, 0.5, { opacity: 0}, { opacity: 1});
+        } else if (animation_options == "anim-right") {
+            TweenMax.fromTo(this.element_ref, 1.5, {x: "75%"}, { x: "0%", ease: Elastic.easeOut});
+            TweenMax.fromTo(this.element_ref, 0.5, { opacity: 0}, { opacity: 1});
+        } else {
+            TweenMax.fromTo(this.element_ref, 0.5, {opacity: 0}, {opacity: 1}); // TODO: may wanna fancy this up
+        }
     }
 
     this.close_custom_project_page = function(animation_options) {
         if (animation_options == "no-anim") { return; }
 
+        if (animation_options == "anim-left") {
+            TweenMax.to(this.element_ref, 0.3, { x: "-75%", opacity: 0 });
+        } else if (animation_options == "anim-right") {
+            TweenMax.to(this.element_ref, 0.3, { x: "75%", opacity: 0 });
+        } else {
+            TweenMax.to(this.element_ref, 0.3, { opacity: 0 }); // TODO: may wanna fancy this up
+        }
         // TODO: add anims
     }
 }

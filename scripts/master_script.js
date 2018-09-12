@@ -85,7 +85,7 @@ function setup_pages() {
     // setup_project_4_page.call(project_pages[3]);
     // setup_project_5_page.call(project_pages[4]);
 
-    setup_about_page.call(about_page, "#7EB7D0", "#72C1CB");
+    setup_about_page.call(about_page, "#67A4BF", "#72C1CB");
 }
 
 
@@ -185,9 +185,6 @@ function loadPageFromPath(target_path) {
 }
 
 function loadPageFromPageObj(target_page) {
-    console.log("target page: ");
-    console.log(target_page);
-
     var pt = Page.pendingTransition;
 
     // Setup pending transition

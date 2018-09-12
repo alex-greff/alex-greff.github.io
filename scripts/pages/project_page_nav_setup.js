@@ -11,18 +11,21 @@ function setup_project_page_nav(num_projects) {
         this.slide_indicator_current = $('.project-page-nav__slide-indicator__current');
         this.slide_indicator_total = $(".project-page-nav__slide-indicator__total");
 
+        this.nav_arrow_left = $(".project-page-nav__left-arrow");
+        this.nav_arrow_right = $('.project-page-nav__right-arrow');
+
         this.hard_subscribe(); // Hard subscribe to events
     }
 
     this.open = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) {
-        var longest_time = 0.2;
+        var longest_time = 0.3;
         this.open_base(animation_options, longest_time, onComplete_callbackFcn, onComplete_callbackScope);
 
         this.open_custom_project_page(animation_options);
     }
 
     this.close = function (animation_options, onComplete_callbackFcn, onComplete_callbackScope) {
-        var longest_time = 0.2;
+        var longest_time = 0.3;
         this.close_base(animation_options, longest_time, onComplete_callbackFcn, onComplete_callbackScope);
 
         this.close_custom_project_page(animation_options);
@@ -66,7 +69,7 @@ function setup_project_page_nav(num_projects) {
 
     // Setups the event subscriptions
     this.subscribe_to_events = function() {
-
+        
     }
 
     // Unsubsribes from the subscribed events
@@ -77,12 +80,16 @@ function setup_project_page_nav(num_projects) {
     this.open_custom_project_page = function(animation_options) {
         if (animation_options == "no-anim") { return; }
         
-        // TODO: add anims
+        TweenMax.fromTo(this.element_ref, 0.3, {opacity: 0}, {opacity: 1}); // Page element
+        TweenMax.fromTo(this.nav_arrow_right, 0.3, {x: "20%"}, {x:"0%"}); // Right arrow
+        TweenMax.fromTo(this.nav_arrow_left, 0.3, {x: "-20%"}, {x:"0%"}); // Left arrow
     }
 
     this.close_custom_project_page = function(animation_options) {
         if (animation_options == "no-anim") { return; }
 
-        // TODO: add anims
+        TweenMax.to(this.element_ref, 0.3, {opacity: 0}); // Page element
+        TweenMax.to(this.nav_arrow_right, 0.3, {x: "20%"}); // Right arrow
+        TweenMax.to(this.nav_arrow_left, 0.3, {x: "-20%"}); // Left arrow
     }
 }

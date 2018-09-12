@@ -54,25 +54,25 @@ function setup_nav_page() {
     this.subscribe_to_events_custom = function() {
         // TODO: setup event subscriptions
         this.close_btn.on("click", () => { 
-            console.log("close click");
+            // console.log("close click");
             this.close("anim");
         });
 
         this.hambuger_btn.on("click", () => {
-            console.log("hamburger click");
+            // console.log("hamburger click");
             this.open("anim");
         });
 
         this.home_btn.on("click", () => {
-            console.log("home click");
+            // console.log("home click");
         });
 
         this.projects_btn.on("click", () => {
-            console.log("projects click")
+            // console.log("projects click")
         });
 
         this.about_btn.on("click", () => {
-            console.log("about click");
+            // console.log("about click");
         });
     }
 
