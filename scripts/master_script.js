@@ -37,7 +37,7 @@ function instantiate_pages() {
 
     // Initialize the projects' Page objects
     for (var i = 0; i < NUM_PROJECTS; i++) {
-        project_pages.push(new Page("#project-" + (i+1), url_base + "/projects", null, null) ); // nextPage and prevPage get set later
+        project_pages.push(new Page("#project-" + (i+1), url_base + "/projects/", null, null) ); // nextPage and prevPage get set later
     }
 
     // Populate the next and previous page references post-object initialization
@@ -59,9 +59,9 @@ function instantiate_pages() {
     }    
 
     nav_page = new Page("#nav-page", ".", null, null);
-    home_page = new Page("#front-page__container", url_base, project_pages[0], null);
-    about_page = new Page("#about-page__container", url_base + "/about", null, null);
-    project_page_nav = new Page("#project-page-nav", url_base, null, null);
+    home_page = new Page("#front-page__container", url_base + "/", project_pages[0], null);
+    about_page = new Page("#about-page__container", url_base + "/about/", null, null);
+    project_page_nav = new Page("#project-page-nav", url_base + "/", null, null);
 }
 
 
@@ -200,8 +200,7 @@ function loadPageFromPageObj(target_page) {
     }); } // Trigger page load after nav is closed
     else { 
         console.log("attempting to load: " + pt.targetPage.html_location); 
-        //Barba.Pjax.goTo(pt.targetPage.html_location); 
-        Barba.Pjax.goTo(document.location.origin + "/projects/index.html"); 
+        Barba.Pjax.goTo(pt.targetPage.html_location); 
     } // Trigger page load instantly
 }
 
