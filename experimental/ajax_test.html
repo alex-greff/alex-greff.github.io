@@ -30,14 +30,14 @@
         // //xhttp.open("GET", "ajax_info.txt", true);
         var link = document.location.origin + "/projects/index.html";
         window.history.pushState(null, null, link);
-        var url = window.location.protocol + '//' + window.location.host + window.location.pathname + window.location.search;
+        //var url = window.location.protocol + '//' + window.location.host + window.location.pathname + window.location.search;
         // console.log("Link: " + link);
         // console.log("Url: " + url);
         // // var link = "http://" + document.location.host + "/projects/index.html";
         // xhttp.open("GET", url, true);
         // xhttp.send();
 
-        Barba.Pjax.goTo(url);
+        Barba.Pjax.goTo(link);
         //alert(document.getElementById("barba-wrapper").innerHTML);
       }
     </script>
