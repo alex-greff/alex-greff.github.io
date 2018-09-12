@@ -8,15 +8,17 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
     window.location.replace("http://stackoverflow.com");
 }
 
-//check_loaded_page();
+check_loaded_page();
 
 function check_loaded_page() {
-    var curr_page_path = document.location.href;
+    var curr_page_path = document.location.pathname;
 
-    if (curr_page_path !== (document.location.origin + "/")) {
+    console.log("curr page path " + curr_page_path);
+
+    if (curr_page_path !== "/") {
         sessionStorage.setItem("loadPage", curr_page_path);
         console.log("wrong page"); // TODO: remove
-        window.location.replace(document.location.origin);
+        window.location.replace("/");
     }
 }
 
@@ -33,11 +35,10 @@ const NUM_PROJECTS = 3;
 instantiate_pages();
 
 function instantiate_pages() {
-    var url_base = document.location.origin;
 
     // Initialize the projects' Page objects
     for (var i = 0; i < NUM_PROJECTS; i++) {
-        project_pages.push(new Page("#project-" + (i+1), url_base + "/projects/", null, null) ); // nextPage and prevPage get set later
+        project_pages.push(new Page("#project-" + (i+1), "/projects/", null, null) ); // nextPage and prevPage get set later
     }
 
     // Populate the next and previous page references post-object initialization
@@ -58,10 +59,10 @@ function instantiate_pages() {
         // curr_project.infoPage = new Page("#project-"+(i+1)+"__info", curr_project.nextPage, curr_project.prevPage);
     }    
 
-    nav_page = new Page("#nav-page", ".", null, null);
-    home_page = new Page("#front-page__container", url_base + "/", project_pages[0], null);
-    about_page = new Page("#about-page__container", url_base + "/about/", null, null);
-    project_page_nav = new Page("#project-page-nav", url_base + "/", null, null);
+    nav_page = new Page("#nav-page", "/", null, null);
+    home_page = new Page("#front-page__container", "/", project_pages[0], null);
+    about_page = new Page("#about-page__container", "/about/", null, null);
+    project_page_nav = new Page("#project-page-nav", "/", null, null);
 }
 
 
@@ -105,10 +106,9 @@ function init_pages_state() {
 
 
 var pageAddressToPageObjectMap = {};
-var origin = document.location.origin;
-pageAddressToPageObjectMap[ origin + "/" ] = home_page;
-pageAddressToPageObjectMap[ origin + "/projects"] = project_pages[0];
-pageAddressToPageObjectMap[ origin + "/about"] = about_page;
+pageAddressToPageObjectMap[ "/" ] = home_page;
+pageAddressToPageObjectMap[ "/projects/" ] = project_pages[0];
+pageAddressToPageObjectMap[ "/about/" ] = about_page;
 
 get_current_page_str(document.location.pathname);
 function get_current_page_str(path) {
@@ -131,7 +131,7 @@ function get_current_page_object(str_path) {
 // ----------------------------------------
 
 var target_page_path = sessionStorage.getItem("loadPage");
-target_page_path = (target_page_path == null) ? document.location.origin + "/" : target_page_path;
+target_page_path = (target_page_path == null) ? "/" : target_page_path;
 sessionStorage.removeItem("loadPage");
 
 var pt = Page.pendingTransition;
@@ -165,7 +165,7 @@ TweenMax.set(loading_page_bar, {width: "0%", backgroundColor: pt.currentPage.pag
 
 // var tl = new TimelineMax({ onComplete: () => { pt.currentPage.open("anim"); } });
 var tl = new TimelineMax({ onComplete: () => {
-    if (target_page_path === (document.location.origin + "/")) {
+    if (target_page_path === ("/")) {
         pt.currentPage.open("anim");
     } else {
         loadPageFromPageObj(pt.currentPage); 
@@ -184,7 +184,7 @@ tl.set(loading_page, { opacity: 0, visibility: "hidden" });
 // ---------------------------
 
 function loadPageFromPath(target_path) {
-    loadPageFromPageObj(get_current_page_object(document.location.origin +  target_path));
+    loadPageFromPageObj(get_current_page_object(target_path));
 }
 
 function loadPageFromPageObj(target_page) {
