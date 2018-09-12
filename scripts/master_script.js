@@ -8,7 +8,7 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
     window.location.replace("http://stackoverflow.com");
 }
 
-check_loaded_page();
+//check_loaded_page();
 
 function check_loaded_page() {
     var curr_page_path = document.location.href;
