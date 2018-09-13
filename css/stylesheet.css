@@ -467,6 +467,31 @@ body {
   /* Hack to fix the css animation glitch */
   z-index: 5; }
 
+.project-page__header_link {
+  position: relative;
+  text-decoration: none;
+  font-weight: 300; }
+  .project-page__header_link > a {
+    color: white;
+    transition: color 0.3s; }
+  .project-page__header_link > a:hover {
+    color: #f6e1ff;
+    text-decoration: none; }
+  .project-page__header_link > a:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #f6e1ff;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out 0s; }
+  .project-page__header_link > a:hover::before {
+    visibility: visible;
+    transform: scaleX(1); }
+
 .nav-page {
   position: fixed;
   width: 100vw;
