@@ -155,10 +155,8 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
     this.transition_update_base = function(percent, direction_vector, animate) {
         // Color animation
         var clr = lerpColor(this.page_background_color_1, this.page_background_color_2, Math.abs(percent)); // Get color lerp value
-        if (!this.isTransitioning) {
-            if (animate) { TweenMax.to(Page.page_background_ref, 0.2, {backgroundColor: clr}); }
-            else { TweenMax.set(Page.page_background_ref, {backgroundColor: clr}); }
-        }
+        if (animate) { TweenMax.to(Page.page_background_ref, 0.2, {backgroundColor: clr }); }
+        else { TweenMax.set(Page.page_background_ref, {backgroundColor: clr}); }
     }
 
     this.reset_transition_base = function() {

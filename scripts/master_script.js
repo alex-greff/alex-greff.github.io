@@ -73,7 +73,7 @@ function setup_pages() {
 
     setup_project_page.call(project_pages[0], "#9292EA", "#D27ECC");
     setup_project_page.call(project_pages[1], "#0B0C1F", "#110F30");
-    setup_project_page.call(project_pages[2], "#F56F77", "#DF575F");
+    setup_project_page.call(project_pages[2], "#4F636C", "#638DA0");
 
     setup_nav_page.call(nav_page);
 

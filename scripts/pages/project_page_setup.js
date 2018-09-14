@@ -40,7 +40,7 @@ function setup_project_page(bg_col1, bg_col2) {
     }
 
     this.transition_update_custom = function(percent, direction_vector, animate) {
-        if (this.isTransitioning) { return; }
+        //if (this.isTransitioning) { return; }
 
         var custom_curve_slope = 1;
         var raw_custom_curve = ((-1 * (1/((custom_curve_slope * Math.abs(percent)) + 1))) + 1) * Math.sign(percent);
@@ -62,7 +62,8 @@ function setup_project_page(bg_col1, bg_col2) {
     }
 
     this.reset_transition_custom = function() {
-        if (this.isTransitioning) { return; }
+        //if (this.isTransitioning) { return; }
+
         TweenMax.to(this.element_ref, 1, { x: "0%", ease: Elastic.easeOut});
         TweenMax.to(this.element_ref, 0.5, {opacity: 1})
     }
