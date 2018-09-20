@@ -2,11 +2,12 @@ $( document ).ready(function() {
     Barba.Pjax.start();
 });
 
+
+var IS_MOBILE = false;
 // // Detect mobile device
-// if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-//     // TOOD: do some code...
-//     window.location.replace("http://stackoverflow.com");
-// }
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    IS_MOBILE = true;
+}
 
 check_loaded_page();
 

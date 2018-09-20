@@ -2,6 +2,7 @@ function setup_project_page(bg_col1, bg_col2) {
     this.page_background_color_1 = bg_col1;
     this.page_background_color_2 = bg_col2;
 
+
     // this.page_title = this.element_ref.find(".title");
     // this.page_info = this.element_ref.find(".info");
 

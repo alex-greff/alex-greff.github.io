@@ -32,6 +32,8 @@ var PageTransition = Barba.BaseTransition.extend({
         pt.currentPage = target_page;
         pt.currentPageAnimOption = target_anim_option; // Set the target page as the current page in the master script (might wanna remove this later)
 
+        $("body").trigger("onPageLoad");
+
         // Open the target page
         target_page.open(target_anim_option, function() { this.done() }, this);
     }
