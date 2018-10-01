@@ -1,3 +1,226 @@
+class _IM_Event {
+    // String, { X, Y, XY, RADIUS }, JQuery Element, function()
+    constructor (name, threshold_percent, triggerElement) {
+        this._name = name;
+        this._lastScreenSize = { height: -1, width: -1 };
+        this._EVENTS_LIST = [ "", "X", "Y", "Change", "Trigger", "Start", "End" ];
+        this._trigger_ref = triggerElement;
+
+        this._TRIGGER_SCREEN_THRESHOLD_PERCENT = { 
+            X: threshold_percent["X"], Y: threshold_percent["Y"], RADIUS: threshold_percent["RADIUS"] };
+        this._TRIGGER_SCREEN_THRESHOLD_PIXEL = { X: -1, Y: -1, XY: -1, RADIUS: -1, };
+
+        this._triggered = { X: false, Y: false, RADIUS: false };
+
+        this._delta = { X: 0, Y: 0 };
+        this._lastDelta = { X: 0, Y: 0 };
+
+        // Setup threshold triggers
+        this._recompute_threshold_triggers();
+
+        // Listen for the page resize event
+        $( window ).resize( function() {
+            this._recompute_threshold_triggers();
+        });
+    }
+
+    _recompute_threshold_triggers() {
+        var new_height = $( window ).height();
+        var new_width = $ (window ).width();
+
+        if (this._lastScreenSize["height"] != new_height) { // If the height changed
+            // Recompute the X pixel threshold pixel amount
+            this._TRIGGER_SCREEN_THRESHOLD_PIXEL["Y"] = new_height * this._TRIGGER_SCREEN_THRESHOLD_PERCENT["Y"];
+            this._lastScreenSize["height"] = new_height;
+        }
+
+        if (this._lastScreenSize["width"] != new_width) { // If the width changed
+            this._TRIGGER_SCREEN_THRESHOLD_PIXEL["X"] = new_width * this._TRIGGER_SCREEN_THRESHOLD_PERCENT["X"];
+            this._lastScreenSize["width"] = new_width;
+        }
+
+        if (new_height < new_width) { 
+            // If the height is smaller than the width then use the height to calculate the radius pixel threshold
+            this._TRIGGER_SCREEN_THRESHOLD_PIXEL["RADIUS"] = new_height * this._TRIGGER_SCREEN_THRESHOLD_PERCENT["RADIUS"];
+        } else {
+            // If the width is smaller than or equal to the height then use the width to calculate the radius pixel threshold
+            this._TRIGGER_SCREEN_THRESHOLD_PIXEL["RADIUS"] = new_width * this._TRIGGER_SCREEN_THRESHOLD_PERCENT["RADIUS"];
+        }
+    }
+
+    resetDelta() {
+        this._delta = [0, 0];
+        this._lastDelta = [0, 0];
+    }
+
+    setDelta(newDelta) {
+        this._lastDelta = this._delta;
+        this._delta = newDelta;
+
+        this.onDeltaChange();
+    }
+
+    incrementDelta(deltaAmt) {
+        this._lastDelta = this._delta;
+        this._delta = [ this._delta[0] + deltaAmt[0], this._delta[1] + deltaAmt[1] ];
+
+        this.onDeltaChange();
+    }
+
+    onDeltaStart() {
+        this._trigger_ref.trigger("on" + this._name + "XStart");
+        this._trigger_ref.trigger("on" + this._name + "YStart");
+        this._trigger_ref.trigger("on" + this._name + "XYStart");
+        this._trigger_ref.trigger("on" + this._name + "RadiusStart");
+    }
+
+    onDeltaEnd() {
+        resetDelta();
+
+        this._triggered['X'] = this._triggered['Y'] = this._triggered['XY'] = this._triggered['RADIUS'] = false;
+
+        this._trigger_ref.trigger("on" + this._name + "XEnd");
+        this._trigger_ref.trigger("on" + this._name + "YEnd");
+        this._trigger_ref.trigger("on" + this._name + "XYEnd");
+        this._trigger_ref.trigger("on" + this._name + "RadiusEnd");
+    }
+
+    onDeltaChange() {
+        var screen_percent = [ this._delta[0] / this._lastScreenSize["width"], scroll_delta[1] / this._lastScreenSize["height"] ];
+
+        var progress_percent = [
+            HelperFunctions.constrain(this._delta[0] / this._TRIGGER_SCREEN_THRESHOLD_PIXEL["X"], -1, 1), 
+            HelperFunctions.constrain(this._delta[1] / this._TRIGGER_SCREEN_THRESHOLD_PIXEL["Y"], -1, 1)
+        ];
+        
+
+        var changed = [true, true];
+        var triggered = [ progress_percent[0] <= -1 || progress_percent[0] >= 1, progress_percent[1] <= -1 || progress_percent[1] >= 1 ];
+
+        var direction_vector = HelperFunctions.getXYDifference(this._last_delta, this._delta);
+
+        // X only events
+        if (changed[0] == true) {
+            this._trigger_ref.trigger("on" + this._name + "X", [ screen_percent[0], this._delta[0] ]);
+
+            if (!this._triggered['X']) {
+                if (triggered[0] == true) {
+                    this._trigger_ref.trigger("on" + this._name + "XTrigger", [progress_percent[0], direction_vector[0]]);
+                    this._triggered['X'] = true;
+                } else {
+                    this._trigger_ref.trigger("on" + this._name + "XChange", [progress_percent[0], direction_vector[0]]);
+                }
+            }
+        }
+
+        // Y only events
+        if (changed[1] == true) {
+            this._trigger_ref.trigger('on'+ this._name + 'Y', [ screen_percent[1], delta[1] ]);
+
+            if (!this._triggered['Y']) {
+                if (triggered[1] == true) {
+                    this._trigger_ref.trigger("on" + this._name + "YTrigger", [progress_percent[1], direction_vector[1]]);
+                    this._triggered['Y'] = true;
+                } else {
+                    this._trigger_ref.trigger("on" + this._name + "YChange", [progress_percent[1], direction_vector[1]]);
+                }
+            }
+        }
+
+        // X + Y events
+        if (changed[0] == true || changed[1] == true) { // If at least one dimension is changed
+            this._trigger_ref.trigger("on" + this._name, [ [screen_percent[0], screen_percent[1]], [this._delta[0], this._delta[1]] ]);
+
+            if (!this._triggered['XY']) {
+                if (this._triggered[0] == true || this._triggered[1] == true) { // If at least one dimension is triggered
+                    this._trigger_ref.trigger("on" + this._name + "XYTrigger", [progress_percent, direction_vector]);
+                    this._triggered['XY'] = true;
+                } else {
+                    this._trigger_ref.trigger("on" + this._name + "XYChange", [progress_percent, direction_vector]);
+                }
+            }
+        }
+
+        // Radius events
+        if (changed[0] == true || schanged[1] == true) { // If at least one dimension is changed
+            var used_screen_dimension = this._lastScreenSize["width"] > this._lastScreenSize["height"] ? this._lastScreenSize["width"] : this._lastScreenSize["height"];
+            var radius_screen_pixels = Math.sqrt(Math.pow(this._delta[0], 2) + Math.pow(this._delta[1], 2));
+            var radius_screen_percent = radius_screen_pixels / used_screen_dimension;
+            this._trigger_ref.trigger('on' + this._name + 'Radius', [ radius_screen_percent, radius_screen_pixels ]);
+
+            if (!this._triggered['RADIUS']) {
+                var radius = Math.sqrt(Math.pow(this._delta[0], 2) + Math.pow(this._delta[1], 2))/this._TRIGGER_SCREEN_THRESHOLD_PIXEL["RADIUS"]; // [0 to 1]
+                if (radius >= 1) { // If the scroll radius is triggered
+                    this._trigger_ref.trigger("on" + this._name + "RadiusTrigger", [progress_percent, direction_vector]);
+                    this._triggered['RADIUS'] = true;
+                } else {
+                    this._trigger_ref.trigger("on" + this._name + "RadiusChange", [radius, direction_vector]);
+                }
+            }
+        }
+    }
+}
+
+class _SCROLL_IM_EVENT extends _IM_Event {
+    constructor (threshold_percent, triggerElement) {
+        super("Scroll", threshold_percent, triggerElement);
+
+        this._SCROLL_RESET_TIME = 250;
+        this._scroll_reset_ID = -1;
+
+        this._setup_listeners();
+    }
+
+    _setup_listeners() {
+
+    }
+
+    setDelta(newDelta) {
+        super.setDelta(newDelta);
+
+    }
+
+    incrementDelta(deltaAmt) {
+        super.incrementDelta(deltaAmt);
+    }
+}
+
+
+class _DRAG_IM_EVENT extends _IM_Event {
+    constructor (threshold_percent, triggerElement) {
+        super("Drag", threshold_percent, triggerElement);
+
+        this._setup_listeners();
+    }
+
+    _setup_listeners() {
+
+    }
+}
+
+
+
+class InputManager {
+    static initialize() {
+        this._body_ref = $('body');
+
+        this._threshold_triggers = {X: 0.35, Y: 0.35, XY: 0.35, RADIUS: 0.35 };
+
+        this._scroll_event = new _SCROLL_IM_EVENT(this._threshold_triggers, this._body_ref);
+        this._drag_event = new _DRAG_IM_EVENT(this._threshold_triggers, this._body_ref);
+    }
+
+    constructor(triggerElement) {
+        console.warn("InputManager shouldn't be instantiated, it's a static class");
+    }
+}
+
+
+
+
+
+
+
 // -----------------------------
 // --- Delta management code ---
 // -----------------------------
