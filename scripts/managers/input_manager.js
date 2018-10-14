@@ -21,9 +21,11 @@ class _IM_Event {
         // Setup the listeners
         this._setup_listeners();
 
+        var _this = this;
+
         // Listen for the page resize event
         $( window ).resize( function() {
-            this._recompute_threshold_triggers();
+            _this._recompute_threshold_triggers();
         });
     }
 
@@ -191,13 +193,13 @@ class _SCROLL_IM_EVENT extends _IM_Event {
             _this.incrementDelta(delta);
         
             // Stop the previously running reset timer
-            clearTimeout(scroll_deltaResetID);
+            clearTimeout(this._scroll_reset_ID);
         
             // Set a timeout function that resets the scroll delta
             // amount after a peroid of inactivity
             _this._deltaResetID = setTimeout(function() {
                 _this.onDeltaEnd();
-            }, SCROLL_RESET_TIME);
+            }, _this._SCROLL_RESET_TIME);
         });
     }
 
