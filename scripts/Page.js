@@ -90,7 +90,7 @@ function Page(element_identifier, html_location, nextPage, prevPage) {
 
         this.body_ref.trigger("pageOpen",  [this.element_identifier, this]); // Trigger the page open event for this page
 
-        RESET_ALL_DELTAS() // input_manager.js
+        InputManager.RESET_ALL_DELTAS() // input_manager.js
 
         this.isTransitioning = true;
         this.isOpen = true;
